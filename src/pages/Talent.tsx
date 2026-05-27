@@ -5,7 +5,7 @@ export default function Talent() {
   return (
     <div className="pb-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <section className="py-16 md:py-24 text-center">
+      <section className="pt-8 md:pt-12 pb-16 md:pb-24 text-center">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

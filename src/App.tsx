@@ -11,7 +11,7 @@ export default function App() {
     <Router>
       <div className="font-sans text-slate-900 bg-[#f8f9fa] min-h-screen flex flex-col selection:bg-orange-500/30">
         <Navbar />
-        <main className="flex-grow pt-28">
+        <main className="flex-grow pt-24">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clients" element={<Clients />} />

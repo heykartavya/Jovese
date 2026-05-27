@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <div className="pb-24">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-32">
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center mt-12 md:mt-24">
+      <section className="relative overflow-hidden pb-24 md:pb-32">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center mt-4 md:mt-12">
           
           {/* Floating elements resembling the video */}
           <motion.div 
