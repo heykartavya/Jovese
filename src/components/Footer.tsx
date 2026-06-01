@@ -43,8 +43,9 @@ export default function Footer() {
             </li>
             <li className="flex flex-col text-xs sm:text-sm font-semibold">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Locations</span>
-              <span className="text-slate-300">Gurgaon, Haryana</span>
-              <span className="text-slate-300">Hyderabad, Telangana</span>
+              <span className="text-slate-300">Building no.9, Raheja Mindspace IT Park,</span>
+              <span className="text-slate-300">Mindspace - Madhapur road, HITEC city,</span>
+              <span className="text-slate-300">Telangana, 500079</span>
             </li>
           </ul>
         </div>
