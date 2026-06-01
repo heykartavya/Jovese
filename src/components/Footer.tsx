@@ -38,7 +38,8 @@ export default function Footer() {
            <ul className="space-y-4">
             <li className="flex flex-col text-xs sm:text-sm font-semibold">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Email</span>
-              <a href="mailto:partnerships@jovese.com" className="hover:text-white transition-colors">partnerships@jovese.com</a>
+              <a href="mailto:partnerships@jovese.com" className="hover:text-white transition-colors mb-1">partnerships@jovese.com</a>
+              <a href="mailto:ceo@jovese.com" className="hover:text-white transition-colors">ceo@jovese.com</a>
             </li>
             <li className="flex flex-col text-xs sm:text-sm font-semibold">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Locations</span>
