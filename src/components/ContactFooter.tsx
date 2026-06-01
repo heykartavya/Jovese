@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Send, MapPin, Mail } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function ContactFooter() {
   const [isSubmitting, setIsSubmitting] = useState(false);
