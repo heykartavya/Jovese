@@ -306,14 +306,25 @@ export default function Home() {
         </div>
 
         {/* TRUST STRIP BELOW THE HERO */}
-        <div className="w-full mt-16 md:mt-24 border-y border-slate-100 py-6 bg-slate-50/50">
-          <div className="max-w-6xl mx-auto px-4 text-center text-xs sm:text-sm text-slate-400 font-medium tracking-wide flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
-            <span>Hyderabad-based NBFC | 40-seat telecalling floor</span>
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <span>Delhi NCR hospitality group | 3 properties</span>
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <span>Bangalore inside sales team | 25 reps</span>
-          </div>
+        <div className="w-full mt-16 md:mt-24 border-y border-slate-100 py-6 bg-slate-50/50 overflow-hidden relative">
+          {/* Fading Edges */}
+          <div className="absolute inset-y-0 left-0 w-8 sm:w-32 bg-gradient-to-r from-slate-50 z-10 pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-8 sm:w-32 bg-gradient-to-l from-slate-50 z-10 pointer-events-none"></div>
+          
+          <motion.div 
+            className="flex w-max"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ ease: "linear", duration: 30, repeat: Infinity }}
+          >
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex items-center gap-12 sm:gap-16 px-6 sm:px-8 text-[11px] sm:text-sm text-slate-400 font-medium tracking-wide whitespace-nowrap">
+                <span className="flex items-center">Hyderabad-based NBFC <span className="text-slate-300 mx-3">|</span> 40-seat floor</span>
+                <span className="flex items-center">Delhi NCR hospitality <span className="text-slate-300 mx-3">|</span> 3 properties</span>
+                <span className="flex items-center">Bangalore SaaS <span className="text-slate-300 mx-3">|</span> 25 inside sales reps</span>
+                <span className="flex items-center">Mumbai BPO <span className="text-slate-300 mx-3">|</span> 100-seat night shift</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -379,42 +390,46 @@ export default function Home() {
       </section>
 
       {/* SECTION 3: THE FLEED (id="bleed") */}
-      <section id="bleed" className="py-24 bg-slate-900 text-white rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff5a36] rounded-full blur-[180px] opacity-10" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500 rounded-full blur-[180px] opacity-10" />
+      <section id="bleed" className="py-24 bg-white text-slate-900 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 overflow-hidden relative border border-slate-100 shadow-[0_8px_40px_rgb(0,0,0,0.04)]">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff5a36]/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-orange-400 tracking-widest uppercase block mb-3">
-              THE REVENUE LEAK
+            <span className="inline-block px-3 py-1 bg-red-50 text-red-500 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6 shadow-sm border border-red-100">
+              The Revenue Leak
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-slate-900 leading-[1.1]">
               Your empty seats are not a hiring problem.<br />They are a revenue leak.
             </h2>
-            <div className="text-slate-400 max-w-3xl mx-auto space-y-4 text-base md:text-lg leading-relaxed font-medium">
+            <div className="text-slate-600 max-w-3xl mx-auto space-y-6 text-base md:text-lg leading-relaxed font-medium">
               <p>
                 Most HR teams track cost-per-hire. Almost nobody tracks the cost of the 18 days it takes to replace someone who quit on Day 12. The lost output. The manager hours spent re-interviewing. The training investment that walked out the door. The agency that invoiced you anyway.
               </p>
               <p>
                 Traditional staffing agencies have no incentive to solve this. They invoice the moment someone joins. Whether that person is still there in 30 days is not their problem. It is yours.
               </p>
-              <p className="text-white font-bold">
+              <p className="text-slate-900 font-bold bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm mt-8 relative overflow-hidden">
+                <span className="absolute -left-4 -top-4 w-16 h-16 rounded-full bg-[#ff5a36] blur-xl opacity-10 pointer-events-none"></span>
                 We designed Jovese around the opposite model. Our fee triggers on Day 30. Our incentive is your retention, not your headcount churn.
               </p>
             </div>
           </div>
 
           {/* THE BLEED CALCULATOR */}
-          <div className="bg-slate-800 border border-slate-700/60 rounded-[2.5rem] p-6 sm:p-12 max-w-4xl mx-auto mb-16 shadow-xl">
-            <h3 className="font-display text-center font-extrabold text-sm tracking-widest text-[#ff5a36] mb-8 uppercase">
-              CALCULATE YOUR MONTHLY BLEED
+          <div className="bg-white border border-slate-200/80 rounded-[2.5rem] p-6 sm:p-12 max-w-4xl mx-auto mb-16 relative shadow-[0_20px_60px_rgb(0,0,0,0.06)] overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full blur-[80px] pointer-events-none" />
+            
+            <h3 className="font-display text-center font-bold text-sm tracking-widest text-slate-400 mb-8 uppercase relative z-10">
+              Calculate Your Monthly Bleed
             </h3>
 
-            <form onSubmit={handleCalculate} className="grid md:grid-cols-3 gap-6 items-end">
+            <form onSubmit={handleCalculate} className="grid md:grid-cols-3 gap-6 items-end relative z-10">
               
               {/* Field 1 */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300">Frontline roles you hire per quarter</label>
+                <label className="text-xs font-bold text-slate-500">Frontline roles you hire per quarter</label>
                 <input 
                   type="number"
                   inputMode="numeric"
@@ -424,14 +439,14 @@ export default function Home() {
                     setQuarterlyHires(e.target.value);
                     setIsCalculated(false);
                   }}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[#ff5a36] text-white transition-colors"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-all font-semibold"
                   placeholder="e.g. 12"
                 />
               </div>
 
               {/* Field 2 */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300 block">
+                <label className="text-xs font-bold text-slate-500 block">
                   Average monthly CTC per role (₹)
                 </label>
                 <input 
@@ -443,15 +458,15 @@ export default function Home() {
                     setCtc(e.target.value);
                     setIsCalculated(false);
                   }}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:border-[#ff5a36] text-white transition-colors"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-all font-semibold"
                   placeholder="e.g. 25000"
                 />
-                <span className="text-[10px] text-slate-400 block mt-1">Salary only, not total package</span>
+                <span className="text-[10px] text-slate-400 block mt-1 font-medium">Salary only, not total package</span>
               </div>
 
               {/* Field 3 */}
               <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs font-bold text-slate-300">
+                <div className="flex justify-between items-center text-xs font-bold text-slate-500">
                   <span>30-day attrition rate (%)</span>
                   <span className="text-[#ff5a36] text-sm">{attritionRate}%</span>
                 </div>
@@ -464,21 +479,22 @@ export default function Home() {
                     setAttritionRate(parseInt(e.target.value));
                     setIsCalculated(false);
                   }}
-                  className="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-[#ff5a36]"
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#ff5a36]"
                 />
-                <span className="text-[10px] text-slate-400 block text-right">Industry average: 30 to 45%</span>
+                <span className="text-[10px] text-slate-400 block text-right font-medium">Industry average: 30 to 45%</span>
               </div>
 
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-8 text-center relative z-10">
               <button
                 type="button"
                 onClick={handleCalculate}
                 disabled={!quarterlyHires || !ctc}
-                className="w-full sm:w-auto px-10 py-4 bg-[#ff5a36] hover:bg-[#ff451d] text-white font-bold rounded-full transition-colors disabled:opacity-50 shadow-lg text-base"
+                className="w-full sm:w-auto relative overflow-hidden px-10 py-4 bg-slate-900 text-white font-bold rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-sm sm:text-base group"
               >
-                Calculate My Bleed
+                <span className="relative z-10">Calculate My Bleed</span>
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               </button>
             </div>
 
@@ -489,59 +505,63 @@ export default function Home() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-12 pt-8 border-t border-slate-700/60 overflow-hidden"
+                  className="mt-12 pt-8 border-t border-slate-100 overflow-hidden relative z-10"
                 >
                   <div className="grid sm:grid-cols-2 gap-6">
                     
                     {/* Card 1 */}
-                    <div className="bg-slate-900/40 border border-slate-700 p-6 rounded-2xl">
-                      <div className="text-xs text-slate-400 uppercase font-bold tracking-wide mb-1">
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Monthly Revenue Loss From Empty Seats
                       </div>
-                      <div className="text-2xl font-extrabold text-orange-400 font-display">
+                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
                         {formatINRValue(calculatedOutputs.monthlyLoss)}
                       </div>
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-slate-900/40 border border-slate-700 p-6 rounded-2xl">
-                      <div className="text-xs text-slate-400 uppercase font-bold tracking-wide mb-1">
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Annual Training Spend Wasted on Early Exits
                       </div>
-                      <div className="text-2xl font-extrabold text-orange-400 font-display">
+                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
                         {formatINRValue(calculatedOutputs.annualTrainingWasted)}
                       </div>
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-slate-900/40 border border-slate-700 p-6 rounded-2xl">
-                      <div className="text-xs text-slate-400 uppercase font-bold tracking-wide mb-1">
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Agency Fees Paid for Hires Who Left
                       </div>
-                      <div className="text-2xl font-extrabold text-orange-400 font-display">
+                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
                         {formatINRValue(calculatedOutputs.agencyFeesWasted)}
                       </div>
-                      <div className="text-[10px] text-slate-500 mt-1">Assumes standard 8.33% placement fee</div>
+                      <div className="text-[10px] text-slate-400 mt-1 font-medium relative z-10">Assumes standard 8.33% placement fee</div>
                     </div>
 
                     {/* Card 4 - highlighted savings */}
-                    <div className="bg-[#ff5a36]/10 border border-[#ff5a36]/30 p-6 rounded-2xl">
-                      <div className="text-xs text-[#ff5a36] uppercase font-extrabold tracking-wide mb-1">
+                    <div className="bg-[#ff5a36]/5 border border-[#ff5a36]/20 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5a36]/5 to-transparent pointer-events-none" />
+                      <div className="text-xs text-[#ff5a36] uppercase font-extrabold tracking-wide mb-1 relative z-10">
                         Estimated Annual Saving with Jovese Model
                       </div>
-                      <div className="text-3xl font-black text-[#ff5a36] font-display">
+                      <div className="text-3xl font-black text-[#ff5a36] font-display relative z-10">
                         {formatINRValue(calculatedOutputs.annualSaving)}
                       </div>
-                      <div className="text-[10px] text-slate-400 mt-1">Based on historical 30-day retention outcomes</div>
+                      <div className="text-[10px] text-slate-500 mt-1 font-medium relative z-10">Based on historical 30-day retention outcomes</div>
                     </div>
 
                   </div>
 
                   <div className="mt-8 text-center text-xs text-slate-500">
-                    <p className="mb-4">These are estimates based on industry averages. Your audit form gives us your actual numbers so we can give you a precise analysis.</p>
+                    <p className="mb-4 font-medium">These are estimates based on industry averages. Your audit form gives us your actual numbers so we can give you a precise analysis.</p>
                     <Link 
                       to="/clients"
-                      className="inline-flex items-center gap-2 text-white hover:text-orange-400 font-bold justify-center"
+                      className="inline-flex items-center gap-2 text-indigo-500 hover:text-indigo-600 font-bold justify-center transition-colors"
                     >
                       Submit Your Audit for a Real Analysis <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -552,55 +572,55 @@ export default function Home() {
           </div>
 
           {/* Three-column comparison below the calculator */}
-          <div className="grid md:grid-cols-11 gap-4 items-center">
+          <div className="grid md:grid-cols-11 gap-4 items-stretch max-w-5xl mx-auto">
             
             {/* Trad model */}
-            <div className="md:col-span-5 bg-slate-800/40 border border-slate-700/60 p-8 rounded-[2rem]">
-              <h4 className="text-lg font-bold text-slate-300 font-display mb-6">Traditional Agency Model</h4>
-              <ul className="space-y-3 text-sm text-slate-400 font-medium">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-500 text-lg leading-none select-none">•</span>
+            <div className="md:col-span-5 bg-slate-50 border border-slate-100 p-8 rounded-[2rem] shadow-sm">
+              <h4 className="text-lg font-bold text-slate-900 font-display mb-6">Traditional Agency Model</h4>
+              <ul className="space-y-4 text-sm text-slate-600 font-medium">
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Invoiced on joining day</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-500 text-lg leading-none select-none">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
                   <span>No accountability after Day 1</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-500 text-lg leading-none select-none">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Same candidate sent to 10 clients</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-red-500 text-lg leading-none select-none">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Profit increases when you keep rehiring</span>
                 </li>
               </ul>
             </div>
 
             {/* VS divider */}
-            <div className="md:col-span-1 text-center font-display font-black text-2xl text-slate-600 block my-4 md:my-0 select-none">
+            <div className="md:col-span-1 flex items-center justify-center font-display font-black text-2xl text-slate-300 py-4 md:py-0 select-none">
               VS
             </div>
 
             {/* Jovese model */}
-            <div className="md:col-span-11 lg:col-span-5 bg-[#ff5a36]/5 border border-[#ff5a36]/20 p-8 rounded-[2rem]">
-              <h4 className="text-lg font-bold text-[#ff5a36] font-display mb-6">Jovese Model</h4>
-              <ul className="space-y-3 text-sm text-slate-200 font-medium">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#ff5a36] text-lg leading-none select-none">•</span>
+            <div className="md:col-span-5 bg-indigo-50/50 border border-indigo-100 p-8 rounded-[2rem] shadow-sm">
+              <h4 className="text-lg font-bold text-indigo-600 font-display mb-6">Jovese Model</h4>
+              <ul className="space-y-4 text-sm text-slate-700 font-medium">
+                <li className="flex items-start gap-3">
+                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Invoiced on Day 30 only</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#ff5a36] text-lg leading-none select-none">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Free replacement if hire exits before Day 30</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#ff5a36] text-lg leading-none select-none">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Profiles curated per your specific brief</span>
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#ff5a36] text-lg leading-none select-none">•</span>
-                  <span>We profit only when attrition stops</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
+                  <span className="font-bold text-slate-900">We profit only when attrition stops</span>
                 </li>
               </ul>
             </div>
@@ -613,135 +633,123 @@ export default function Home() {
       {/* SECTION 4: THE AUDIO ADVANTAGE */}
       <section className="py-24 bg-white mt-8 rounded-[3rem]">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase block mb-3">
-              WHY AUDIO SCREENING
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-              A resume tells you where they worked.<br />A voice tells you if they can sell.
-            </h2>
-            <p className="text-base sm:text-lg text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">
-              For any role where the first touchpoint is a phone call, the CV is a formality. The candidates who perform in telecalling and inside sales are not always the ones with the longest experience. They are the ones who listen before they speak, handle rejection without collapsing, and sound like someone you would actually want to pick up the phone for. You cannot screen for that in a document. We screen for it in 45 seconds.
-            </p>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <span className="inline-block px-3 py-1 bg-indigo-50/50 border border-indigo-100 text-[10px] font-bold text-indigo-500 tracking-widest uppercase rounded-full mb-6">
+                The Audio Advantage
+              </span>
+              <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
+                A resume tells you where they worked.<br />
+                <span className="text-slate-400">A voice tells you if they can sell.</span>
+              </h2>
+            </div>
+            
+            <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative overflow-hidden">
+              <div className="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none" />
+              <p className="text-sm md:text-base text-slate-600 font-medium leading-relaxed relative z-10">
+                For customer-facing roles, the CV is just a formality. The candidates who close deals are the ones who listen before speaking and handle rejection without collapsing. You can't screen for that in a document. <strong className="text-slate-900">We screen for it in a 45-second audio drop.</strong>
+              </p>
+            </div>
           </div>
 
-          {/* Audio Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {/* Innovative Audio Cards Grid */}
+          <div className="grid md:grid-cols-12 gap-6 mb-12">
             
             {/* Card 1 */}
-            <div className="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="mb-6 flex justify-between items-start">
+                <div>
+                  <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Telecalling</span>
+                  <p className="text-xs text-slate-500 font-semibold">1.2 Yrs • Hyderabad</p>
+                </div>
+                <button onClick={() => playAudio(1)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                  {playingId === 1 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
+                </button>
+              </div>
               <div>
-                <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-500 rounded-full font-bold text-[10px] uppercase tracking-wider mb-4">
-                  TELECALLING CANDIDATE
-                </span>
-                <p className="text-xs text-slate-400 font-semibold mb-6">Hyderabad | 1 year 2 months experience</p>
-                
-                {/* Visual Audio Player block */}
-                <div className="bg-white border border-slate-100 p-4 rounded-2xl mb-4 flex items-center gap-4">
-                  <button
-                    onClick={() => playAudio(1)}
-                    className="w-10 h-10 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center flex-shrink-0"
-                  >
-                    {playingId === 1 ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-                  </button>
-                  <div className="flex-grow">
-                    <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
-                      <div 
-                        className="bg-[#ff5a36] h-full rounded-full transition-all duration-300" 
-                        style={{ width: `${progress[1]}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-semibold">
-                      <span>{formatTime(currentTime[1])}</span>
-                      <span>0:32</span>
+                <div className="h-6 flex items-center gap-1 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                  {[...Array(12)].map((_, i) => (
+                    <div key={i} className="w-1 bg-indigo-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
+                  ))}
+                  <div className="flex-1 ml-2">
+                    <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                      <div className="bg-indigo-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[1]}%` }} />
                     </div>
                   </div>
                 </div>
+                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                  "Clear diction. Handled the objection without filler words. No rehearsed feel."
+                </p>
               </div>
-              <p className="text-xs text-slate-500 italic pb-2">
-                "Clear diction. Handled the objection scenario without filler words. No rehearsed feel."
-              </p>
             </div>
 
             {/* Card 2 */}
-            <div className="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="mb-6 flex justify-between items-start">
+                <div>
+                  <span className="inline-block px-2.5 py-1 bg-orange-50 text-orange-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Inside Sales</span>
+                  <p className="text-xs text-slate-500 font-semibold">2.0 Yrs • Gurgaon</p>
+                </div>
+                <button onClick={() => playAudio(2)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                  {playingId === 2 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
+                </button>
+              </div>
               <div>
-                <span className="inline-block px-3 py-1 bg-orange-50 text-[#ff5a36] rounded-full font-bold text-[10px] uppercase tracking-wider mb-4">
-                  INSIDE SALES CANDIDATE
-                </span>
-                <p className="text-xs text-slate-400 font-semibold mb-6">Gurgaon | 2 years experience</p>
-                
-                {/* Visual Audio Player block */}
-                <div className="bg-white border border-slate-100 p-4 rounded-2xl mb-4 flex items-center gap-4">
-                  <button
-                    onClick={() => playAudio(2)}
-                    className="w-10 h-10 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center flex-shrink-0"
-                  >
-                    {playingId === 2 ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-                  </button>
-                  <div className="flex-grow">
-                    <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
-                      <div 
-                        className="bg-[#ff5a36] h-full rounded-full transition-all duration-300" 
-                        style={{ width: `${progress[2]}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-semibold">
-                      <span>{formatTime(currentTime[2])}</span>
-                      <span>0:28</span>
+                <div className="h-6 flex items-center gap-1 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                  {[...Array(12)].map((_, i) => (
+                    <div key={i} className="w-1 bg-orange-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
+                  ))}
+                  <div className="flex-1 ml-2">
+                    <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                      <div className="bg-orange-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[2]}%` }} />
                     </div>
                   </div>
                 </div>
+                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                  "Natural warmth. Closed the intro with a question, not a statement."
+                </p>
               </div>
-              <p className="text-xs text-slate-500 italic pb-2">
-                "Natural warmth. Professional tone without sounding scripted. Closed the intro with a question, not a statement."
-              </p>
             </div>
 
             {/* Card 3 */}
-            <div className="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="mb-6 flex justify-between items-start">
+                <div>
+                  <span className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Front Office</span>
+                  <p className="text-xs text-slate-500 font-semibold">Fresher • Hyderabad</p>
+                </div>
+                <button onClick={() => playAudio(3)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                  {playingId === 3 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
+                </button>
+              </div>
               <div>
-                <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-500 rounded-full font-bold text-[10px] uppercase tracking-wider mb-4">
-                  FRONT OFFICE CANDIDATE
-                </span>
-                <p className="text-xs text-slate-400 font-semibold mb-6">Hyderabad | Fresher</p>
-                
-                {/* Visual Audio Player block */}
-                <div className="bg-white border border-slate-100 p-4 rounded-2xl mb-4 flex items-center gap-4">
-                  <button
-                    onClick={() => playAudio(3)}
-                    className="w-10 h-10 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center flex-shrink-0"
-                  >
-                    {playingId === 3 ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-                  </button>
-                  <div className="flex-grow">
-                    <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
-                      <div 
-                        className="bg-[#ff5a36] h-full rounded-full transition-all duration-300" 
-                        style={{ width: `${progress[3]}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-semibold">
-                      <span>{formatTime(currentTime[3])}</span>
-                      <span>0:35</span>
+                <div className="h-6 flex items-center gap-1 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                  {[...Array(12)].map((_, i) => (
+                    <div key={i} className="w-1 bg-emerald-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
+                  ))}
+                  <div className="flex-1 ml-2">
+                    <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                      <div className="bg-emerald-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[3]}%` }} />
                     </div>
                   </div>
                 </div>
+                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                  "Composed under difficult scenario prompt. Strong first impression."
+                </p>
               </div>
-              <p className="text-xs text-slate-500 italic pb-2">
-                "Composed under a difficult scenario prompt. Structured response. Strong first impression."
-              </p>
             </div>
 
           </div>
 
-          <div className="text-center pt-6">
-            <p className="text-slate-500 mb-6 font-medium">Every candidate you receive goes through the same standard.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-between bg-white border border-slate-200/60 p-4 sm:p-6 rounded-[2rem] max-w-3xl mx-auto shadow-sm">
+            <p className="text-sm text-slate-600 font-semibold mb-4 sm:mb-0">Every forwarded candidate meets this standard.</p>
             <Link
               to="/clients"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#ff5a36] hover:bg-[#ff451d] text-white font-bold rounded-full transition-colors shadow-lg"
+              className="relative overflow-hidden px-6 py-2.5 rounded-full bg-slate-900 text-white font-semibold transition-all shadow-md hover:-translate-y-0.5 group text-sm"
             >
-              Apply for Client Partnership
+              <span className="relative z-10">Select Your Candidates</span>
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
             </Link>
           </div>
         </div>
@@ -760,72 +768,88 @@ export default function Home() {
             </h2>
           </div>
 
-          {/* Horizontal stepped flow on desktop, vertical stacked list on mobile */}
-          <div className="grid md:grid-cols-4 gap-8 relative mb-16">
+          {/* Classy Vertical Stacked List */}
+          <div className="max-w-4xl mx-auto space-y-4 relative mb-16">
             
             {/* Phase 1 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative flex flex-col justify-between">
-              <div>
-                <span className="font-display font-black text-[#ff5a36]/20 text-5xl absolute top-6 right-6 opacity-50">01</span>
-                <span className="inline-block px-2.5 py-1 bg-slate-50 text-slate-600 rounded-lg text-[10px] font-bold tracking-wider uppercase mb-6 shadow-sm border border-slate-100/50">
-                  Avg. 340 applications per week
-                </span>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">WHATSAPP INGESTION</h3>
-                <p className="text-xs text-slate-400 font-semibold mb-4 sentence-case">
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">01</span>
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">WhatsApp Ingestion</h3>
+                  <span className="inline-block px-3 py-1 bg-slate-50 text-slate-500 rounded-full text-[10px] font-bold tracking-widest uppercase border border-slate-100 whitespace-nowrap">
+                    Avg. 340 apps / week
+                  </span>
+                </div>
+                <p className="text-slate-800 font-semibold text-sm mb-3">
                   Candidates bypass broken career pages entirely.
                 </p>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                <p className="text-slate-500 text-sm leading-relaxed">
                   Our automated WhatsApp workflow collects role preference, availability, city, and a 45-second voice note. The intake takes under 4 minutes. We receive structured data from every applicant, not an unreadable PDF.
                 </p>
               </div>
             </div>
 
             {/* Phase 2 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative flex flex-col justify-between">
-              <div>
-                <span className="font-display font-black text-[#ff5a36]/20 text-5xl absolute top-6 right-6 opacity-50">02</span>
-                <span className="inline-block px-2.5 py-1 bg-[#ff5a36]/5 border border-[#ff5a36]/10 text-[#ff5a36] rounded-lg text-[10px] font-bold tracking-wider uppercase mb-6 shadow-sm">
-                  Approx. 22% clear this stage
-                </span>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">TONE AND LOGIC AUDIT</h3>
-                <p className="text-xs text-slate-400 font-semibold mb-4 sentence-case">
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">02</span>
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">Tone and Logic Audit</h3>
+                  <span className="inline-block px-3 py-1 bg-[#ff5a36]/5 border border-[#ff5a36]/10 text-[#ff5a36] rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
+                    ~22% clear stage
+                  </span>
+                </div>
+                <p className="text-slate-800 font-semibold text-sm mb-3">
                   70 to 80% of applicants are filtered here before a human reviews anything.
                 </p>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                <p className="text-slate-500 text-sm leading-relaxed">
                   Our screening workflow evaluates every voice note across four parameters: clarity, grammar, professional tone, and scenario handling. Applications that do not meet our threshold are discarded at this stage. We tell the candidate why and invite them to retry after 7 days.
                 </p>
               </div>
             </div>
 
             {/* Phase 3 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative flex flex-col justify-between">
-              <div>
-                <span className="font-display font-black text-[#ff5a36]/20 text-5xl absolute top-6 right-6 opacity-50">03</span>
-                <span className="inline-block px-2.5 py-1 bg-slate-50 border border-slate-100/50 text-slate-600 rounded-lg text-[10px] font-bold tracking-wider uppercase mb-6 shadow-sm">
-                  Avg. 6 profiles per role
-                </span>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">THE MATCH</h3>
-                <p className="text-xs text-slate-400 font-semibold mb-4 sentence-case">
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">03</span>
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">The Match</h3>
+                  <span className="inline-block px-3 py-1 bg-slate-50 border border-slate-100 text-slate-500 rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
+                    Avg. 6 profiles / role
+                  </span>
+                </div>
+                <p className="text-slate-800 font-semibold text-sm mb-3">
                   You receive curated profiles. Not a volume dump.
                 </p>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                <p className="text-slate-500 text-sm leading-relaxed">
                   Our team matches cleared candidates against your active brief, availability window, and compensation range. You receive 3 to 8 profiles per role, each with the original voice note attached, a written assessment, and expected joining date.
                 </p>
               </div>
             </div>
 
             {/* Phase 4 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative flex flex-col justify-between">
-              <div>
-                <span className="font-display font-black text-[#ff5a36]/20 text-5xl absolute top-6 right-6 opacity-50">04</span>
-                <span className="inline-block px-2.5 py-1 bg-emerald-50/50 border border-emerald-100 text-emerald-600 rounded-lg text-[10px] font-bold tracking-wider uppercase mb-6 shadow-sm">
-                  94% make it to Day 30
-                </span>
-                <h3 className="font-bold text-slate-950 text-lg mb-2">DEPLOYMENT</h3>
-                <p className="text-xs text-slate-400 font-semibold mb-4 sentence-case">
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50/50 border border-emerald-100 rounded-2xl flex items-center justify-center relative z-10">
+                <span className="font-display font-black text-emerald-500 text-3xl">04</span>
+              </div>
+              <div className="flex-1 pt-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                  <h3 className="font-bold text-slate-950 text-xl tracking-tight uppercase">Deployment</h3>
+                  <span className="inline-block px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
+                    94% to Day 30
+                  </span>
+                </div>
+                <p className="text-slate-800 font-semibold text-sm mb-3">
                   The candidate joins. The 30-day clock starts. Nothing else happens until then.
                 </p>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                <p className="text-slate-500 text-sm leading-relaxed">
                   Once the candidate confirms joining, you get a confirmation from us. That is Day 1. We follow up on Day 7, Day 14, and Day 28. If anything is wrong in that window, we fix it before Day 30 ever arrives.
                 </p>
               </div>
@@ -870,76 +894,108 @@ export default function Home() {
           </div>
 
           {/* Timeline Node map */}
-          <div className="relative mb-20 bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
-            <h3 className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-8 text-center sm:text-left">
-              FARTNERSHIP TIMELINE
-            </h3>
+          <div className="relative mb-20 bg-slate-50 border border-slate-100 p-8 sm:p-10 rounded-[2rem] shadow-sm overflow-hidden group">
+            {/* Animated subtle background glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-slate-200/50 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#ff5a36]/5 transition-colors duration-1000" />
             
-            <div className="grid gap-6 sm:grid-cols-7 text-center">
+            <div className="flex items-center gap-4 mb-10 sm:mb-12">
+              <h3 className="text-[10px] font-bold text-slate-400 tracking-widest uppercase m-0">
+                Partnership Timeline
+              </h3>
+              <div className="hidden sm:block h-px bg-slate-200 flex-1"></div>
+            </div>
+            
+            <div className="relative max-w-5xl mx-auto">
+              {/* Connecting Line - Desktop */}
+              <div className="hidden sm:block absolute top-[22px] left-[7%] right-[7%] h-0.5 bg-slate-200">
+                <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-slate-300 via-[#ff5a36] to-emerald-500 w-0 group-hover:w-full transition-all duration-[1500ms] ease-out rounded-full" />
+              </div>
               
-              {/* Day 0 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-slate-200 text-slate-700 font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  Day 0
-                </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Brief Received</h4>
-                <p className="text-[10px] text-slate-400">Audit approved & brief received</p>
+              {/* Connecting Line - Mobile */}
+              <div className="sm:hidden absolute left-[22px] top-6 bottom-6 w-0.5 bg-slate-200">
+                <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-slate-300 via-[#ff5a36] to-emerald-500 h-0 group-hover:h-full transition-all duration-[1500ms] ease-out rounded-full" />
               </div>
 
-              {/* Day 1 to 3 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-slate-200 text-slate-700 font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  D1-3
+              <div className="grid grid-cols-1 sm:grid-cols-7 gap-y-6 sm:gap-y-0 sm:gap-x-2 relative z-10">
+                
+                {/* Node 1 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
+                    Day 0
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Brief Received</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Audit approved</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Profiles Send</h4>
-                <p className="text-[10px] text-slate-400">Delivered with voice notes</p>
-              </div>
 
-              {/* Day 3 to 5 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-slate-200 text-slate-700 font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  D3-5
+                {/* Node 2 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
+                    D1-3
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Profiles Sent</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">With voice notes</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Selection</h4>
-                <p className="text-[10px] text-slate-400">You select and confirm candidate</p>
-              </div>
 
-              {/* Day 6 to 7 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-slate-200 text-slate-700 font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  D6-7
+                {/* Node 3 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
+                    D3-5
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Selection</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You confirm hire</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Onboarding</h4>
-                <p className="text-[10px] text-slate-400">Joining confirmed with Jovese</p>
-              </div>
 
-              {/* Day 8 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-[#ff5a36]/20 text-[#ff5a36] font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  Day 8
+                {/* Node 4 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
+                    D6-7
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Onboarding</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Joining ready</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Day One</h4>
-                <p className="text-[10px] text-slate-400">First day. 30-day clock opens.</p>
-              </div>
 
-              {/* Day 15 */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 bg-[#ff5a36]/20 text-[#ff5a36] font-bold text-xs rounded-full flex items-center justify-center mb-3">
-                  Day 15
+                {/* Node 5 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#ff5a36] text-[#ff5a36] font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:bg-[#ff5a36] group-hover/node:text-white">
+                    Day 8
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-[#ff5a36] text-sm sm:text-xs mb-0.5">Day One</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">30-day clock starts</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs mb-1">Midpoint</h4>
-                <p className="text-[10px] text-slate-400">Check-in from our team</p>
-              </div>
 
-              {/* Day 30 */}
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-emerald-500 text-white font-bold text-sm rounded-full flex items-center justify-center mb-2 shadow-md border-2 border-white ring-2 ring-emerald-500/30 transform scale-110">
-                  D30
+                {/* Node 6 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#ff5a36]/50 text-[#ff5a36]/80 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-[#ff5a36] group-hover/node:text-[#ff5a36]">
+                    Day 15
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-[#ff5a36]/80 text-sm sm:text-xs mb-0.5">Midpoint</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Quality check-in</p>
+                  </div>
                 </div>
-                <h4 className="font-bold text-emerald-600 text-xs mb-0.5">Invoice Day</h4>
-                <p className="text-[10px] text-emerald-500 font-semibold">We invoice. First time. Not before.</p>
-              </div>
 
+                {/* Node 7 */}
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500 text-white font-bold text-sm sm:text-base rounded-full flex items-center justify-center sm:mb-2.5 shadow-md shadow-emerald-500/20 z-10 transition-transform group-hover/node:scale-110">
+                    D30
+                  </div>
+                  <div className="flex-1 sm:flex-none">
+                    <h4 className="font-bold text-emerald-600 text-sm sm:text-xs mb-0.5">Invoice Day</h4>
+                    <p className="text-xs sm:text-[10px] text-emerald-600/80 leading-tight font-semibold">We finally invoice</p>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
 
@@ -957,39 +1013,19 @@ export default function Home() {
           </div>
 
           {/* Three-point explainer */}
-          <div className="grid md:grid-cols-3 gap-8 pt-8 text-left">
-            
-            <div className="space-y-2">
-              <h4 className="font-bold text-slate-950 font-display text-base">Point 1 — Why Day 30?</h4>
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-semibold">
-                Because most frontline attrition happens in the first 3 weeks. If someone is going to leave, they leave fast. Tying our invoice to Day 30 means we only get paid when the placement actually worked.
-              </p>
+          <div className="grid md:grid-cols-3 gap-6 pt-8 text-left max-w-4xl mx-auto border-t border-slate-100">
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm mb-1">Day 30 Rationale</h4>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed">Most early exits occur within three weeks. Billing is synced to true retention.</p>
             </div>
-
-            <div className="space-y-2">
-              <h4 className="font-bold text-slate-950 font-display text-base">Point 2 — What counts as employer misconduct?</h4>
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-semibold">
-                Documented incidents: non-payment of agreed salary, verbal abuse, physical altercation. This protects the candidate. It also means you cannot simply let someone go on Day 29 to avoid payment.
-              </p>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm mb-1">Employer Misconduct</h4>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed">Guarantees are voided by non-payment or abuse, ensuring candidate safety.</p>
             </div>
-
-            <div className="space-y-2">
-              <h4 className="font-bold text-slate-950 font-display text-base">Point 3 — What about notice periods?</h4>
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-semibold">
-                Your 30-day window starts from joining day, not from when you selected the candidate. Notice period and joining timelines are communicated upfront in every profile we send.
-              </p>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm mb-1">Clock Activation</h4>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed">The 30-day observation window strictly begins on the exact date of joining.</p>
             </div>
-
-          </div>
-
-          <div className="text-center pt-16">
-            <p className="text-slate-500 font-bold mb-4">Zero upfront cost. One clear invoice on Day 30.</p>
-            <Link
-              to="/clients"
-              className="px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-medium transition-all"
-            >
-              Apply for Client Partnership
-            </Link>
           </div>
 
         </div>
@@ -1067,11 +1103,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 8: FAQ ACCORDION */}
+      {/* SECTION 8: FINAL CTA */}
+      <section className="py-12 mb-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between border border-slate-800">
+            {/* Subtle glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#ff5a36]/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
+            
+            <div className="relative z-10 text-center md:text-left mb-8 md:mb-0">
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
+                Ready to partner?
+              </h2>
+              <p className="text-slate-400 font-medium text-sm sm:text-base">
+                Zero upfront cost. One clear invoice on Day 30.
+              </p>
+            </div>
+            
+            <div className="relative z-10 w-full md:w-auto flex-shrink-0">
+              <Link
+                to="/clients"
+                className="relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-slate-900 font-bold transition-all shadow-[0_8px_30px_rgb(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgb(255,255,255,0.2)] hover:-translate-y-0.5 group text-sm"
+              >
+                <span className="relative z-10">Apply for Partnership</span>
+                <div className="absolute inset-0 bg-slate-50 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 9: FAQ ACCORDION */}
       <section className="py-24 bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900">
-            Common questions.
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            We know what you're thinking.
           </h2>
         </div>
 
