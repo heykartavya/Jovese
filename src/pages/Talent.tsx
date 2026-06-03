@@ -43,7 +43,7 @@ export default function Talent() {
       title: "Composure",
       means: "You do not fill pauses with filler words every few seconds. You sound calm, not rushed.",
       notMeans: "Being robotic or over-formal. Natural composure is what we want.",
-      color: "bg-orange-55/60 border-orange-100"
+      color: "bg-blue-55/60 border-blue-100"
     },
     {
       title: "Relevance",
@@ -118,7 +118,7 @@ export default function Talent() {
             <div key={idx} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300">
               <div>
                 <span className="font-display font-black text-indigo-500/10 text-6xl absolute top-6 right-6 opacity-30">{step.num}</span>
-                <div className="w-12 h-12 bg-[#ff5a36]/10 text-[#ff5a36] font-black font-display rounded-2xl flex items-center justify-center mb-6 text-lg">
+                <div className="w-12 h-12 bg-[#2563eb]/10 text-[#2563eb] font-black font-display rounded-2xl flex items-center justify-center mb-6 text-lg">
                   {step.num}
                 </div>
                 <h3 className="font-bold text-slate-950 font-display text-base mb-3 leading-tight">
@@ -147,7 +147,7 @@ export default function Talent() {
         <div className="grid sm:grid-cols-2 gap-6">
           {criteria.map((item, i) => (
             <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <span className="text-[#ff5a36] text-xs font-bold uppercase tracking-wider block mb-4">
+              <span className="text-[#2563eb] text-xs font-bold uppercase tracking-wider block mb-4">
                 Criteria 0{i+1}: {item.title}
               </span>
               

@@ -346,7 +346,7 @@ export default function Home() {
               <div>
                 <Link 
                   to="/clients" 
-                  className="inline-flex items-center gap-2 font-bold text-[#ff5a36] hover:text-[#ff451d] transition-colors"
+                  className="inline-flex items-center gap-2 font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors"
                 >
                   Submit your audit to join the queue <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -369,7 +369,7 @@ export default function Home() {
               {/* Stat card right */}
               <div className="bg-gradient-to-b from-white to-slate-50 rounded-[2rem] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300">
                 <div>
-                  <div className="text-5xl sm:text-6xl font-display font-black text-[#ff5a36] mb-3 tracking-tight">
+                  <div className="text-5xl sm:text-6xl font-display font-black text-[#2563eb] mb-3 tracking-tight">
                     <CountUp end={8} />
                   </div>
                   <div className="font-bold text-slate-800 text-base mb-1">Applications Under Review</div>
@@ -386,7 +386,7 @@ export default function Home() {
       {/* SECTION 3: THE FLEED (id="bleed") */}
       <section id="bleed" className="py-24 bg-white text-slate-900 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 overflow-hidden relative border border-slate-100 shadow-[0_8px_40px_rgb(0,0,0,0.04)]">
         {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff5a36]/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -402,7 +402,7 @@ export default function Home() {
                 Traditional staffing agencies have no incentive to solve this. They invoice the moment someone joins. Whether that person is still there in 30 days is not their problem. It is yours.
               </p>
               <p className="text-slate-900 font-bold bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm mt-8 relative overflow-hidden">
-                <span className="absolute -left-4 -top-4 w-16 h-16 rounded-full bg-[#ff5a36] blur-xl opacity-10 pointer-events-none"></span>
+                <span className="absolute -left-4 -top-4 w-16 h-16 rounded-full bg-[#2563eb] blur-xl opacity-10 pointer-events-none"></span>
                 We designed Jovese around the opposite model. Our fee triggers on Day 30. Our incentive is your retention, not your headcount churn.
               </p>
             </div>
@@ -410,7 +410,7 @@ export default function Home() {
 
           {/* THE BLEED CALCULATOR */}
           <div className="bg-white border border-slate-200/80 rounded-[2.5rem] p-6 sm:p-12 max-w-4xl mx-auto mb-16 relative shadow-[0_20px_60px_rgb(0,0,0,0.06)] overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] pointer-events-none" />
             
             <h3 className="font-display text-center font-bold text-sm tracking-widest text-slate-400 mb-8 uppercase relative z-10">
               Calculate Your Monthly Bleed
@@ -459,7 +459,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs font-bold text-slate-500">
                   <span>30-day attrition rate (%)</span>
-                  <span className="text-[#ff5a36] text-sm">{attritionRate}%</span>
+                  <span className="text-[#2563eb] text-sm">{attritionRate}%</span>
                 </div>
                 <input 
                   type="range"
@@ -470,7 +470,7 @@ export default function Home() {
                     setAttritionRate(parseInt(e.target.value));
                     setIsCalculated(false);
                   }}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#ff5a36]"
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
                 />
                 <span className="text-[10px] text-slate-400 block text-right font-medium">Industry average: 30 to 45%</span>
               </div>
@@ -502,7 +502,7 @@ export default function Home() {
                     
                     {/* Card 1 */}
                     <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
                       <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Monthly Revenue Loss From Empty Seats
                       </div>
@@ -513,7 +513,7 @@ export default function Home() {
 
                     {/* Card 2 */}
                     <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
                       <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Annual Training Spend Wasted on Early Exits
                       </div>
@@ -524,7 +524,7 @@ export default function Home() {
 
                     {/* Card 3 */}
                     <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#ff5a36]/10 transition-colors" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
                       <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
                         Agency Fees Paid for Hires Who Left
                       </div>
@@ -535,12 +535,12 @@ export default function Home() {
                     </div>
 
                     {/* Card 4 - highlighted savings */}
-                    <div className="bg-[#ff5a36]/5 border border-[#ff5a36]/20 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5a36]/5 to-transparent pointer-events-none" />
-                      <div className="text-xs text-[#ff5a36] uppercase font-extrabold tracking-wide mb-1 relative z-10">
+                    <div className="bg-[#2563eb]/5 border border-[#2563eb]/20 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/5 to-transparent pointer-events-none" />
+                      <div className="text-xs text-[#2563eb] uppercase font-extrabold tracking-wide mb-1 relative z-10">
                         Estimated Annual Saving with Jovese Model
                       </div>
-                      <div className="text-3xl font-black text-[#ff5a36] font-display relative z-10">
+                      <div className="text-3xl font-black text-[#2563eb] font-display relative z-10">
                         {formatINRValue(calculatedOutputs.annualSaving)}
                       </div>
                       <div className="text-[10px] text-slate-500 mt-1 font-medium relative z-10">Based on historical 30-day retention outcomes</div>
@@ -676,7 +676,7 @@ export default function Home() {
             <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
-                  <span className="inline-block px-2.5 py-1 bg-orange-50 text-orange-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Inside Sales</span>
+                  <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Inside Sales</span>
                   <p className="text-xs text-slate-500 font-semibold">2.0 Yrs • Gurgaon</p>
                 </div>
                 <button onClick={() => playAudio(2)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
@@ -686,11 +686,11 @@ export default function Home() {
               <div>
                 <div className="h-6 flex items-center gap-1 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
                   {[...Array(12)].map((_, i) => (
-                    <div key={i} className="w-1 bg-orange-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
+                    <div key={i} className="w-1 bg-blue-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
                   ))}
                   <div className="flex-1 ml-2">
                     <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
-                      <div className="bg-orange-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[2]}%` }} />
+                      <div className="bg-blue-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[2]}%` }} />
                     </div>
                   </div>
                 </div>
@@ -758,8 +758,8 @@ export default function Home() {
             
             {/* Phase 1 */}
             <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">01</span>
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">01</span>
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
@@ -776,8 +776,8 @@ export default function Home() {
 
             {/* Phase 2 */}
             <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">02</span>
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">02</span>
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
@@ -794,8 +794,8 @@ export default function Home() {
 
             {/* Phase 3 */}
             <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#ff5a36]/5 group-hover:border-[#ff5a36]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#ff5a36] transition-colors">03</span>
+              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
+                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">03</span>
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
@@ -844,7 +844,7 @@ export default function Home() {
             </div>
 
             <div>
-              <div className="text-4xl font-black text-[#ff5a36] font-display">Zero</div>
+              <div className="text-4xl font-black text-[#2563eb] font-display">Zero</div>
               <div className="text-sm font-semibold text-slate-500 mt-1">Upfront cost to start</div>
             </div>
 
@@ -866,17 +866,17 @@ export default function Home() {
           {/* Timeline Node map */}
           <div className="relative mb-20 bg-slate-50 border border-slate-100 p-8 sm:p-10 rounded-[2rem] shadow-sm overflow-hidden group">
             {/* Animated subtle background glow */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-slate-200/50 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#ff5a36]/5 transition-colors duration-1000" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-slate-200/50 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#2563eb]/5 transition-colors duration-1000" />
             
             <div className="relative max-w-5xl mx-auto mt-4">
               {/* Connecting Line - Desktop */}
               <div className="hidden sm:block absolute top-[22px] left-[7%] right-[7%] h-0.5 bg-slate-200">
-                <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-slate-300 via-[#ff5a36] to-emerald-500 w-0 group-hover:w-full transition-all duration-[1500ms] ease-out rounded-full" />
+                <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-slate-300 via-[#2563eb] to-emerald-500 w-0 group-hover:w-full transition-all duration-[1500ms] ease-out rounded-full" />
               </div>
               
               {/* Connecting Line - Mobile */}
               <div className="sm:hidden absolute left-[22px] top-6 bottom-6 w-0.5 bg-slate-200">
-                <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-slate-300 via-[#ff5a36] to-emerald-500 h-0 group-hover:h-full transition-all duration-[1500ms] ease-out rounded-full" />
+                <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-slate-300 via-[#2563eb] to-emerald-500 h-0 group-hover:h-full transition-all duration-[1500ms] ease-out rounded-full" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-7 gap-y-6 sm:gap-y-0 sm:gap-x-2 relative z-10">
@@ -927,22 +927,22 @@ export default function Home() {
 
                 {/* Node 5 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#ff5a36] text-[#ff5a36] font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:bg-[#ff5a36] group-hover/node:text-white">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#2563eb] text-[#2563eb] font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:bg-[#2563eb] group-hover/node:text-white">
                     Day 8
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-[#ff5a36] text-sm sm:text-xs mb-0.5">Day One</h4>
+                    <h4 className="font-bold text-[#2563eb] text-sm sm:text-xs mb-0.5">Day One</h4>
                     <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">30-day clock starts</p>
                   </div>
                 </div>
 
                 {/* Node 6 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#ff5a36]/50 text-[#ff5a36]/80 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-[#ff5a36] group-hover/node:text-[#ff5a36]">
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#2563eb]/50 text-[#2563eb]/80 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-[#2563eb] group-hover/node:text-[#2563eb]">
                     Day 15
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-[#ff5a36]/80 text-sm sm:text-xs mb-0.5">Midpoint</h4>
+                    <h4 className="font-bold text-[#2563eb]/80 text-sm sm:text-xs mb-0.5">Midpoint</h4>
                     <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Quality check-in</p>
                   </div>
                 </div>
@@ -963,11 +963,11 @@ export default function Home() {
           </div>
 
           {/* Guarantee box - highlighted */}
-          <div className="bg-[#ff5a36]/5 border-2 border-[#ff5a36]/30 p-8 sm:p-12 rounded-[2.5rem] mb-12 shadow-sm text-center max-w-4xl mx-auto">
+          <div className="bg-[#2563eb]/5 border-2 border-[#2563eb]/30 p-8 sm:p-12 rounded-[2.5rem] mb-12 shadow-sm text-center max-w-4xl mx-auto">
             <h3 className="font-display font-black text-2xl md:text-3xl text-slate-950 mb-4 text-center">
               The Replacement Guarantee
             </h3>
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-medium">
               If a placed candidate exits for any reason before completing 30 days, excluding documented misconduct by the employer, we replace them at no additional charge. The clock resets to Day 1 with the replacement candidate.
             </p>
           </div>
@@ -1065,7 +1065,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between border border-slate-800">
             {/* Subtle glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#ff5a36]/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563eb]/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
             
             <div className="relative z-10 text-center md:text-left mb-8 md:mb-0">

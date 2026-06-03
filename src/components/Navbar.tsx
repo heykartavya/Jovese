@@ -130,32 +130,32 @@ export default function Navbar() {
             <a 
               href="#method" 
               onClick={(e) => handleAnchorClick(e, 'method')}
-              className="text-2xl font-display font-bold text-slate-800 hover:text-[#ff5a36] transition-colors py-2 border-b border-slate-100"
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               The Method
             </a>
             <a 
               href="#bleed" 
               onClick={(e) => handleAnchorClick(e, 'bleed')}
-              className="text-2xl font-display font-bold text-slate-800 hover:text-[#ff5a36] transition-colors py-2 border-b border-slate-100"
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               The Bleed
             </a>
             <Link 
               to="/talent" 
-              className="text-2xl font-display font-bold text-slate-800 hover:text-[#ff5a36] transition-colors py-2 border-b border-slate-100"
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               Talent Portal
             </Link>
             <Link 
               to="/about" 
-              className="text-2xl font-display font-bold text-slate-800 hover:text-[#ff5a36] transition-colors py-2 border-b border-slate-100"
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               The Manifesto
             </Link>
             <Link 
               to="/clients" 
-              className="text-2xl font-display font-bold text-slate-800 hover:text-[#ff5a36] transition-colors py-2 border-b border-slate-100"
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               Apply for Partnership
             </Link>

@@ -10,7 +10,7 @@ import Manifesto from './pages/Manifesto';
 export default function App() {
   return (
     <Router>
-      <div className="font-sans text-slate-900 bg-[#f8f9fa] min-h-screen flex flex-col selection:bg-orange-500/30">
+      <div className="font-sans text-slate-900 bg-[#f8f9fa] min-h-screen flex flex-col selection:bg-blue-500/30">
         <Navbar />
         <main className="flex-grow pt-24">
           <Routes>

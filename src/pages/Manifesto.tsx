@@ -8,7 +8,7 @@ export default function Manifesto() {
       
       {/* SECTION 1: HERO */}
       <section className="pt-8 md:pt-12 pb-16 md:pb-24 text-center max-w-3xl mx-auto">
-        <span className="text-xs font-bold text-[#ff5a36] tracking-[0.25em] uppercase block mb-3">
+        <span className="text-xs font-bold text-[#2563eb] tracking-[0.25em] uppercase block mb-3">
           THE MANIFESTO
         </span>
         <motion.h1 
@@ -34,7 +34,7 @@ export default function Manifesto() {
         {/* Chapter 1 */}
         <div className="grid md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-4">
-            <span className="text-xs font-bold text-[#ff5a36] uppercase tracking-widest block mb-1">
+            <span className="text-xs font-bold text-[#2563eb] uppercase tracking-widest block mb-1">
               CHAPTER 01
             </span>
             <h2 className="font-display text-xl md:text-2xl font-black text-slate-900">
@@ -56,7 +56,7 @@ export default function Manifesto() {
         {/* Chapter 2 */}
         <div className="grid md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-4">
-            <span className="text-xs font-bold text-[#ff5a36] uppercase tracking-widest block mb-1">
+            <span className="text-xs font-bold text-[#2563eb] uppercase tracking-widest block mb-1">
               CHAPTER 02
             </span>
             <h2 className="font-display text-xl md:text-2xl font-black text-slate-900">
@@ -78,7 +78,7 @@ export default function Manifesto() {
         {/* Chapter 3 */}
         <div className="grid md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-4">
-            <span className="text-xs font-bold text-[#ff5a36] uppercase tracking-widest block mb-1">
+            <span className="text-xs font-bold text-[#2563eb] uppercase tracking-widest block mb-1">
               CHAPTER 03
             </span>
             <h2 className="font-display text-xl md:text-2xl font-black text-slate-900">
@@ -102,7 +102,7 @@ export default function Manifesto() {
         <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px]" />
         
         <div className="relative z-10 max-w-3xl">
-          <span className="text-xs font-bold text-orange-400 tracking-widest uppercase block mb-3">
+          <span className="text-xs font-bold text-blue-400 tracking-widest uppercase block mb-3">
             ABOUT JOVESE
           </span>
           <h2 className="font-display text-3xl font-black mb-6">

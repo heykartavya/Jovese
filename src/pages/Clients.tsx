@@ -191,7 +191,7 @@ export default function Clients() {
       title: "Inside Sales",
       roles: ["Sales Development Rep", "Business Development Executive", "Account Manager (entry level)", "Field Sales Coordinator"],
       volume: "3 to 30 seats per quarter",
-      color: "bg-orange-50/50 text-[#ff5a36]"
+      color: "bg-blue-50/50 text-[#2563eb]"
     },
     {
       title: "BPO and Customer Support",
@@ -224,7 +224,7 @@ export default function Clients() {
       
       {/* SECTION 1: PAGE HERO */}
       <section className="pt-8 md:pt-12 pb-16 md:pb-24 text-center max-w-4xl mx-auto">
-        <span className="text-xs font-bold text-[#ff5a36] tracking-[0.2em] uppercase block mb-3">
+        <span className="text-xs font-bold text-[#2563eb] tracking-[0.2em] uppercase block mb-3">
           FOR HIRING TEAMS
         </span>
         <motion.h1 
@@ -303,11 +303,11 @@ export default function Clients() {
 
       {/* SECTION 3: WHAT WE REQUIRE FROM YOU */}
       <section className="py-20 bg-slate-900 text-white rounded-[3.5rem] p-8 sm:p-16 mb-20 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-orange-400/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-[100px]" />
         
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-orange-400 tracking-widest uppercase block mb-3">
+            <span className="text-xs font-bold text-blue-400 tracking-widest uppercase block mb-3">
               THE STANDARD
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-6 leading-tight">
@@ -385,7 +385,7 @@ export default function Clients() {
             </div>
             <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
               <div 
-                className="bg-[#ff5a36] h-full transition-all duration-300" 
+                className="bg-[#2563eb] h-full transition-all duration-300" 
                 style={{ width: `${(activeStep/totalSteps)*100}%` }}
               />
             </div>
@@ -410,7 +410,7 @@ export default function Clients() {
                   onChange={(e) => handleInputChange('companyName', e.target.value)}
                   placeholder="Ex: Jovese Systems"
                   className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                    touched.companyName && errors.companyName ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                    touched.companyName && errors.companyName ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                   }`}
                 />
                 {touched.companyName && errors.companyName && (
@@ -432,7 +432,7 @@ export default function Clients() {
                     onChange={(e) => handleInputChange('yourName', e.target.value)}
                     placeholder="Ex: Karan Sharma"
                     className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                      touched.yourName && errors.yourName ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                      touched.yourName && errors.yourName ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                     }`}
                   />
                   {touched.yourName && errors.yourName && (
@@ -451,7 +451,7 @@ export default function Clients() {
                     onChange={(e) => handleInputChange('designation', e.target.value)}
                     placeholder="Ex: VP of Human Resources"
                     className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                      touched.designation && errors.designation ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                      touched.designation && errors.designation ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                     }`}
                   />
                   {touched.designation && errors.designation && (
@@ -481,7 +481,7 @@ export default function Clients() {
                     onChange={(e) => handleInputChange('workEmail', e.target.value)}
                     placeholder="Ex: karan@jovese.com"
                     className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                      touched.workEmail && errors.workEmail ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                      touched.workEmail && errors.workEmail ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                     }`}
                   />
                   {touched.workEmail && errors.workEmail && (
@@ -500,7 +500,7 @@ export default function Clients() {
                     onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
                     placeholder="Ex: 9876543210"
                     className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                      touched.phoneNumber && errors.phoneNumber ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                      touched.phoneNumber && errors.phoneNumber ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                     }`}
                   />
                   {touched.phoneNumber && errors.phoneNumber && (
@@ -518,7 +518,7 @@ export default function Clients() {
                   <select 
                     value={formData.city}
                     onChange={(e) => handleInputChange('city', e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#ff5a36] focus:border-[#ff5a36] text-slate-800"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#2563eb] focus:border-[#2563eb] text-slate-800"
                   >
                     <option value="Hyderabad">Hyderabad</option>
                     <option value="Gurgaon">Gurgaon</option>
@@ -536,7 +536,7 @@ export default function Clients() {
                   <select 
                     value={formData.headcount}
                     onChange={(e) => handleInputChange('headcount', e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#ff5a36] focus:border-[#ff5a36] text-slate-800"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#2563eb] focus:border-[#2563eb] text-slate-800"
                   >
                     <option value="Under 20">Under 20</option>
                     <option value="20 to 100">20 to 100</option>
@@ -574,12 +574,12 @@ export default function Clients() {
                         onClick={() => toggleRole(role)}
                         className={`text-left px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between ${
                           isChecked 
-                            ? 'bg-[#ff5a36]/10 border-[#ff5a36] text-slate-900 ring-1 ring-[#ff5a36]' 
+                            ? 'bg-[#2563eb]/10 border-[#2563eb] text-slate-900 ring-1 ring-[#2563eb]' 
                             : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100/50'
                         }`}
                       >
                         <span>{role}</span>
-                        {isChecked && <CheckCircle2 className="w-4 h-4 text-[#ff5a36]" />}
+                        {isChecked && <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />}
                       </button>
                     );
                   })}
@@ -605,7 +605,7 @@ export default function Clients() {
                     onChange={(e) => handleInputChange('monthlyVolume', e.target.value)}
                     placeholder="e.g. 15"
                     className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 ${
-                      touched.monthlyVolume && errors.monthlyVolume ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                      touched.monthlyVolume && errors.monthlyVolume ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                     }`}
                   />
                   {touched.monthlyVolume && errors.monthlyVolume && (
@@ -623,7 +623,7 @@ export default function Clients() {
                     value={formData.attritionRate}
                     onChange={(e) => handleInputChange('attritionRate', e.target.value)}
                     placeholder="e.g. 40% (Not sure is acceptable)"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#ff5a36] focus:border-[#ff5a36]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#2563eb] focus:border-[#2563eb]"
                   />
                 </div>
 
@@ -655,7 +655,7 @@ export default function Clients() {
                   onChange={(e) => handleInputChange('biggestChallenge', e.target.value)}
                   placeholder="What is your headcount bottleneck?"
                   className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 resize-none ${
-                    touched.biggestChallenge && errors.biggestChallenge ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                    touched.biggestChallenge && errors.biggestChallenge ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                   }`}
                 />
                 {touched.biggestChallenge && errors.biggestChallenge && (
@@ -682,7 +682,7 @@ export default function Clients() {
                   onChange={(e) => handleInputChange('vendorsFailed', e.target.value)}
                   placeholder="Why did current sourcing procedures break down?"
                   className={`w-full bg-slate-50 border rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 resize-none ${
-                    touched.vendorsFailed && errors.vendorsFailed ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#ff5a36] focus:border-[#ff5a36]'
+                    touched.vendorsFailed && errors.vendorsFailed ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-[#2563eb] focus:border-[#2563eb]'
                   }`}
                 />
                 {touched.vendorsFailed && errors.vendorsFailed && (
@@ -696,7 +696,7 @@ export default function Clients() {
                 <select 
                   value={formData.howFoundUs}
                   onChange={(e) => handleInputChange('howFoundUs', e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#ff5a36] focus:border-[#ff5a36] text-slate-800"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#2563eb] focus:border-[#2563eb] text-slate-800"
                 >
                   <option value="LinkedIn">LinkedIn</option>
                   <option value="Google Search">Google Search</option>
@@ -736,7 +736,7 @@ export default function Clients() {
                 ) : (
                   <button
                     type="submit"
-                    className="px-6 py-3.5 bg-[#ff5a36] hover:bg-[#ff451d] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-[0_4px_14px_rgba(255,90,54,0.3)]"
+                    className="px-6 py-3.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-[0_4px_14px_rgba(255,90,54,0.3)]"
                   >
                     Submit Audit
                   </button>

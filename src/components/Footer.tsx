@@ -25,11 +25,11 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-bold mb-6 font-display text-sm tracking-wider uppercase">Navigation</h4>
           <ul className="space-y-4 text-xs sm:text-sm font-semibold">
-            <li><Link to="/#method" className="hover:text-[#ff5a36] transition-colors">The Method</Link></li>
-            <li><Link to="/#bleed" className="hover:text-[#ff5a36] transition-colors">The Bleed</Link></li>
-            <li><Link to="/clients" className="hover:text-[#ff5a36] transition-colors">Client Application</Link></li>
-            <li><Link to="/talent" className="hover:text-[#ff5a36] transition-colors">Talent Portal</Link></li>
-            <li><Link to="/about" className="hover:text-[#ff5a36] transition-colors">The Manifesto</Link></li>
+            <li><Link to="/#method" className="hover:text-[#2563eb] transition-colors">The Method</Link></li>
+            <li><Link to="/#bleed" className="hover:text-[#2563eb] transition-colors">The Bleed</Link></li>
+            <li><Link to="/clients" className="hover:text-[#2563eb] transition-colors">Client Application</Link></li>
+            <li><Link to="/talent" className="hover:text-[#2563eb] transition-colors">Talent Portal</Link></li>
+            <li><Link to="/about" className="hover:text-[#2563eb] transition-colors">The Manifesto</Link></li>
           </ul>
         </div>
 

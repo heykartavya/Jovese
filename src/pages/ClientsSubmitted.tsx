@@ -21,7 +21,7 @@ export default function ClientsSubmitted() {
       num: "Step 3",
       title: "Active Brief Opened",
       desc: "Active brief opened. First shortlist within 48 hours.",
-      icon: <Play className="w-5 h-5 text-[#ff5a36]" />
+      icon: <Play className="w-5 h-5 text-[#2563eb]" />
     },
     {
       num: "Step 4",
@@ -95,7 +95,7 @@ export default function ClientsSubmitted() {
       >
         <Link 
           to="/about" 
-          className="inline-flex items-center gap-2 text-slate-700 hover:text-[#ff5a36] font-medium transition-all group"
+          className="inline-flex items-center gap-2 text-slate-700 hover:text-[#2563eb] font-medium transition-all group"
         >
           While you wait, read why we built Jovese
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
