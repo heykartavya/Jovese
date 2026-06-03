@@ -206,13 +206,10 @@ export default function Home() {
           
           {/* Left Hero Content */}
           <div className="md:col-span-7 text-left">
-            <span className="inline-block px-3 py-1 bg-white border border-[#ff5a36]/20 text-xs font-bold text-[#ff5a36] tracking-[0.2em] rounded-full shadow-sm uppercase mb-6">
-              Precision Volume Hiring
-            </span>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
               Stop replacing your sales team every 90 days.
             </h1>
-            <p className="text-base sm:text-lg text-slate-500 mb-10 leading-relaxed font-medium max-w-xl">
+            <p className="text-sm sm:text-base text-slate-500 mb-10 leading-relaxed font-medium max-w-xl">
               Jovese screens and deploys frontline talent for telecalling, inside sales, BPO, front office, and hospitality operations. You see profiles in 48 hours. You pay nothing until the hire survives Day 30.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
@@ -334,16 +331,13 @@ export default function Home() {
           <div className="grid md:grid-cols-12 gap-12 items-center">
             
             <div className="md:col-span-7">
-              <span className="inline-block px-3 py-1 bg-slate-50 border border-indigo-100 text-xs font-bold text-indigo-500 tracking-widest uppercase rounded-full mb-6">
-                Why We Limit Clients
-              </span>
               <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
                 Partnership spots are deliberately limited.
               </h2>
-              <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium mb-6">
+              <p className="text-slate-500 text-sm md:text-base leading-relaxed font-medium mb-6">
                 We do not onboard clients faster than we can staff them well. When we accept a new partner, we commit screening capacity to their specific roles. If we stretched that across 80 clients, we would become the thing we set out to replace.
               </p>
-              <p className="text-slate-500 text-base leading-relaxed font-medium mb-6">
+              <p className="text-slate-500 text-sm leading-relaxed font-medium mb-6">
                 Right now we manage a controlled number of active partnerships. When capacity opens, we reach into the waitlist in order of submission.
               </p>
               <p className="text-sm font-semibold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100 inline-block mb-6">
@@ -397,13 +391,10 @@ export default function Home() {
         
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 bg-red-50 text-red-500 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6 shadow-sm border border-red-100">
-              The Revenue Leak
-            </span>
             <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-slate-900 leading-[1.1]">
               Your empty seats are not a hiring problem.<br />They are a revenue leak.
             </h2>
-            <div className="text-slate-600 max-w-3xl mx-auto space-y-6 text-base md:text-lg leading-relaxed font-medium">
+            <div className="text-slate-600 max-w-3xl mx-auto space-y-6 text-sm md:text-base leading-relaxed font-medium">
               <p>
                 Most HR teams track cost-per-hire. Almost nobody tracks the cost of the 18 days it takes to replace someone who quit on Day 12. The lost output. The manager hours spent re-interviewing. The training investment that walked out the door. The agency that invoiced you anyway.
               </p>
@@ -636,9 +627,6 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <span className="inline-block px-3 py-1 bg-indigo-50/50 border border-indigo-100 text-[10px] font-bold text-indigo-500 tracking-widest uppercase rounded-full mb-6">
-                The Audio Advantage
-              </span>
               <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
                 A resume tells you where they worked.<br />
                 <span className="text-slate-400">A voice tells you if they can sell.</span>
@@ -647,7 +635,7 @@ export default function Home() {
             
             <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative overflow-hidden">
               <div className="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none" />
-              <p className="text-sm md:text-base text-slate-600 font-medium leading-relaxed relative z-10">
+              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed relative z-10">
                 For customer-facing roles, the CV is just a formality. The candidates who close deals are the ones who listen before speaking and handle rejection without collapsing. You can't screen for that in a document. <strong className="text-slate-900">We screen for it in a 45-second audio drop.</strong>
               </p>
             </div>
@@ -760,9 +748,6 @@ export default function Home() {
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase block mb-3">
-              THE 48-HOUR DEPLOYMENT FLOW
-            </span>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
               Vetted talent in 48 hours. Here is exactly how.
             </h2>
@@ -778,10 +763,7 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">WhatsApp Ingestion</h3>
-                  <span className="inline-block px-3 py-1 bg-slate-50 text-slate-500 rounded-full text-[10px] font-bold tracking-widest uppercase border border-slate-100 whitespace-nowrap">
-                    Avg. 340 apps / week
-                  </span>
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">WhatsApp Ingestion</h3>
                 </div>
                 <p className="text-slate-800 font-semibold text-sm mb-3">
                   Candidates bypass broken career pages entirely.
@@ -799,10 +781,7 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">Tone and Logic Audit</h3>
-                  <span className="inline-block px-3 py-1 bg-[#ff5a36]/5 border border-[#ff5a36]/10 text-[#ff5a36] rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
-                    ~22% clear stage
-                  </span>
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">Tone and Logic Audit</h3>
                 </div>
                 <p className="text-slate-800 font-semibold text-sm mb-3">
                   70 to 80% of applicants are filtered here before a human reviews anything.
@@ -820,10 +799,7 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight uppercase">The Match</h3>
-                  <span className="inline-block px-3 py-1 bg-slate-50 border border-slate-100 text-slate-500 rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
-                    Avg. 6 profiles / role
-                  </span>
+                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">The Match</h3>
                 </div>
                 <p className="text-slate-800 font-semibold text-sm mb-3">
                   You receive curated profiles. Not a volume dump.
@@ -841,10 +817,7 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-950 text-xl tracking-tight uppercase">Deployment</h3>
-                  <span className="inline-block px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
-                    94% to Day 30
-                  </span>
+                  <h3 className="font-bold text-slate-950 text-xl tracking-tight">Deployment</h3>
                 </div>
                 <p className="text-slate-800 font-semibold text-sm mb-3">
                   The candidate joins. The 30-day clock starts. Nothing else happens until then.
@@ -885,9 +858,6 @@ export default function Home() {
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-orange-500 tracking-widest uppercase block mb-3">
-              THE FEE MODEL
-            </span>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
               You are not paying for introductions.<br />You are paying for outcomes.
             </h2>
@@ -898,14 +868,7 @@ export default function Home() {
             {/* Animated subtle background glow */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-slate-200/50 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#ff5a36]/5 transition-colors duration-1000" />
             
-            <div className="flex items-center gap-4 mb-10 sm:mb-12">
-              <h3 className="text-[10px] font-bold text-slate-400 tracking-widest uppercase m-0">
-                Partnership Timeline
-              </h3>
-              <div className="hidden sm:block h-px bg-slate-200 flex-1"></div>
-            </div>
-            
-            <div className="relative max-w-5xl mx-auto">
+            <div className="relative max-w-5xl mx-auto mt-4">
               {/* Connecting Line - Desktop */}
               <div className="hidden sm:block absolute top-[22px] left-[7%] right-[7%] h-0.5 bg-slate-200">
                 <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-slate-300 via-[#ff5a36] to-emerald-500 w-0 group-hover:w-full transition-all duration-[1500ms] ease-out rounded-full" />
@@ -1001,9 +964,6 @@ export default function Home() {
 
           {/* Guarantee box - highlighted */}
           <div className="bg-[#ff5a36]/5 border-2 border-[#ff5a36]/30 p-8 sm:p-12 rounded-[2.5rem] mb-12 shadow-sm text-center max-w-4xl mx-auto">
-            <span className="inline-block px-3 py-1 bg-[#ff5a36] text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-4">
-              GUARANTEE
-            </span>
             <h3 className="font-display font-black text-2xl md:text-3xl text-slate-950 mb-4 text-center">
               The Replacement Guarantee
             </h3>
@@ -1036,9 +996,6 @@ export default function Home() {
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase block mb-3">
-              CLIENT EXPERIENCE
-            </span>
             <h2 className="font-display text-4xl font-extrabold text-slate-900">
               What our partners say.
             </h2>
