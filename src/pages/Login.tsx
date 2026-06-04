@@ -2,27 +2,36 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Briefcase, User, ArrowRight } from 'lucide-react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 export default function Login() {
   const [role, setRole] = useState<'recruiter' | 'talent'>('recruiter');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
 
-    // Fake authentication delay
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // Wait for auth state change or redirect immediately
       if (role === 'recruiter') {
         navigate('/recruiter/dashboard');
       } else {
         navigate('/talent/dashboard');
       }
-    }, 800);
+    } catch (err: any) {
+      console.error(err);
+      setError("Invalid email or password");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -100,6 +109,12 @@ export default function Login() {
                   placeholder="••••••••"
                 />
               </div>
+
+              {error && (
+                <div className="text-xs text-red-500 font-bold bg-red-50 p-3 rounded-lg border border-red-100">
+                  {error}
+                </div>
+              )}
 
               <button 
                 type="submit"
