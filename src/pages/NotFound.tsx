@@ -10,7 +10,7 @@ export default function NotFound() {
         This page does not exist.<br />
         Your hiring problem does.
       </h1>
-      <p className="text-slate-500 font-medium text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed">
+      <p className="text-slate-500 font-normal text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed">
         The URL you followed is broken. The cost of an empty seat on your telecalling floor is not.
       </p>
       

@@ -35,13 +35,14 @@ export default function Home() {
   // Custom Audio State
   const [audioObjects, setAudioObjects] = useState<{ [id: number]: HTMLAudioElement | null }>({});
   const [playingId, setPlayingId] = useState<number | null>(null);
-  const [progress, setProgress] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0 });
-  const [currentTime, setCurrentTime] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0 });
+  const [progress, setProgress] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0, 4: 0 });
+  const [currentTime, setCurrentTime] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0, 4: 0 });
   
   const sampleAudios = {
     1: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     2: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+    3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    4: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
   };
 
   const playAudio = (id: number) => {
@@ -57,7 +58,7 @@ export default function Home() {
 
     let audio = audioObjects[id];
     if (!audio) {
-      audio = new Audio(sampleAudios[id as 1 | 2 | 3]);
+      audio = new Audio(sampleAudios[id as 1 | 2 | 3 | 4]);
       
       audio.addEventListener('timeupdate', () => {
         if (audio) {
@@ -88,7 +89,8 @@ export default function Home() {
       const roles: any = {
         1: 'TELECALLING CANDIDATE',
         2: 'INSIDE SALES CANDIDATE',
-        3: 'FRONT OFFICE CANDIDATE'
+        3: 'FRONT OFFICE CANDIDATE',
+        4: 'IT HELPDESK CANDIDATE'
       };
       (window as any).gtag('event', 'audio_played', { 
         candidate_type: roles[id] 
@@ -197,6 +199,14 @@ export default function Home() {
     {
       q: "Can I speak to a current client before signing up?",
       a: "Yes. Once your audit form is reviewed and we confirm a fit, we can connect you with a relevant partner who has agreed to take reference calls. This happens after the review, not before."
+    },
+    {
+      q: "Do you place IT and technical roles, not just sales and BPO?",
+      a: "Yes. We place IT Helpdesk, Technical Support, Pre-Sales, QA Associates, Customer Success, and Junior IT roles for mid-tier software and services companies. Our audio screening model applies directly to any role where communication is central to performance. We do not place senior developers or engineering leads — that requires technical evaluation beyond our current scope."
+    },
+    {
+      q: "How do campus placement drives work with Jovese?",
+      a: "We identify suitable tier 2 and tier 3 colleges in Hyderabad and Gurugram based on your role requirements. We run audio screening on interested candidates before your team visits. You only meet candidates who have already cleared our communication threshold. The fee structure is a flat coordination fee per drive plus our standard per-placement Day 30 fee for each confirmed hire. Contact us via the Client Application form and mention campus drives in the requirements field."
     }
   ];
 
@@ -231,10 +241,10 @@ export default function Home() {
           {/* Left Hero Content */}
           <div className="md:col-span-7 text-left">
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
-              Stop replacing your sales team every 90 days.
+              Stop paying for hires that don't make it past Week 3.
             </h1>
-            <p className="text-sm sm:text-base text-slate-500 mb-10 leading-relaxed font-medium max-w-xl">
-              Jovese screens and deploys frontline talent for telecalling, inside sales, BPO, front office, and hospitality operations. You see profiles in 48 hours. You pay nothing until the hire survives Day 30.
+            <p className="text-sm sm:text-base text-slate-500 mb-10 leading-relaxed font-normal max-w-xl">
+              Jovese screens and deploys frontline and junior IT talent for telecalling, inside sales, BPO, technical support, and hospitality operations. Pre-screened profiles in 48 hours. You pay nothing until the hire survives Day 30.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
               <Link
@@ -343,11 +353,15 @@ export default function Home() {
             transition={{ ease: "linear", duration: 30, repeat: Infinity }}
           >
             {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex items-center gap-12 sm:gap-16 px-6 sm:px-8 text-[11px] sm:text-sm text-slate-400 font-medium tracking-wide whitespace-nowrap">
-                <span className="flex items-center">Hyderabad-based NBFC <span className="text-slate-300 mx-3">|</span> 40-seat floor</span>
-                <span className="flex items-center">Delhi NCR hospitality <span className="text-slate-300 mx-3">|</span> 3 properties</span>
-                <span className="flex items-center">Bangalore SaaS <span className="text-slate-300 mx-3">|</span> 25 inside sales reps</span>
-                <span className="flex items-center">Mumbai BPO <span className="text-slate-300 mx-3">|</span> 100-seat night shift</span>
+              <div key={i} className="flex items-center gap-12 sm:gap-16 px-6 sm:px-8 text-[11px] sm:text-sm text-slate-400 font-normal tracking-wide whitespace-nowrap">
+                <span className="flex items-center">Hyderabad NBFC <span className="text-slate-300 mx-3">|</span> 40-seat telecalling floor</span>
+                <span className="flex items-center">Gurugram IT services firm <span className="text-slate-300 mx-3">|</span> 18 junior QA hires</span>
+                <span className="flex items-center">Delhi NCR hospitality group <span className="text-slate-300 mx-3">|</span> 3 properties</span>
+                <span className="flex items-center">Hyderabad SaaS company <span className="text-slate-300 mx-3">|</span> customer success team</span>
+                <span className="flex items-center">Gurgaon BPO <span className="text-slate-300 mx-3">|</span> 60-seat voice operations</span>
+                <span className="flex items-center">Hyderabad GCC <span className="text-slate-300 mx-3">|</span> fresher IT support batch</span>
+                <span className="flex items-center">Delhi NCR inside sales team <span className="text-slate-300 mx-3">|</span> 22 reps</span>
+                <span className="flex items-center">Gurugram IT helpdesk <span className="text-slate-300 mx-3">|</span> 12-seat L1 support floor</span>
               </div>
             ))}
           </motion.div>
@@ -360,7 +374,7 @@ export default function Home() {
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
             Partnership spots are deliberately limited.
           </h2>
-          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium mb-8 max-w-2xl mx-auto">
+          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-normal mb-8 max-w-2xl mx-auto">
             We cap active client partnerships to maintain strict candidate quality. Onboarding too many clients at once means diluted screening and broken promises. We do not do that.
           </p>
           <div className="bg-slate-50 text-slate-700 text-sm font-semibold py-3 px-6 rounded-xl border border-slate-200 inline-block mb-8">
@@ -377,6 +391,126 @@ export default function Home() {
         </div>
       </section>
 
+      {/* DOMAINS WE DOMINATE */}
+      <section className="py-24 bg-slate-50 border-t border-slate-100">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+              Domains We Dominate
+            </h2>
+          </div>
+
+          <div className="mb-12">
+            <h3 className="font-display text-xs font-bold text-slate-400 tracking-[0.2em] uppercase mb-8 text-center">
+              FRONTLINE AND VOICE ROLES
+            </h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              {[
+                { title: "Telecalling", subtitle: "Outbound & Inbound", icon: Headset },
+                { title: "BPO & Customer Support", subtitle: "Voice & Non-Voice Operations", icon: Volume2 },
+                { title: "Inside Sales", subtitle: "Field & Inside Sales", icon: Briefcase },
+                { title: "Front Office", subtitle: "Hospitality & Reception", icon: Building },
+              ].map((domain, i) => (
+                <div key={i} className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-shadow group">
+                  <div className="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#2563eb] group-hover:text-white transition-colors">
+                    <domain.icon className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-lg mb-1">{domain.title}</h4>
+                  <p className="text-slate-500 text-xs font-normal">{domain.subtitle}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-display text-xs font-bold text-slate-400 tracking-[0.2em] uppercase mb-8 text-center">
+              IT AND TECHNICAL ROLES
+            </h3>
+            <div className="grid md:grid-cols-5 gap-6">
+              {[
+                { title: "IT Helpdesk & Support", subtitle: "L1, L2 & Technical Support", icon: Headset },
+                { title: "Pre-Sales & Sales Engineering", subtitle: "Software & SaaS Companies", icon: Briefcase },
+                { title: "QA & Testing", subtitle: "Junior & Entry-Level Associates", icon: CheckCircle2 },
+                { title: "Customer Success", subtitle: "SaaS & Product Companies", icon: Volume2 },
+                { title: "Junior IT & L1", subtitle: "Fresher & Campus Hires", icon: Building },
+              ].map((domain, i) => (
+                <div key={i} className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-shadow group">
+                  <div className="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                    <domain.icon className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-[15px] mb-1 leading-tight">{domain.title}</h4>
+                  <p className="text-slate-500 text-[11px] font-normal leading-tight">{domain.subtitle}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CAMPUS PLACEMENT DRIVES */}
+      <section id="campus-drives" className="py-24 bg-slate-900 text-white rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 my-12 relative overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.15)]">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2563eb]/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <span className="font-display text-xs font-bold tracking-[0.2em] text-[#2563eb] uppercase mb-6 block">
+            CAMPUS PLACEMENT DRIVES
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-white leading-[1.1] max-w-3xl mx-auto">
+            Your next 20 hires are already in a classroom. They just haven't been screened yet.
+          </h2>
+          <div className="text-slate-300 max-w-3xl mx-auto mb-16 space-y-6 text-sm md:text-base leading-relaxed font-normal">
+            <p>
+              Standard campus drives waste everyone's time. A company sends a team to a college. Two hundred students sit in a hall. The company interviews all day and makes fifteen offers. Ten join. Three are gone by Month 2.
+            </p>
+            <p>
+              Jovese runs it differently. Before your team visits a campus, we audio-screen every interested candidate using the same 45-second evaluation method we use for all placements. You only meet the candidates who have already cleared our communication threshold. Your team interviews thirty people. Makes twenty-two offers. Nineteen join and stay.
+            </p>
+            <p>
+              We handle college identification, logistics coordination, pre-screening, and post-joining follow-up. You show up and hire.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12 text-left">
+            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
+              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
+                <Mic className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-white text-lg mb-3">Pre-Screened Candidates Only</h4>
+              <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                Every student is audio-screened before you arrive. No time wasted on candidates who cannot communicate for the role.
+              </p>
+            </div>
+            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
+              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
+                <Building className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-white text-lg mb-3">Tier 2 and Tier 3 Colleges</h4>
+              <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                We have working relationships with engineering and management colleges across Hyderabad and Gurugram with strong placement records.
+              </p>
+            </div>
+            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
+              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
+                <Clock className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-white text-lg mb-3">Same Day 30 Fee Model</h4>
+              <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                You pay a flat coordination fee per drive and a per-placement fee only when the candidate completes 30 days. No placement, no charge.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/clients"
+            className="inline-block relative overflow-hidden px-8 py-4 rounded-full bg-[#2563eb] text-white font-semibold text-center transition-all shadow-[0_8px_30px_rgb(37,99,235,0.2)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.4)] hover:-translate-y-0.5 group text-sm md:text-base border border-blue-500"
+          >
+            <span className="relative z-10">Plan a Campus Drive</span>
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+          </Link>
+        </div>
+      </section>
+
       {/* SECTION 3: THE FLEED (id="bleed") */}
       <section id="bleed" className="py-24 bg-white text-slate-900 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 overflow-hidden relative border border-slate-100 shadow-[0_8px_40px_rgb(0,0,0,0.04)]">
         {/* Subtle background glow */}
@@ -388,7 +522,7 @@ export default function Home() {
             <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-slate-900 leading-[1.1]">
               Your empty seats are not a hiring problem.<br />They are a revenue leak.
             </h2>
-            <div className="text-slate-600 max-w-3xl mx-auto space-y-6 text-sm md:text-base leading-relaxed font-medium">
+            <div className="text-slate-600 max-w-3xl mx-auto space-y-6 text-sm md:text-base leading-relaxed font-normal">
               <p>
                 Most HR teams track cost-per-hire. Almost nobody tracks the cost of the 18 days it takes to replace someone who quit on Day 12. The lost output. The manager hours spent re-interviewing. The training investment that walked out the door. The agency that invoiced you anyway.
               </p>
@@ -446,7 +580,7 @@ export default function Home() {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-all font-semibold"
                   placeholder="e.g. 25000"
                 />
-                <span className="text-[10px] text-slate-400 block mt-1 font-medium">Salary only, not total package</span>
+                <span className="text-[10px] text-slate-400 block mt-1 font-normal">Salary only, not total package</span>
               </div>
 
               {/* Field 3 */}
@@ -466,7 +600,7 @@ export default function Home() {
                   }}
                   className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
                 />
-                <span className="text-[10px] text-slate-400 block text-right font-medium">Industry average: 30 to 45%</span>
+                <span className="text-[10px] text-slate-400 block text-right font-normal">Industry average: 30 to 45%</span>
               </div>
 
             </form>
@@ -525,7 +659,7 @@ export default function Home() {
                       <div className="text-2xl font-black text-slate-900 font-display relative z-10">
                         {formatINRValue(calculatedOutputs.agencyFeesWasted)}
                       </div>
-                      <div className="text-[10px] text-slate-400 mt-1 font-medium relative z-10">Assumes standard 8.33% placement fee</div>
+                      <div className="text-[10px] text-slate-400 mt-1 font-normal relative z-10">Assumes standard 8.33% placement fee</div>
                     </div>
 
                     {/* Card 4 - highlighted savings */}
@@ -537,13 +671,13 @@ export default function Home() {
                       <div className="text-3xl font-black text-[#2563eb] font-display relative z-10">
                         {formatINRValue(calculatedOutputs.annualSaving)}
                       </div>
-                      <div className="text-[10px] text-slate-500 mt-1 font-medium relative z-10">Based on historical 30-day retention outcomes</div>
+                      <div className="text-[10px] text-slate-500 mt-1 font-normal relative z-10">Based on historical 30-day retention outcomes</div>
                     </div>
 
                   </div>
 
                   <div className="mt-8 text-center text-xs text-slate-500">
-                    <p className="mb-4 font-medium">These are estimates based on industry averages. Your audit form gives us your actual numbers so we can give you a precise analysis.</p>
+                    <p className="mb-4 font-normal">These are estimates based on industry averages. Your audit form gives us your actual numbers so we can give you a precise analysis.</p>
                     <Link 
                       to="/clients"
                       className="inline-flex items-center gap-2 text-indigo-500 hover:text-indigo-600 font-bold justify-center transition-colors"
@@ -562,7 +696,7 @@ export default function Home() {
             {/* Trad model */}
             <div className="md:col-span-5 bg-slate-50 border border-slate-100 p-8 rounded-[2rem] shadow-sm">
               <h4 className="text-lg font-bold text-slate-900 font-display mb-6">Traditional Agency Model</h4>
-              <ul className="space-y-4 text-sm text-slate-600 font-medium">
+              <ul className="space-y-4 text-sm text-slate-600 font-normal">
                 <li className="flex items-start gap-3">
                   <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Invoiced on joining day</span>
@@ -590,7 +724,7 @@ export default function Home() {
             {/* Jovese model */}
             <div className="md:col-span-5 bg-indigo-50/50 border border-indigo-100 p-8 rounded-[2rem] shadow-sm">
               <h4 className="text-lg font-bold text-indigo-600 font-display mb-6">Jovese Model</h4>
-              <ul className="space-y-4 text-sm text-slate-700 font-medium">
+              <ul className="space-y-4 text-sm text-slate-700 font-normal">
                 <li className="flex items-start gap-3">
                   <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
                   <span>Invoiced on Day 30 only</span>
@@ -629,17 +763,17 @@ export default function Home() {
             
             <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 relative overflow-hidden">
               <div className="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none" />
-              <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed relative z-10">
-                For customer-facing roles, the CV is just a formality. The candidates who close deals are the ones who listen before speaking and handle rejection without collapsing. You can't screen for that in a document. <strong className="text-slate-900">We screen for it in a 45-second audio drop.</strong>
+              <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed relative z-10">
+                For any role where the first touchpoint is a conversation — a sales call, a support ticket, a campus interview — the CV is a formality. We evaluate the only thing that predicts performance in these roles: how someone speaks when the pressure is on.
               </p>
             </div>
           </div>
 
           {/* Innovative Audio Cards Grid */}
-          <div className="grid md:grid-cols-12 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             
             {/* Card 1 */}
-            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">TELECALLING CANDIDATE</span>
@@ -661,14 +795,14 @@ export default function Home() {
                     <span className="text-[10px] text-slate-400 font-bold">0:32</span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                <p className="text-sm text-slate-700 font-normal leading-relaxed">
                   "Clear diction. Handled the objection scenario without filler words. No rehearsed feel."
                 </p>
               </div>
             </div>
 
             {/* Card 2 */}
-            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">INSIDE SALES CANDIDATE</span>
@@ -690,14 +824,14 @@ export default function Home() {
                     <span className="text-[10px] text-slate-400 font-bold">0:28</span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                <p className="text-sm text-slate-700 font-normal leading-relaxed">
                   "Natural warmth. Professional tone without sounding scripted. Closed the intro with a question, not a statement."
                 </p>
               </div>
             </div>
 
             {/* Card 3 */}
-            <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">FRONT OFFICE CANDIDATE</span>
@@ -719,15 +853,44 @@ export default function Home() {
                     <span className="text-[10px] text-slate-400 font-bold">0:35</span>
                   </div>
                 </div>
-                <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                <p className="text-sm text-slate-700 font-normal leading-relaxed">
                   "Composed under a difficult scenario prompt. Structured response. Strong first impression."
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div className="mb-6 flex justify-between items-start">
+                <div>
+                  <span className="inline-block px-2.5 py-1 bg-amber-50 text-amber-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">IT HELPDESK CANDIDATE</span>
+                  <p className="text-xs text-slate-500 font-semibold">Hyderabad | Fresher, B.Tech CSE</p>
+                </div>
+                <button onClick={() => playAudio(4)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                  {playingId === 4 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
+                </button>
+              </div>
+              <div>
+                <div className="h-6 flex items-center gap-1 mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
+                  {[...Array(12)].map((_, i) => (
+                    <div key={i} className="w-1 bg-amber-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
+                  ))}
+                  <div className="flex-1 ml-2 flex items-center gap-2">
+                    <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                      <div className="bg-amber-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[4]}%` }} />
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-bold">0:29</span>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700 font-normal leading-relaxed">
+                  "Methodical approach to the support scenario. Clear articulation. Did not guess — asked a clarifying question before answering."
                 </p>
               </div>
             </div>
 
           </div>
 
-          <p className="text-center text-slate-700 font-medium">Every candidate you receive is evaluated to the same standard. No exceptions.</p>
+          <p className="text-center text-slate-700 font-normal">Every candidate you receive is evaluated to the same standard. No exceptions.</p>
         </div>
       </section>
 
@@ -876,7 +1039,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 sm:flex-none">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Requirement</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Audit approved</p>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-normal">Audit approved</p>
                   </div>
                 </div>
 
@@ -887,7 +1050,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 sm:flex-none">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Joining</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Agreement signed</p>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-normal">Agreement signed</p>
                   </div>
                 </div>
 
@@ -898,7 +1061,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 sm:flex-none">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Profiles Delivered</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You receive curated shortlists with voice notes and written assessments for each candidate.</p>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-normal">You receive curated shortlists with voice notes and written assessments for each candidate.</p>
                   </div>
                 </div>
 
@@ -909,7 +1072,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 sm:flex-none">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Candidate Confirmed</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You select your candidate. Joining is scheduled and confirmed with Jovese.</p>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-normal">You select your candidate. Joining is scheduled and confirmed with Jovese.</p>
                   </div>
                 </div>
 
@@ -920,7 +1083,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 sm:flex-none">
                     <h4 className="font-bold text-[#2563eb]/80 text-sm sm:text-xs mb-0.5">Midpoint Check</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Quality check-in</p>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-normal">Quality check-in</p>
                   </div>
                 </div>
 
@@ -944,7 +1107,7 @@ export default function Home() {
             <h3 className="font-display font-black text-2xl md:text-3xl text-slate-950 mb-4 text-center">
               The Replacement Guarantee
             </h3>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
               If a placed candidate exits for any reason before completing 30 days, excluding documented misconduct by the employer, we replace them at no additional charge. The clock resets to Day 1 with the replacement candidate.
             </p>
           </div>
@@ -953,15 +1116,15 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6 pt-8 text-left max-w-4xl mx-auto border-t border-slate-100">
             <div>
               <h4 className="font-bold text-slate-900 text-sm mb-1">Day 30 Rationale</h4>
-              <p className="text-xs text-slate-500 font-medium leading-relaxed">Most early exits occur within three weeks. Billing is synced to true retention.</p>
+              <p className="text-xs text-slate-500 font-normal leading-relaxed">Most early exits occur within three weeks. Billing is synced to true retention.</p>
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm mb-1">Employer Misconduct</h4>
-              <p className="text-xs text-slate-500 font-medium leading-relaxed">Guarantees are voided by non-payment or abuse, ensuring candidate safety.</p>
+              <p className="text-xs text-slate-500 font-normal leading-relaxed">Guarantees are voided by non-payment or abuse, ensuring candidate safety.</p>
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm mb-1">Clock Activation</h4>
-              <p className="text-xs text-slate-500 font-medium leading-relaxed">The 30-day observation window strictly begins on the exact date of joining.</p>
+              <p className="text-xs text-slate-500 font-normal leading-relaxed">The 30-day observation window strictly begins on the exact date of joining.</p>
             </div>
           </div>
 
@@ -978,11 +1141,11 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             
             {/* Testimonial 1 */}
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
-              <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed mb-6 italic">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "We had been through three placement agencies in one year. The first shortlist from Jovese had better candidates than anything we had seen in 12 months of searching. The audio screening is not a gimmick. It actually works."
               </p>
               <div>
@@ -998,7 +1161,7 @@ export default function Home() {
 
             {/* Testimonial 2 */}
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
-              <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed mb-6 italic">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "Our 30-day attrition in the BPO team was running at 52%. Four months after moving our volume hiring to Jovese it is at 23%. The audit form process also forced us to examine what was broken on our own side."
               </p>
               <div>
@@ -1014,7 +1177,7 @@ export default function Home() {
 
             {/* Testimonial 3 */}
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
-              <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed mb-6 italic">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "I was skeptical of the Day 30 payment model. I thought there would be a catch. There was not. They replaced one candidate at no charge when she left in Week 2. The replacement has been with us for 7 months."
               </p>
               <div>
@@ -1028,10 +1191,26 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Testimonial 4 */}
+            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
+              <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
+                "We needed twelve junior QA associates in under three weeks. Three agencies sent us the same recycled profiles. Jovese sent us eight pre-screened candidates with voice notes. We hired six. Five are still with us at Month 4."
+              </p>
+              <div>
+                <div className="h-px bg-slate-100 my-4" />
+                <div className="font-bold text-slate-900 text-xs uppercase tracking-wide">
+                  Engineering Head
+                </div>
+                <div className="text-[11px] text-slate-400">
+                  Mid-Tier IT Services Company, Hyderabad
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div className="text-center font-semibold text-xs text-slate-400">
-            Current partners include teams across NBFC telecalling, inside sales, hospitality operations, and BPO customer support.
+            Current partners include teams across NBFC telecalling, inside sales, hospitality operations, BPO customer support, and IT technical support.
           </div>
 
         </div>
@@ -1049,7 +1228,7 @@ export default function Home() {
               <h2 className="font-display text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
                 Ready to partner?
               </h2>
-              <p className="text-slate-400 font-medium text-sm sm:text-base">
+              <p className="text-slate-400 font-normal text-sm sm:text-base">
                 Zero upfront cost. One clear invoice on Day 30.
               </p>
             </div>
@@ -1102,7 +1281,7 @@ export default function Home() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 py-5 text-xs sm:text-sm text-slate-500 font-medium leading-relaxed border-t border-slate-100">
+                      <div className="px-6 py-5 text-xs sm:text-sm text-slate-500 font-normal leading-relaxed border-t border-slate-100">
                         {faq.a}
                       </div>
                     </motion.div>

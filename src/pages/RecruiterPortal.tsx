@@ -88,7 +88,7 @@ export default function RecruiterPortal() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
               <span className="font-display font-extrabold text-xl text-slate-900 tracking-tighter cursor-pointer" onClick={() => navigate('/')}>
-                Jovese <span className="text-slate-400 font-medium text-sm ml-2 hidden sm:inline-block">Recruiter Portal</span>
+                Jovese <span className="text-slate-400 font-normal text-sm ml-2 hidden sm:inline-block">Recruiter Portal</span>
               </span>
               
               <nav className="hidden md:flex items-center gap-1">
@@ -180,7 +180,7 @@ export default function RecruiterPortal() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-2xl font-display font-bold text-slate-900">Profiles Awaiting Review</h2>
-                <p className="text-sm text-slate-500 font-medium">Please review these candidates within 24 hours to maintain SLA.</p>
+                <p className="text-sm text-slate-500 font-normal">Please review these candidates within 24 hours to maintain SLA.</p>
               </div>
               <div className="relative relative w-full sm:w-auto">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -209,7 +209,7 @@ export default function RecruiterPortal() {
                       <tr key={i} className="hover:bg-slate-50/50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="font-bold text-sm text-slate-900">{candidate.name}</div>
-                          <div className="text-xs text-slate-500 font-medium mt-0.5">{candidate.id} • {candidate.experience}</div>
+                          <div className="text-xs text-slate-500 font-normal mt-0.5">{candidate.id} • {candidate.experience}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-semibold text-slate-700">{candidate.role}</div>
@@ -220,7 +220,7 @@ export default function RecruiterPortal() {
                             <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 font-bold text-xs flex items-center justify-center border border-emerald-100">
                               {candidate.matchScore}
                             </div>
-                            <span className="text-xs text-slate-500 font-medium">Fit</span>
+                            <span className="text-xs text-slate-500 font-normal">Fit</span>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -254,7 +254,7 @@ export default function RecruiterPortal() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-2xl font-display font-bold text-slate-900">Invoicing & Payments</h2>
-                <p className="text-sm text-slate-500 font-medium">Track your placed candidates and 30-day billing cycles.</p>
+                <p className="text-sm text-slate-500 font-normal">Track your placed candidates and 30-day billing cycles.</p>
               </div>
               <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-lg transition-colors">
                 <Receipt className="w-4 h-4" /> Download Statement
@@ -298,10 +298,10 @@ export default function RecruiterPortal() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="font-bold text-sm text-slate-900">{inv.candidate}</div>
-                          <div className="text-xs text-slate-500 font-medium mt-0.5">{inv.role}</div>
+                          <div className="text-xs text-slate-500 font-normal mt-0.5">{inv.role}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-slate-600">{inv.joinedDate}</div>
+                          <div className="text-sm font-normal text-slate-600">{inv.joinedDate}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className={`text-[10px] font-bold px-2 py-0.5 rounded inline-flex items-center gap-1 uppercase tracking-wider mb-1 ${
@@ -312,7 +312,7 @@ export default function RecruiterPortal() {
                             {inv.status.includes('Pending') ? <Clock className="w-3 h-3" /> : <CheckCircle2 className="w-3 h-3" />}
                             {inv.status}
                           </div>
-                          <div className="text-xs text-slate-500 font-medium">Due: {inv.dueDate}</div>
+                          <div className="text-xs text-slate-500 font-normal">Due: {inv.dueDate}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right">
                           <div className="font-bold text-sm text-slate-900">{inv.amount}</div>

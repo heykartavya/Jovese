@@ -22,10 +22,23 @@ export default function Manifesto() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-base sm:text-lg text-slate-500 leading-relaxed font-semibold"
+          className="text-base sm:text-lg text-slate-500 leading-relaxed font-normal mb-12"
         >
           Why traditional hiring processes produce bad outcomes for volume roles, and why we decided to build Jovese.
         </motion.p>
+        <motion.div
+           initial={{ opacity: 0, y: 15 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.2 }}
+           className="w-full h-48 md:h-80 rounded-[2.5rem] overflow-hidden relative shadow-lg mx-auto"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80" 
+            alt="Office strategy and planning" 
+            className="w-full h-full object-cover grayscale-[20%]"
+            referrerPolicy="no-referrer"
+          />
+        </motion.div>
       </section>
 
       {/* SECTION 2: CORE DOCUMENT */}
@@ -41,7 +54,7 @@ export default function Manifesto() {
               The CV and the Voice.
             </h2>
           </div>
-          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-semibold leading-relaxed space-y-4">
+          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-normal leading-relaxed space-y-4">
             <p>
               A document is a search-index of keywords compiled to tell you what a candidate wanted you to see. It is silent on whether they speak clearly, how they compose themselves under friction, or if they sound like someone your client would feel reassured listening to.
             </p>
@@ -63,7 +76,7 @@ export default function Manifesto() {
               Sourcing vs Sifting.
             </h2>
           </div>
-          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-semibold leading-relaxed space-y-4">
+          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-normal leading-relaxed space-y-4">
             <p>
               Most agencies flood your inbox with raw volumes. They believe curation is your job, and that sending 100 profiles for 3 vacancies increases their mathematical chance of a fee.
             </p>
@@ -85,12 +98,15 @@ export default function Manifesto() {
               Alignment, not transactional speed.
             </h2>
           </div>
-          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-semibold leading-relaxed space-y-4">
+          <div className="md:col-span-8 text-slate-500 text-xs sm:text-sm font-normal leading-relaxed space-y-4">
             <p>
               We reject upfront onboarding retainers and search fees. Our model operates solely on Day 30 survival. This focuses our efforts on placements that endure, rather than transactional headcount changes.
             </p>
             <p className="text-slate-900 font-bold">
               True alignment is when our outcome mirrors yours.
+            </p>
+            <p className="border-t border-slate-100 pt-4 mt-2">
+              This is not a problem exclusive to BPO floors and call centres. Mid-tier IT companies face the same failure: agencies send CVs, candidates join, candidates leave, agencies invoice again. The incentive structure is identical and equally broken. Jovese works the same way regardless of the sector. We only get paid when the hire stays.
             </p>
           </div>
         </div>
@@ -108,7 +124,7 @@ export default function Manifesto() {
           <h2 className="font-display text-3xl font-black mb-6">
             About Jovese.
           </h2>
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-semibold">
+          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
             Founded in Hyderabad, Jovese was built to solve the frontline attrition crisis in India's volume hiring sector. Our team combines experiences across scale operations, HR technology, and telecalling management. We believe that by screening candidates for actual, measurable job delivery parameters instead of obsolete academic qualifications or generic resumes, we create high-retention teams for our corporate partners while respecting the dignity and time of candidate voices.
           </p>
         </div>

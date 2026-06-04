@@ -20,11 +20,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   const isDashboard = location.pathname.includes('/recruiter') || location.pathname.includes('/talent/dashboard');
   
   if (isDashboard) {
-    return <div className="font-sans text-slate-900 bg-[#f8f9fa] min-h-screen selection:bg-blue-500/30">{children}</div>;
+    return <div className="font-sans antialiased text-slate-900 bg-[#f8f9fa] min-h-screen selection:bg-blue-500/30">{children}</div>;
   }
 
   return (
-    <div className="font-sans text-slate-900 bg-[#f8f9fa] min-h-screen flex flex-col selection:bg-blue-500/30">
+    <div className="font-sans antialiased text-slate-900 bg-[#f8f9fa] min-h-screen flex flex-col selection:bg-blue-500/30">
       <Navbar />
       <main className="flex-grow pt-24">
         {children}

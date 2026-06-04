@@ -127,7 +127,7 @@ export default function TalentPortal() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-50">
-                    <div className="flex items-center gap-4 text-sm font-medium text-slate-600">
+                    <div className="flex items-center gap-4 text-sm font-normal text-slate-600">
                       <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-slate-400" /> {interview.date}</span>
                       <span className="flex items-center gap-1.5"><Briefcase className="w-4 h-4 text-slate-400" /> {interview.type}</span>
                     </div>
@@ -216,7 +216,7 @@ export default function TalentPortal() {
 
             <div className="bg-blue-50/50 rounded-2xl border border-blue-100 p-5">
               <h3 className="font-bold text-sm text-slate-900 mb-2">Need help?</h3>
-              <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+              <p className="text-xs text-slate-600 font-normal leading-relaxed mb-4">
                 If you have questions about your scheduled interviews or need to reschedule, please contact your Jovese talent guide.
               </p>
               <a href="https://wa.me/919999999999" className="inline-flex items-center justify-center w-full px-4 py-2 bg-white border border-[#2563eb]/20 text-[#2563eb] font-bold text-xs rounded-lg hover:bg-blue-50 transition-colors">

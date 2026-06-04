@@ -97,7 +97,7 @@ export default function Talent() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-base sm:text-lg text-slate-500 mb-8 leading-relaxed font-semibold"
+          className="text-base sm:text-lg text-slate-500 mb-8 leading-relaxed font-normal"
         >
           Most job applications go into a system that a recruiter opens when they have time. Your voice note goes directly into an active screening queue. If you communicate clearly, you get matched to a company within 24 to 72 hours.
         </motion.p>
@@ -142,7 +142,7 @@ export default function Talent() {
                 <h3 className="font-bold text-slate-950 font-display text-base mb-3 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-semibold">
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-normal">
                   {step.desc}
                 </p>
               </div>
@@ -174,7 +174,7 @@ export default function Talent() {
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
                     What it means:
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-800 font-normal leading-relaxed">
                     {item.means}
                   </p>
                 </div>
@@ -183,7 +183,7 @@ export default function Talent() {
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
                     What it does NOT mean:
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-400 font-medium leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed">
                     {item.notMeans}
                   </p>
                 </div>
@@ -223,7 +223,7 @@ export default function Talent() {
             ))}
           </div>
           
-          <p className="text-center text-xs text-slate-400 font-medium mt-6">
+          <p className="text-center text-xs text-slate-400 font-normal mt-6">
             Roles available across Hyderabad, Gurgaon, Delhi NCR, Bangalore, Mumbai, and Chennai. New cities added as client volume grows.
           </p>
         </div>
@@ -235,7 +235,7 @@ export default function Talent() {
             <h4 className="font-bold text-red-950 font-display text-sm uppercase tracking-wide mb-1">
               Safety Warning: Jovese is 100% Free
             </h4>
-            <p className="text-red-800 text-xs sm:text-sm font-medium leading-relaxed">
+            <p className="text-red-800 text-xs sm:text-sm font-normal leading-relaxed">
               Jovese does not charge candidates any fee at any stage. Application is free. Placement is free. If anyone asks you for money claiming to be from Jovese, that is a scam.
             </p>
           </div>

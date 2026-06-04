@@ -155,10 +155,34 @@ export default function Clients() {
     setActiveStep(prev => Math.max(prev - 1, 1));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid()) {
-      navigate('/clients/submitted');
+      setIsSubmitting(true);
+      try {
+        const response = await fetch('/api/partnership-submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        
+        if (response.ok) {
+          navigate('/clients/submitted');
+        } else {
+          console.error("Submission failed.");
+          // In a real app we might show an error state
+          navigate('/clients/submitted'); // still navigate for user experience
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        navigate('/clients/submitted');
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
       // Mark all fields touched
       const allFields = Object.keys(formData);
@@ -237,9 +261,9 @@ export default function Clients() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-base sm:text-lg text-slate-500 mb-8 leading-relaxed font-medium"
+          className="text-base sm:text-lg text-slate-500 mb-8 leading-relaxed font-normal"
         >
-          Jovese is selective on the client side for a deliberate reason. High attrition is often a sourcing failure. But sometimes it is an employer problem: below-market salaries, zero training, or a floor culture that kills morale in Week 2. We do not place candidates into broken environments. If your brief shows us those red flags, we will tell you directly before we start.
+          We only partner with companies that offer market-rate salaries, have a real onboarding process, and are serious about reducing attrition. That applies whether you are hiring telecallers or junior developers.
         </motion.p>
         <motion.div
           initial={{ opacity: 0 }}
@@ -250,16 +274,35 @@ export default function Clients() {
             onClick={() => {
               document.getElementById('audit-form-section')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-full transition-all text-base"
+            className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-full transition-all text-base mb-12"
           >
             Start Your Audit
           </button>
         </motion.div>
+        
+        <motion.div
+           initial={{ opacity: 0, y: 15 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.3 }}
+           className="w-full h-64 md:h-[400px] rounded-[3rem] overflow-hidden relative shadow-md mt-4"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80" 
+            alt="Corporate professionals working together" 
+            className="w-full h-full object-cover grayscale-[10%]"
+            referrerPolicy="no-referrer"
+          />
+        </motion.div>
       </section>
 
       {/* SECTION 2: THE SCOPE */}
-      <section className="py-16 border-t border-slate-100">
-        <div className="text-center mb-12">
+      <section className="py-16 border-t border-slate-100 relative">
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8">
+          <p className="bg-indigo-50 text-indigo-700 text-xs font-bold px-4 py-2 rounded-full shadow-sm">
+            Planning a campus drive? <a href="#audit-form-section" className="underline hover:text-indigo-900 ml-1">Mention it in your audit — we handle the full process.</a>
+          </p>
+        </div>
+        <div className="text-center mb-12 mt-12 sm:mt-0">
           <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase block mb-3">
             WHAT WE COVER
           </span>
@@ -295,7 +338,7 @@ export default function Clients() {
           ))}
         </div>
 
-        <p className="text-xs text-center text-slate-400 font-medium mt-8">
+        <p className="text-xs text-center text-slate-400 font-normal mt-8">
           Do not see your role above? Describe it in the audit form. If we can screen for it using our audio model, we will tell you.
         </p>
       </section>
@@ -312,7 +355,7 @@ export default function Clients() {
             <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-6 leading-tight">
               What we require from you.
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-semibold">
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
               We review every audit form and reject a portion of applicants. Not to be difficult. Because certain employer conditions predict early attrition regardless of how well we screen.
             </p>
           </div>
@@ -322,19 +365,19 @@ export default function Clients() {
             <ul className="space-y-4">
               <li className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                <span className="text-slate-300 font-medium">Market-rate compensation. We benchmark your CTC before accepting the brief.</span>
+                <span className="text-slate-300 font-normal">Market-rate compensation. We benchmark your CTC before accepting the brief.</span>
               </li>
               <li className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                <span className="text-slate-300 font-medium">A documented onboarding process. It does not need to be elaborate. It needs to exist.</span>
+                <span className="text-slate-300 font-normal">A documented onboarding process. It does not need to be elaborate. It needs to exist.</span>
               </li>
               <li className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                <span className="text-slate-300 font-medium">A single point of contact who responds within 4 hours. Not a shared inbox.</span>
+                <span className="text-slate-300 font-normal">A single point of contact who responds within 4 hours. Not a shared inbox.</span>
               </li>
               <li className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                <span className="text-slate-300 font-medium">Full commitment to the 30-day model. No billing disputes in the first 30 days.</span>
+                <span className="text-slate-300 font-normal">Full commitment to the 30-day model. No billing disputes in the first 30 days.</span>
               </li>
             </ul>
           </div>
@@ -352,7 +395,7 @@ export default function Clients() {
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-950 mb-2">
             Tell us where you are bleeding.
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-semibold max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-slate-500 font-normal max-w-md mx-auto">
             We will tell you if we can fix it. Fill in the parameters accurately to request a partnership review.
           </p>
         </div>
@@ -395,7 +438,7 @@ export default function Clients() {
                   }`}
                 />
                 {touched.companyName && errors.companyName && (
-                  <span className="text-[10px] sm:text-xs text-red-500 font-medium block mt-1">{errors.companyName}</span>
+                  <span className="text-[10px] sm:text-xs text-red-500 font-normal block mt-1">{errors.companyName}</span>
                 )}
               </div>
 
@@ -417,7 +460,7 @@ export default function Clients() {
                     }`}
                   />
                   {touched.yourName && errors.yourName && (
-                    <span className="text-[10px] sm:text-xs text-red-500 font-medium block mt-1">{errors.yourName}</span>
+                    <span className="text-[10px] sm:text-xs text-red-500 font-normal block mt-1">{errors.yourName}</span>
                   )}
                 </div>
 
@@ -436,7 +479,7 @@ export default function Clients() {
                     }`}
                   />
                   {touched.designation && errors.designation && (
-                    <span className="text-[10px] sm:text-xs text-red-500 font-medium block mt-1">{errors.designation}</span>
+                    <span className="text-[10px] sm:text-xs text-red-500 font-normal block mt-1">{errors.designation}</span>
                   )}
                 </div>
 
@@ -536,35 +579,69 @@ export default function Clients() {
               {isMobile && <h3 className="text-sm font-bold text-slate-900 border-b pb-2 uppercase tracking-wide">Hiring Requirements</h3>}
 
               {/* Field 8 - Multi-select */}
-              <div className="space-y-3">
-                <label className="text-xs font-bold text-slate-700 block mb-1">Roles you are currently hiring for</label>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {[
-                    "Telecalling and Telesales",
-                    "Inside Sales",
-                    "BPO and Customer Support",
-                    "Front Office and Admin",
-                    "Hotel and Hospitality",
-                    "Entry Level IT Support"
-                  ].map((role) => {
-                    const isChecked = formData.selectedRoles.includes(role);
-                    return (
-                      <button
-                        key={role}
-                        type="button"
-                        onClick={() => toggleRole(role)}
-                        className={`text-left px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between ${
-                          isChecked 
-                            ? 'bg-[#2563eb]/10 border-[#2563eb] text-slate-900 ring-1 ring-[#2563eb]' 
-                            : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100/50'
-                        }`}
-                      >
-                        <span>{role}</span>
-                        {isChecked && <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />}
-                      </button>
-                    );
-                  })}
+              <div className="space-y-4">
+                <label className="text-xs font-bold text-slate-700 block mb-2">Roles you are currently hiring for</label>
+                
+                <div>
+                  <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-2 block">FRONTLINE AND VOICE</span>
+                  <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                    {[
+                      "Telecalling (Outbound & Inbound)",
+                      "Inside Sales & BDE",
+                      "BPO & Customer Support",
+                      "Front Office & Reception",
+                      "Hotel & Hospitality Operations"
+                    ].map((role) => {
+                      const isChecked = formData.selectedRoles.includes(role);
+                      return (
+                        <button
+                          key={role}
+                          type="button"
+                          onClick={() => toggleRole(role)}
+                          className={`text-left px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between ${
+                            isChecked 
+                              ? 'bg-[#2563eb]/10 border-[#2563eb] text-slate-900 ring-1 ring-[#2563eb]' 
+                              : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100/50'
+                          }`}
+                        >
+                          <span>{role}</span>
+                          {isChecked && <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
+
+                <div>
+                  <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-2 block">IT AND TECHNICAL</span>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {[
+                      "IT Helpdesk & Technical Support (L1/L2)",
+                      "Pre-Sales & Sales Engineering",
+                      "QA & Testing Associates",
+                      "Customer Success (SaaS & Product)",
+                      "Junior IT & Campus Hires"
+                    ].map((role) => {
+                      const isChecked = formData.selectedRoles.includes(role);
+                      return (
+                        <button
+                          key={role}
+                          type="button"
+                          onClick={() => toggleRole(role)}
+                          className={`text-left px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all flex items-center justify-between ${
+                            isChecked 
+                              ? 'bg-[#2563eb]/10 border-[#2563eb] text-slate-900 ring-1 ring-[#2563eb]' 
+                              : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100/50'
+                          }`}
+                        >
+                          <span>{role}</span>
+                          {isChecked && <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {touched.selectedRoles && errors.selectedRoles && (
                   <span className="text-[10px] sm:text-xs text-red-500 font-semibold block mt-1">{errors.selectedRoles}</span>
                 )}
@@ -717,18 +794,20 @@ export default function Clients() {
                 ) : (
                   <button
                     type="submit"
-                    className="px-6 py-3.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-[0_4px_14px_rgba(255,90,54,0.3)]"
+                    disabled={isSubmitting}
+                    className="px-6 py-3.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-[0_4px_14px_rgba(255,90,54,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Submit Audit
+                    {isSubmitting ? "Submitting..." : "Submit Audit"}
                   </button>
                 )}
               </>
             ) : (
               <button
                 type="submit"
-                className="w-full relative overflow-hidden py-4 bg-slate-900 border border-slate-800 text-white font-bold text-sm sm:text-base rounded-2xl transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-0.5 group"
+                disabled={isSubmitting}
+                className="w-full relative overflow-hidden py-4 bg-slate-900 border border-slate-800 text-white font-bold text-sm sm:text-base rounded-2xl transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-0.5 group disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
-                <span className="relative z-10">Submit Audit and Request Partnership Review</span>
+                <span className="relative z-10">{isSubmitting ? "Submitting..." : "Submit Audit and Request Partnership Review"}</span>
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               </button>
             )}

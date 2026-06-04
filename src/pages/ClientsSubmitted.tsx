@@ -137,7 +137,7 @@ export default function ClientsSubmitted() {
       >
         <Link 
           to="/about" 
-          className="inline-flex items-center gap-2 text-slate-700 hover:text-[#2563eb] font-medium transition-all group"
+          className="inline-flex items-center gap-2 text-slate-700 hover:text-[#2563eb] font-normal transition-all group"
         >
           While you wait, read why we built Jovese
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
