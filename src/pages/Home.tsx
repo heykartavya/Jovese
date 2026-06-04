@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Play, 
@@ -83,6 +84,17 @@ export default function Home() {
 
     audio.play().catch(err => console.log('Audio playback error:', err));
     setPlayingId(id);
+
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      const roles: any = {
+        1: 'TELECALLING CANDIDATE',
+        2: 'INSIDE SALES CANDIDATE',
+        3: 'FRONT OFFICE CANDIDATE'
+      };
+      (window as any).gtag('event', 'audio_played', { 
+        candidate_type: roles[id] 
+      });
+    }
   };
 
   // Clean up audios on unmount
@@ -138,6 +150,13 @@ export default function Home() {
       annualSaving
     });
     setIsCalculated(true);
+
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculator_used', {
+        attrition_rate: attritionRate,
+        roles_per_quarter: hiresVal
+      });
+    }
   };
 
   // FAQ Accordion State
@@ -184,6 +203,12 @@ export default function Home() {
 
   // Helper for Indian formatting
   const formatINRValue = (val: number) => {
+    if (val >= 10000000) {
+      return '₹' + (val / 10000000).toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Crores';
+    }
+    if (val >= 100000) {
+      return '₹' + (val / 100000).toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Lakhs';
+    }
     return '₹' + Math.round(val).toLocaleString('en-IN');
   };
 
@@ -195,6 +220,19 @@ export default function Home() {
 
   return (
     <div className="pb-24">
+      <Helmet>
+        <title>Jovese | Retention-Focused Volume Hiring for Sales, BPO & Frontline Teams</title>
+        <meta name="description" content="Jovese screens and places frontline talent for telecalling, inside sales, BPO, front office, and hospitality roles. You pay nothing until Day 30. Serving Gurugram and Hyderabad." />
+        <meta property="og:title" content="Jovese | Stop Replacing Your Sales Team Every 90 Days" />
+        <meta property="og:description" content="Precision volume hiring with a 30-day payment guarantee. We only invoice when your hire survives." />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:url" content="https://jovese.com" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Jovese | Retention-Focused Volume Hiring" />
+        <meta name="twitter:description" content="You pay nothing until Day 30. Precision screening for telecalling, BPO, sales, and hospitality roles." />
+        <meta name="twitter:image" content="/og-image.jpg" />
+      </Helmet>
       
       {/* SECTION 1: HERO */}
       <section className="relative overflow-hidden pt-12 pb-20 md:pb-32 bg-gradient-to-b from-slate-50/50 to-white">
@@ -215,6 +253,11 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
               <Link
                 to="/clients"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'hero_cta_clicked');
+                  }
+                }}
                 className="relative overflow-hidden px-8 py-4 rounded-full bg-slate-900 text-white font-semibold text-center transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-0.5 group text-sm md:text-base border border-slate-800"
               >
                 <span className="relative z-10">Apply for Client Partnership</span>
@@ -327,58 +370,23 @@ export default function Home() {
 
       {/* SECTION 2: WAITLIST MECHANIC */}
       <section className="py-20 bg-white">
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            
-            <div className="md:col-span-7">
-              <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
-                Partnership spots are deliberately limited.
-              </h2>
-              <p className="text-slate-500 text-sm md:text-base leading-relaxed font-medium mb-6">
-                We do not onboard clients faster than we can staff them well. When we accept a new partner, we commit screening capacity to their specific roles. If we stretched that across 80 clients, we would become the thing we set out to replace.
-              </p>
-              <p className="text-slate-500 text-sm leading-relaxed font-medium mb-6">
-                Right now we manage a controlled number of active partnerships. When capacity opens, we reach into the waitlist in order of submission.
-              </p>
-              <p className="text-sm font-semibold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100 inline-block mb-6">
-                New applications are reviewed every Monday. If your requirements match current capacity, you will hear from us within 48 hours of the review.
-              </p>
-              <div>
-                <Link 
-                  to="/clients" 
-                  className="inline-flex items-center gap-2 font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors"
-                >
-                  Submit your audit to join the queue <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="md:col-span-5 grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
-              
-              {/* Stat card left */}
-              <div className="bg-gradient-to-b from-white to-slate-50 rounded-[2rem] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300">
-                <div>
-                  <div className="text-5xl sm:text-6xl font-display font-black text-slate-900 mb-3 tracking-tight">
-                    <CountUp end={23} />
-                  </div>
-                  <div className="font-bold text-slate-800 text-base mb-1">Active Corporate Partners</div>
-                  <div className="text-xs text-slate-400 font-medium">Across Hyderabad and Gurgaon</div>
-                </div>
-              </div>
-
-              {/* Stat card right */}
-              <div className="bg-gradient-to-b from-white to-slate-50 rounded-[2rem] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300">
-                <div>
-                  <div className="text-5xl sm:text-6xl font-display font-black text-[#2563eb] mb-3 tracking-tight">
-                    <CountUp end={8} />
-                  </div>
-                  <div className="font-bold text-slate-800 text-base mb-1">Applications Under Review</div>
-                  <div className="text-xs text-slate-400 font-medium">Next review window: Monday</div>
-                </div>
-              </div>
-
-            </div>
-
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+            Partnership spots are deliberately limited.
+          </h2>
+          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium mb-8 max-w-2xl mx-auto">
+            We cap active client partnerships to maintain strict candidate quality. Onboarding too many clients at once means diluted screening and broken promises. We do not do that.
+          </p>
+          <div className="bg-slate-50 text-slate-700 text-sm font-semibold py-3 px-6 rounded-xl border border-slate-200 inline-block mb-8">
+            Applications are reviewed every Monday. New spots open when existing partner capacity stabilises.
+          </div>
+          <div>
+            <Link 
+              to="/clients" 
+              className="inline-flex items-center gap-2 font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors text-lg"
+            >
+              Submit your audit to get in the queue <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -648,8 +656,8 @@ export default function Home() {
             <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
-                  <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Telecalling</span>
-                  <p className="text-xs text-slate-500 font-semibold">1.2 Yrs • Hyderabad</p>
+                  <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">TELECALLING CANDIDATE</span>
+                  <p className="text-xs text-slate-500 font-semibold">Hyderabad | 1 year 2 months experience</p>
                 </div>
                 <button onClick={() => playAudio(1)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 1 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
@@ -660,14 +668,15 @@ export default function Home() {
                   {[...Array(12)].map((_, i) => (
                     <div key={i} className="w-1 bg-indigo-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
                   ))}
-                  <div className="flex-1 ml-2">
+                  <div className="flex-1 ml-2 flex items-center gap-2">
                     <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
                       <div className="bg-indigo-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[1]}%` }} />
                     </div>
+                    <span className="text-[10px] text-slate-400 font-bold">0:32</span>
                   </div>
                 </div>
                 <p className="text-sm text-slate-700 font-medium leading-relaxed">
-                  "Clear diction. Handled the objection without filler words. No rehearsed feel."
+                  "Clear diction. Handled the objection scenario without filler words. No rehearsed feel."
                 </p>
               </div>
             </div>
@@ -676,8 +685,8 @@ export default function Home() {
             <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
-                  <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Inside Sales</span>
-                  <p className="text-xs text-slate-500 font-semibold">2.0 Yrs • Gurgaon</p>
+                  <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">INSIDE SALES CANDIDATE</span>
+                  <p className="text-xs text-slate-500 font-semibold">Gurgaon | 2 years experience</p>
                 </div>
                 <button onClick={() => playAudio(2)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 2 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
@@ -688,14 +697,15 @@ export default function Home() {
                   {[...Array(12)].map((_, i) => (
                     <div key={i} className="w-1 bg-blue-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
                   ))}
-                  <div className="flex-1 ml-2">
+                  <div className="flex-1 ml-2 flex items-center gap-2">
                     <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
                       <div className="bg-blue-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[2]}%` }} />
                     </div>
+                    <span className="text-[10px] text-slate-400 font-bold">0:28</span>
                   </div>
                 </div>
                 <p className="text-sm text-slate-700 font-medium leading-relaxed">
-                  "Natural warmth. Closed the intro with a question, not a statement."
+                  "Natural warmth. Professional tone without sounding scripted. Closed the intro with a question, not a statement."
                 </p>
               </div>
             </div>
@@ -704,8 +714,8 @@ export default function Home() {
             <div className="md:col-span-4 bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
-                  <span className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">Front Office</span>
-                  <p className="text-xs text-slate-500 font-semibold">Fresher • Hyderabad</p>
+                  <span className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">FRONT OFFICE CANDIDATE</span>
+                  <p className="text-xs text-slate-500 font-semibold">Hyderabad | Fresher</p>
                 </div>
                 <button onClick={() => playAudio(3)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 3 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
@@ -716,30 +726,22 @@ export default function Home() {
                   {[...Array(12)].map((_, i) => (
                     <div key={i} className="w-1 bg-emerald-200 rounded-full animate-pulse" style={{ height: `${Math.max(20, Math.random() * 100)}%`, animationDelay: `${i * 0.1}s` }} />
                   ))}
-                  <div className="flex-1 ml-2">
+                  <div className="flex-1 ml-2 flex items-center gap-2">
                     <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
                       <div className="bg-emerald-500 h-full rounded-full transition-all duration-300" style={{ width: `${progress[3]}%` }} />
                     </div>
+                    <span className="text-[10px] text-slate-400 font-bold">0:35</span>
                   </div>
                 </div>
                 <p className="text-sm text-slate-700 font-medium leading-relaxed">
-                  "Composed under difficult scenario prompt. Strong first impression."
+                  "Composed under a difficult scenario prompt. Structured response. Strong first impression."
                 </p>
               </div>
             </div>
 
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between bg-white border border-slate-200/60 p-4 sm:p-6 rounded-[2rem] max-w-3xl mx-auto shadow-sm">
-            <p className="text-sm text-slate-600 font-semibold mb-4 sm:mb-0">Every forwarded candidate meets this standard.</p>
-            <Link
-              to="/clients"
-              className="relative overflow-hidden px-6 py-2.5 rounded-full bg-slate-900 text-white font-semibold transition-all shadow-md hover:-translate-y-0.5 group text-sm"
-            >
-              <span className="relative z-10">Select Your Candidates</span>
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-            </Link>
-          </div>
+          <p className="text-center text-slate-700 font-medium">Every candidate you receive is evaluated to the same standard. No exceptions.</p>
         </div>
       </section>
 
@@ -879,81 +881,70 @@ export default function Home() {
                 <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-slate-300 via-[#2563eb] to-emerald-500 h-0 group-hover:h-full transition-all duration-[1500ms] ease-out rounded-full" />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-7 gap-y-6 sm:gap-y-0 sm:gap-x-2 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-6 gap-y-6 sm:gap-y-0 sm:gap-x-2 relative z-10">
                 
                 {/* Node 1 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
                   <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
-                    Day 0
+                    D0
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Brief Received</h4>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Requirement</h4>
                     <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Audit approved</p>
                   </div>
                 </div>
 
                 {/* Node 2 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
-                    D1-3
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:bg-[#2563eb] group-hover/node:text-white group-hover/node:border-[#2563eb]">
+                    D1
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Profiles Sent</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">With voice notes</p>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Joining</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Agreement signed</p>
                   </div>
                 </div>
 
                 {/* Node 3 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
                   <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
-                    D3-5
+                    D3
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Selection</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You confirm hire</p>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Profiles Delivered</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You receive curated shortlists with voice notes and written assessments for each candidate.</p>
                   </div>
                 </div>
 
                 {/* Node 4 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
                   <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-slate-200 text-slate-500 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-slate-400 group-hover/node:text-slate-800">
-                    D6-7
+                    D7
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Onboarding</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Joining ready</p>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-xs mb-0.5">Candidate Confirmed</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">You select your candidate. Joining is scheduled and confirmed with Jovese.</p>
                   </div>
                 </div>
 
                 {/* Node 5 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#2563eb] text-[#2563eb] font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:bg-[#2563eb] group-hover/node:text-white">
-                    Day 8
+                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#2563eb]/50 text-[#2563eb]/80 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-[#2563eb] group-hover/node:text-[#2563eb]">
+                    D15
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-[#2563eb] text-sm sm:text-xs mb-0.5">Day One</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">30-day clock starts</p>
+                    <h4 className="font-bold text-[#2563eb]/80 text-sm sm:text-xs mb-0.5">Midpoint Check</h4>
+                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Quality check-in</p>
                   </div>
                 </div>
 
                 {/* Node 6 */}
                 <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-11 sm:h-11 bg-white border-2 border-[#2563eb]/50 text-[#2563eb]/80 font-bold text-[10px] sm:text-xs rounded-full flex items-center justify-center sm:mb-4 shadow-sm z-10 transition-all group-hover/node:border-[#2563eb] group-hover/node:text-[#2563eb]">
-                    Day 15
-                  </div>
-                  <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-[#2563eb]/80 text-sm sm:text-xs mb-0.5">Midpoint</h4>
-                    <p className="text-xs sm:text-[10px] text-slate-500 leading-tight font-medium">Quality check-in</p>
-                  </div>
-                </div>
-
-                {/* Node 7 */}
-                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500 text-white font-bold text-sm sm:text-base rounded-full flex items-center justify-center sm:mb-2.5 shadow-md shadow-emerald-500/20 z-10 transition-transform group-hover/node:scale-110">
                     D30
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-emerald-600 text-sm sm:text-xs mb-0.5">Invoice Day</h4>
+                    <h4 className="font-bold text-emerald-600 text-sm sm:text-xs mb-0.5">Invoicing</h4>
                     <p className="text-xs sm:text-[10px] text-emerald-600/80 leading-tight font-semibold">We finally invoice</p>
                   </div>
                 </div>
@@ -1006,7 +997,7 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed mb-6 italic">
-                "We had been through three agencies in one year. The first shortlist from Jovese had better candidates than anything we had seen in 12 months of searching. The audio screening is not a gimmick. It actually works."
+                "We had been through three placement agencies in one year. The first shortlist from Jovese had better candidates than anything we had seen in 12 months of searching. The audio screening is not a gimmick. It actually works."
               </p>
               <div>
                 <div className="h-px bg-slate-100 my-4" />
@@ -1022,7 +1013,7 @@ export default function Home() {
             {/* Testimonial 2 */}
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed mb-6 italic">
-                "Our 90-day attrition in the BPO team was running at 52%. Four months after moving our volume hiring to Jovese it is at 28%. The audit form process also forced us to examine what was broken on our own side."
+                "Our 30-day attrition in the BPO team was running at 52%. Four months after moving our volume hiring to Jovese it is at 23%. The audit form process also forced us to examine what was broken on our own side."
               </p>
               <div>
                 <div className="h-px bg-slate-100 my-4" />
@@ -1030,7 +1021,7 @@ export default function Home() {
                   HR Manager
                 </div>
                 <div className="text-[11px] text-slate-400">
-                  Customer Support Operations, Bangalore
+                  Customer Support Operations, Delhi NCR
                 </div>
               </div>
             </div>

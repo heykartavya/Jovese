@@ -300,61 +300,43 @@ export default function Clients() {
         </p>
       </section>
 
-      {/* SECTION 3: WHAT WE REQUIRE FROM YOU */}
+      {/* SECTION 3: THE CRITERIA */}
       <section className="py-20 bg-slate-900 text-white rounded-[3.5rem] p-8 sm:p-16 mb-20 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-[100px]" />
         
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-xs font-bold text-blue-400 tracking-widest uppercase block mb-3">
-              THE STANDARD
+              THE CRITERIA
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-6 leading-tight">
-              This is a two-way evaluation.
+              What we require from you.
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-semibold">
-              We review every audit form and reject a portion of applicants. Not to be difficult. Because certain employer conditions predict early attrition regardless of how well we screen. We do not want to place qualified candidates into situations where they will leave in 3 weeks.
+              We review every audit form and reject a portion of applicants. Not to be difficult. Because certain employer conditions predict early attrition regardless of how well we screen.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-8">
-            
-            {/* requirement 1 */}
-            <div className="space-y-3">
-              <div className="text-4xl font-black text-slate-700 font-display">01</div>
-              <h4 className="font-bold text-white text-base">Market-rate compensation.</h4>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
-                We benchmark your CTC against current market data for the role, city, and experience level. Salaries below the 40th percentile disqualify an application. If your offer is below market, fix that first. Qualified candidates have options.
-              </p>
-            </div>
-
-            {/* requirement 2 */}
-            <div className="space-y-3">
-              <div className="text-4xl font-black text-slate-700 font-display">02</div>
-              <h4 className="font-bold text-white text-base">A documented onboarding process.</h4>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
-                It does not need to be elaborate. It needs to exist. At minimum: a defined first-week schedule, a clear reporting structure, and a training module for the role. Candidates placed into zero-structure environments exit in Week 2 regardless of their quality.
-              </p>
-            </div>
-
-            {/* requirement 3 */}
-            <div className="space-y-3">
-              <div className="text-4xl font-black text-slate-700 font-display">03</div>
-              <h4 className="font-bold text-white text-base">A single responsive point of contact.</h4>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
-                Deployment coordination requires someone who can reply to joining-related questions within 4 hours. Not a shared inbox. One person with authority to confirm.
-              </p>
-            </div>
-
-            {/* requirement 4 */}
-            <div className="space-y-3">
-              <div className="text-4xl font-black text-slate-700 font-display">04</div>
-              <h4 className="font-bold text-white text-base">Commitment to the 30-day model.</h4>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
-                This is not negotiable. The guarantee only works when both sides respect the structure. You cannot raise a billing dispute in the first 30 days.
-              </p>
-            </div>
-
+          <div className="bg-slate-800 rounded-[2rem] p-8 border border-slate-700 shadow-xl space-y-6">
+            <h3 className="text-2xl font-display font-bold text-white mb-6">The Criteria</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-slate-300 font-medium">Market-rate compensation. We benchmark your CTC before accepting the brief.</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-slate-300 font-medium">A documented onboarding process. It does not need to be elaborate. It needs to exist.</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-slate-300 font-medium">A single point of contact who responds within 4 hours. Not a shared inbox.</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-slate-300 font-medium">Full commitment to the 30-day model. No billing disputes in the first 30 days.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

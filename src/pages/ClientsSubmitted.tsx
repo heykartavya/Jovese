@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, ArrowRight, Play, FileText, CalendarCheck, FileCheck, DollarSign } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Play, FileText, CalendarCheck, FileCheck, DollarSign, Copy, Check } from 'lucide-react';
 
 export default function ClientsSubmitted() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('https://jovese.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const steps = [
     {
       num: "Step 1",
@@ -83,6 +91,40 @@ export default function ClientsSubmitted() {
               </p>
             </div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* Share Prompt */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="bg-indigo-50 border border-indigo-100 rounded-[2rem] p-8 md:p-10 mb-12 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative"
+      >
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/40 blur-[80px] pointer-events-none rounded-full" />
+        <div className="relative z-10 text-center md:text-left">
+          <h3 className="text-xl font-bold text-slate-900 mb-2">Know someone else bleeding revenue?</h3>
+          <p className="text-slate-600 text-sm">
+            If a peer at another firm is struggling with volume hiring attrition, share Jovese with them.
+          </p>
+        </div>
+        <div className="relative z-10 flex w-full md:w-auto">
+          <button 
+            onClick={handleCopy}
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-700 font-semibold px-6 py-3.5 rounded-xl shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95"
+          >
+            {copied ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-500" />
+                <span className="text-emerald-600">Link Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4" />
+                Copy Website Link
+              </>
+            )}
+          </button>
         </div>
       </motion.div>
 

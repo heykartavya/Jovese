@@ -11,6 +11,10 @@ import Login from './pages/Login';
 import RecruiterPortal from './pages/RecruiterPortal';
 import TalentPortal from './pages/TalentPortal';
 
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import NotFound from './pages/NotFound';
+
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isDashboard = location.pathname.includes('/recruiter') || location.pathname.includes('/talent/dashboard');
@@ -44,6 +48,9 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/recruiter/dashboard" element={<RecruiterPortal />} />
           <Route path="/talent/dashboard" element={<TalentPortal />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </Router>

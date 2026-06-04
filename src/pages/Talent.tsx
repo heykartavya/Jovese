@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   MessageSquare, 
@@ -14,6 +14,18 @@ import {
 } from 'lucide-react';
 
 export default function Talent() {
+  const [activeRoles, setActiveRoles] = useState(944);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const isBusinessHours = new Date().getHours() >= 9 && new Date().getHours() <= 18;
+      if (isBusinessHours && Math.random() > 0.5) {
+        setActiveRoles(prev => prev + Math.floor(Math.random() * 3));
+      }
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   const steps = [
     {
       num: "01",
@@ -65,9 +77,15 @@ export default function Talent() {
       {/* SECTION 1: HERO */}
       <section className="relative overflow-hidden pt-12 pb-16 md:pb-24 text-center max-w-4xl mx-auto">
         <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-indigo-50/40 to-transparent pointer-events-none" />
-        <span className="inline-block px-3 py-1 bg-white border border-indigo-100 text-xs font-bold text-indigo-500 tracking-[0.2em] rounded-full shadow-sm uppercase mb-6 relative z-10">
-          For Job Seekers
-        </span>
+        <div className="flex items-center justify-center gap-3 mb-6 relative z-10">
+          <span className="inline-block px-3 py-1 bg-white border border-indigo-100 text-xs font-bold text-indigo-500 tracking-[0.2em] rounded-full shadow-sm uppercase">
+            For Job Seekers
+          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full font-bold text-xs text-emerald-600 shadow-sm animate-fade-in">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            {activeRoles} Active Roles
+          </div>
+        </div>
         <motion.h1 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -232,7 +250,7 @@ export default function Talent() {
         <div className="grid md:grid-cols-12 gap-8 items-center relative z-10">
           
           {/* QR Code Graphic Mockup */}
-          <div className="md:col-span-4 flex justify-center">
+          <div className="hidden md:flex md:col-span-4 justify-center">
             <div className="bg-white p-4 rounded-3xl shadow-lg border-4 border-slate-700/60 inline-block">
               <svg 
                 className="w-48 h-48 sm:w-56 sm:h-56 text-slate-900" 
@@ -312,6 +330,20 @@ export default function Talent() {
 
         </div>
       </section>
+
+      {/* FLOATING ACTION BUTTON (MOBILE ONLY) */}
+      <div className="fixed bottom-6 right-6 md:hidden z-50">
+        <a 
+          href="https://wa.me/919999999999?text=Hi%20Jovese,%20I'm%20interested%2520in%2520applying!" 
+          target="_blank" 
+          referrerPolicy="no-referrer"
+          className="flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:scale-105 active:scale-95 transition-transform"
+        >
+          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z" />
+          </svg>
+        </a>
+      </div>
 
     </div>
   );
