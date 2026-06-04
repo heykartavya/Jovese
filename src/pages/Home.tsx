@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Play, 
@@ -220,19 +219,6 @@ export default function Home() {
 
   return (
     <div className="pb-24">
-      <Helmet>
-        <title>Jovese | Retention-Focused Volume Hiring for Sales, BPO & Frontline Teams</title>
-        <meta name="description" content="Jovese screens and places frontline talent for telecalling, inside sales, BPO, front office, and hospitality roles. You pay nothing until Day 30. Serving Gurugram and Hyderabad." />
-        <meta property="og:title" content="Jovese | Stop Replacing Your Sales Team Every 90 Days" />
-        <meta property="og:description" content="Precision volume hiring with a 30-day payment guarantee. We only invoice when your hire survives." />
-        <meta property="og:image" content="/og-image.jpg" />
-        <meta property="og:url" content="https://jovese.com" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Jovese | Retention-Focused Volume Hiring" />
-        <meta name="twitter:description" content="You pay nothing until Day 30. Precision screening for telecalling, BPO, sales, and hospitality roles." />
-        <meta name="twitter:image" content="/og-image.jpg" />
-      </Helmet>
       
       {/* SECTION 1: HERO */}
       <section className="relative overflow-hidden pt-12 pb-20 md:pb-32 bg-gradient-to-b from-slate-50/50 to-white">
