@@ -94,6 +94,14 @@ export default function Navbar() {
 
           {/* Right CTA / Mobile Toggle */}
           <div className="flex items-center gap-2 pr-2">
+            {/* Desktop Login Link */}
+            <Link 
+              to="/login"
+              className="hidden md:inline-flex items-center px-4 py-2 rounded-full text-xs md:text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+            >
+              Log in
+            </Link>
+
             {/* Desktop Apply CTA */}
             <Link 
               to="/clients" 
@@ -158,6 +166,12 @@ export default function Navbar() {
               className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
             >
               Apply for Partnership
+            </Link>
+            <Link 
+              to="/login" 
+              className="text-2xl font-display font-bold text-slate-800 hover:text-[#2563eb] transition-colors py-2 border-b border-slate-100"
+            >
+              Log in
             </Link>
           </div>
 

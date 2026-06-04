@@ -220,8 +220,7 @@ export default function Clients() {
   ];
 
   return (
-    <div className="pb-32 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+    <div className="pb-32 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
       {/* SECTION 1: PAGE HERO */}
       <section className="pt-8 md:pt-12 pb-16 md:pb-24 text-center max-w-4xl mx-auto">
         <span className="text-xs font-bold text-[#2563eb] tracking-[0.2em] uppercase block mb-3">
