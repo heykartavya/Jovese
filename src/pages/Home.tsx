@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Play, 
   Pause, 
-  Mic, 
+  Video, 
   AlertTriangle, 
   Clock, 
   Building, 
@@ -19,6 +19,58 @@ import {
 import { Link } from 'react-router-dom';
 import CountUp from '../components/CountUp';
 
+const BleedClock = () => {
+  const [leakedAmount, setLeakedAmount] = useState<number>(0);
+
+  useEffect(() => {
+    const updateAmount = () => {
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const secondsSinceMidnight = (now.getTime() - startOfDay.getTime()) / 1000;
+      
+      const leaksPerSecond = 23000000 / 3600; // ₹2.3 crore per hour
+      setLeakedAmount(Math.floor(secondsSinceMidnight * leaksPerSecond));
+    };
+
+    updateAmount();
+    const interval = setInterval(updateAmount, 1000); // Ticks every second
+    return () => clearInterval(interval);
+  }, []);
+
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(leakedAmount);
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-12 mb-6 max-w-4xl mx-auto relative shadow-2xl overflow-hidden text-center aspect-[4/3] sm:aspect-[2/1] flex flex-col justify-center items-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[150%] bg-red-500/10 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 blur-[80px] pointer-events-none rounded-full" />
+      
+      <div className="relative z-10 flex flex-col items-center justify-center w-full">
+        <h3 className="font-display font-bold text-red-400/80 mb-3 sm:mb-6 text-[10px] sm:text-sm uppercase tracking-[0.2em] whitespace-nowrap">
+          Live Industry Attrition Bleed
+        </h3>
+        
+        <div className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black text-white font-mono tracking-tighter mb-4 sm:mb-6 tabular-nums drop-shadow-[0_0_20px_rgba(239,68,68,0.3)] whitespace-nowrap">
+          {formattedAmount}
+        </div>
+        
+        <p className="text-slate-400 font-medium text-[11px] sm:text-base max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
+          Right now, Indian BPO and sales companies are losing <span className="text-slate-200 font-bold whitespace-nowrap">₹2.3 crore per hour</span> from early attrition. The number above is the estimated industry revenue leaked today alone.
+        </p>
+        
+        <div className="mt-6 sm:mt-10 flex items-center justify-center gap-2 text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest animate-pulse">
+          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400" />
+          <span className="whitespace-nowrap">Calculate Yours Below</span>
+          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   // Bleed Calculator state
   const [quarterlyHires, setQuarterlyHires] = useState<string>('');
@@ -32,57 +84,58 @@ export default function Home() {
     annualSaving: number;
   }>({ monthlyLoss: 0, annualTrainingWasted: 0, agencyFeesWasted: 0, annualSaving: 0 });
 
-  // Custom Audio State
-  const [audioObjects, setAudioObjects] = useState<{ [id: number]: HTMLAudioElement | null }>({});
+  // Custom Video State
+  const [videoObjects, setVideoObjects] = useState<{ [id: number]: HTMLVideoElement | null }>({});
   const [playingId, setPlayingId] = useState<number | null>(null);
   const [progress, setProgress] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0, 4: 0 });
   const [currentTime, setCurrentTime] = useState<{ [id: number]: number }>({ 1: 0, 2: 0, 3: 0, 4: 0 });
   
-  const sampleAudios = {
+  const sampleVideos = {
     1: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     2: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
     3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
     4: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
   };
 
-  const playAudio = (id: number) => {
+  const playVideo = (id: number) => {
     if (playingId === id) {
-      audioObjects[id]?.pause();
+      videoObjects[id]?.pause();
       setPlayingId(null);
       return;
     }
 
-    if (playingId && audioObjects[playingId]) {
-      audioObjects[playingId]?.pause();
+    if (playingId && videoObjects[playingId]) {
+      videoObjects[playingId]?.pause();
     }
 
-    let audio = audioObjects[id];
-    if (!audio) {
-      audio = new Audio(sampleAudios[id as 1 | 2 | 3 | 4]);
+    let video = videoObjects[id];
+    if (!video) {
+      video = document.createElement('video');
+      video.src = sampleVideos[id as 1 | 2 | 3 | 4];
       
-      audio.addEventListener('timeupdate', () => {
-        if (audio) {
+      video.addEventListener('timeupdate', () => {
+        if (video) {
           setProgress(prev => ({
             ...prev,
-            [id]: (audio.currentTime / audio.duration) * 100 || 0
+            [id]: (video.currentTime / video.duration) * 100 || 0
           }));
           setCurrentTime(prev => ({
             ...prev,
-            [id]: audio.currentTime || 0
+            [id]: video.currentTime || 0
           }));
         }
       });
 
-      audio.addEventListener('ended', () => {
+      video.addEventListener('ended', () => {
         setPlayingId(null);
         setProgress(prev => ({ ...prev, [id]: 0 }));
         setCurrentTime(prev => ({ ...prev, [id]: 0 }));
       });
 
-      setAudioObjects(prev => ({ ...prev, [id]: audio }));
+      setVideoObjects(prev => ({ ...prev, [id]: video }));
     }
 
-    audio.play().catch(err => console.log('Audio playback error:', err));
+    video.play().catch(err => console.log('Video playback error:', err));
     setPlayingId(id);
 
     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -92,20 +145,20 @@ export default function Home() {
         3: 'FRONT OFFICE CANDIDATE',
         4: 'IT HELPDESK CANDIDATE'
       };
-      (window as any).gtag('event', 'audio_played', { 
+      (window as any).gtag('event', 'video_played', { 
         candidate_type: roles[id] 
       });
     }
   };
 
-  // Clean up audios on unmount
+  // Clean up videos on unmount
   useEffect(() => {
     return () => {
-      Object.values(audioObjects).forEach((audio: any) => {
-        if (audio) audio.pause();
+      Object.values(videoObjects).forEach((video: any) => {
+        if (video) video.pause();
       });
     };
-  }, [audioObjects]);
+  }, [videoObjects]);
 
   // Clean url hashes and smooth scroll
   useEffect(() => {
@@ -202,11 +255,11 @@ export default function Home() {
     },
     {
       q: "Do you place IT and technical roles, not just sales and BPO?",
-      a: "Yes. We place IT Helpdesk, Technical Support, Pre-Sales, QA Associates, Customer Success, and Junior IT roles for mid-tier software and services companies. Our audio screening model applies directly to any role where communication is central to performance. We do not place senior developers or engineering leads — that requires technical evaluation beyond our current scope."
+      a: "Yes. We place IT Helpdesk, Technical Support, Pre-Sales, QA Associates, Customer Success, and Junior IT roles for mid-tier software and services companies. Our video screening model applies directly to any role where communication is central to performance. We do not place senior developers or engineering leads — that requires technical evaluation beyond our current scope."
     },
     {
       q: "How do campus placement drives work with Jovese?",
-      a: "We identify suitable tier 2 and tier 3 colleges in Hyderabad and Gurugram based on your role requirements. We run audio screening on interested candidates before your team visits. You only meet candidates who have already cleared our communication threshold. The fee structure is a flat coordination fee per drive plus our standard per-placement Day 30 fee for each confirmed hire. Contact us via the Client Application form and mention campus drives in the requirements field."
+      a: "We identify suitable tier 2 and tier 3 colleges across India, including major hubs like Bangalore, Hyderabad, Pune, Mumbai, Delhi NCR, and Gurugram based on your role requirements. We run video screening on interested candidates before your team visits. You only meet candidates who have already cleared our communication threshold. The fee structure is a flat coordination fee per drive plus our standard per-placement Day 30 fee for each confirmed hire. Contact us via the Client Application form and mention campus drives in the requirements field."
     }
   ];
 
@@ -228,15 +281,72 @@ export default function Home() {
   };
 
   return (
-    <div className="pb-24">
+    <div className="pb-12 md:pb-24">
+      {/* JSON-LD for AI Search & SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EmploymentAgency",
+            "name": "Jovese",
+            "url": "https://jovese.com/",
+            "description": "Jovese is a modern recruitment agency specializing in volume hiring for BPO, Customer Support, Insurance, and Inside Sales roles in India. Vetted frontline talent delivered in 48 hours with a 30-day retention guarantee.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Gurugram",
+              "addressRegion": "Haryana",
+              "addressCountry": "IN"
+            },
+            "areaServed": [
+              "India",
+              "Delhi NCR",
+              "Gurugram",
+              "Noida",
+              "Mumbai",
+              "Bangalore",
+              "Pune",
+              "Hyderabad"
+            ],
+            "industry": "Recruitment, BPO Hiring, Insurance Sales Staffing",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://jovese.com/"
+            },
+            "makesOffer": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "BPO & Customer Support Staffing",
+                  "description": "Rapid placement of pre-screened telecalling and customer support executives."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Insurance & Inside Sales Hiring",
+                  "description": "Deployment of sales professionals vetted for communication and conversion skills."
+                }
+              }
+            ]
+          })
+        }}
+      />
       
       {/* SECTION 1: HERO */}
-      <section className="relative overflow-hidden pt-12 pb-20 md:pb-32 bg-gradient-to-b from-slate-50/50 to-white">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="relative overflow-hidden pt-8 pb-16 md:pt-12 md:pb-32 bg-gradient-to-b from-slate-50/50 to-white">
         {/* Subtle decorative gloss */}
         <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-indigo-50/40 to-transparent pointer-events-none" />
         <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-emerald-50/40 blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-12 gap-12 items-center mt-4 md:mt-12">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-12 gap-8 md:gap-12 items-center mt-4 md:mt-12">
           
           {/* Left Hero Content */}
           <div className="md:col-span-7 text-left">
@@ -256,7 +366,7 @@ export default function Home() {
                 }}
                 className="relative overflow-hidden px-8 py-4 rounded-full bg-slate-900 text-white font-semibold text-center transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-0.5 group text-sm md:text-base border border-slate-800"
               >
-                <span className="relative z-10">Apply for Client Partnership</span>
+                <span className="relative z-10">Start Hiring</span>
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               </Link>
               <a
@@ -273,71 +383,99 @@ export default function Home() {
           </div>
 
           {/* Right Hero - Animated Stats Block */}
-          <div className="md:col-span-5 grid gap-5">
-            
-            {/* Card 1 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex items-center gap-6 group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all"
-            >
-              <div className="w-14 h-14 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Mic className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="text-3xl font-extrabold text-slate-900 font-display">
-                  <CountUp end={847} />
-                </div>
-                <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">
-                  CANDIDATES SCREENED THIS MONTH
-                </div>
-                <div className="text-[10px] text-slate-400">Updated weekly</div>
-              </div>
-            </motion.div>
+          <div className="md:col-span-5 relative w-full flex flex-col justify-center mt-8 md:mt-0">
+            {/* Decorative background glow behind the bento grid */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] bg-gradient-to-br from-[#2563eb]/10 via-emerald-500/5 to-amber-500/10 blur-[80px] pointer-events-none rounded-[4rem]" />
 
-            {/* Card 2 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex items-center gap-6 group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all"
-            >
-              <div className="w-14 h-14 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <CheckCircle2 className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="text-3xl font-extrabold text-slate-900 font-display">
-                  <CountUp end={94} suffix="%" />
+            <div className="grid grid-cols-2 gap-4 relative z-10 w-full perspective-1000">
+              
+              {/* Card 1: Main Stat (Full width) */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20, rotateX: 5 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-2 bg-white/80 backdrop-blur-2xl rounded-[2rem] p-8 shadow-[0_12px_40px_rgb(0,0,0,0.06)] border border-white relative overflow-hidden group hover:-translate-y-1 hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500"
+              >
+                {/* Video Waveform decoration */}
+                <div className="absolute right-0 bottom-0 pointer-events-none flex items-end gap-1.5 p-8 h-24 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div 
+                      key={i}
+                      animate={{ height: ['30%', '100%', '50%', '80%', '30%'] }}
+                      transition={{ duration: 1.5 + i * 0.2, repeat: Infinity, ease: 'linear' }}
+                      className="w-2.5 bg-indigo-600 rounded-full"
+                    />
+                  ))}
                 </div>
-                <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">
-                  30-DAY RETENTION RATE
-                </div>
-                <div className="text-[10px] text-slate-400">Across all placed candidates in the last 6 months</div>
-              </div>
-            </motion.div>
 
-            {/* Card 3 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex items-center gap-6 group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all"
-            >
-              <div className="w-14 h-14 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                <Clock className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="text-3xl font-extrabold text-slate-900 font-display">
-                  <CountUp end={48} suffix="h" />
+                <div className="flex justify-between items-start mb-8 relative z-10">
+                  <div className="text-slate-900 group-hover:text-[#2563eb] transition-colors duration-500 flex-shrink-0 mt-1">
+                    <Video className="w-8 h-8" strokeWidth={2.5} />
+                  </div>
+                  <div className="flex items-center gap-1.5 text-slate-400">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Updated Today</span>
+                  </div>
                 </div>
-                <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">
-                  AVERAGE PROFILE DELIVERY TIME
+                
+                <div className="relative z-10">
+                  <div className="flex items-baseline gap-2">
+                    <div className="text-5xl font-black text-slate-900 font-display tracking-tight">
+                      <CountUp end={847} />
+                    </div>
+                  </div>
+                  <div className="text-sm font-extrabold text-slate-800 tracking-wider uppercase mt-2 mb-1.5">
+                    Candidates Audited
+                  </div>
+                  <div className="text-xs text-slate-500 font-medium leading-relaxed">Over the last 30 days via video drops.</div>
                 </div>
-                <div className="text-[10px] text-slate-400">From brief received to shortlist delivered</div>
-              </div>
-            </motion.div>
+              </motion.div>
 
+              {/* Card 2: Retention (Half width) */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20, rotateX: 5 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-1 bg-white/80 backdrop-blur-2xl rounded-[2rem] p-6 shadow-[0_12px_40px_rgb(0,0,0,0.06)] border border-white relative overflow-hidden group hover:-translate-y-1 hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500"
+              >
+                <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-emerald-400/10 rounded-full blur-2xl group-hover:bg-emerald-400/20 transition-colors duration-500"></div>
+                
+                <div className="mb-6 text-slate-900 group-hover:text-emerald-500 transition-colors duration-500">
+                  <CheckCircle2 className="w-8 h-8" strokeWidth={2.5} />
+                </div>
+                <div className="relative z-10">
+                  <div className="text-3xl font-black text-slate-900 font-display tracking-tight flex items-center gap-1">
+                    <CountUp end={94} suffix="%" />
+                  </div>
+                  <div className="text-[10px] font-bold text-slate-400 tracking-wider uppercase mt-2">
+                    Retention Rate
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 3: Speed (Half width) */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20, rotateX: 5 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-1 bg-white/80 backdrop-blur-2xl rounded-[2rem] p-6 shadow-[0_12px_40px_rgb(0,0,0,0.06)] border border-white relative overflow-hidden group hover:-translate-y-1 hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500"
+              >
+                <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl group-hover:bg-amber-400/20 transition-colors duration-500"></div>
+
+                <div className="mb-6 text-slate-900 group-hover:text-amber-500 transition-colors duration-500">
+                  <Clock className="w-8 h-8" strokeWidth={2.5} />
+                </div>
+                <div className="relative z-10">
+                  <div className="text-3xl font-black text-slate-900 font-display tracking-tight">
+                    <CountUp end={48} suffix="h" />
+                  </div>
+                  <div className="text-[10px] font-bold text-slate-400 tracking-wider uppercase mt-2">
+                    Delivery ETA
+                  </div>
+                </div>
+              </motion.div>
+
+            </div>
           </div>
         </div>
 
@@ -366,10 +504,15 @@ export default function Home() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 2: WAITLIST MECHANIC */}
-      <section className="py-20 bg-white">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-12 md:py-20 bg-white">
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
             Partnership spots are deliberately limited.
@@ -389,22 +532,27 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* DOMAINS WE DOMINATE */}
-      <section className="py-24 bg-slate-50 border-t border-slate-100">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-16 md:py-24 bg-slate-50 border-t border-slate-100">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
               Domains We Dominate
             </h2>
           </div>
 
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <h3 className="font-display text-xs font-bold text-slate-400 tracking-[0.2em] uppercase mb-8 text-center">
               FRONTLINE AND VOICE ROLES
             </h3>
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
               {[
                 { title: "Telecalling", subtitle: "Outbound & Inbound", icon: Headset },
                 { title: "BPO & Customer Support", subtitle: "Voice & Non-Voice Operations", icon: Volume2 },
@@ -412,8 +560,8 @@ export default function Home() {
                 { title: "Front Office", subtitle: "Hospitality & Reception", icon: Building },
               ].map((domain, i) => (
                 <div key={i} className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-shadow group">
-                  <div className="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#2563eb] group-hover:text-white transition-colors">
-                    <domain.icon className="w-6 h-6" />
+                  <div className="mb-6 text-slate-900 group-hover:text-[#2563eb] transition-colors duration-500">
+                    <domain.icon className="w-8 h-8" strokeWidth={2.5} />
                   </div>
                   <h4 className="font-bold text-slate-900 text-lg mb-1">{domain.title}</h4>
                   <p className="text-slate-500 text-xs font-normal">{domain.subtitle}</p>
@@ -426,7 +574,7 @@ export default function Home() {
             <h3 className="font-display text-xs font-bold text-slate-400 tracking-[0.2em] uppercase mb-8 text-center">
               IT AND TECHNICAL ROLES
             </h3>
-            <div className="grid md:grid-cols-5 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
               {[
                 { title: "IT Helpdesk & Support", subtitle: "L1, L2 & Technical Support", icon: Headset },
                 { title: "Pre-Sales & Sales Engineering", subtitle: "Software & SaaS Companies", icon: Briefcase },
@@ -435,8 +583,8 @@ export default function Home() {
                 { title: "Junior IT & L1", subtitle: "Fresher & Campus Hires", icon: Building },
               ].map((domain, i) => (
                 <div key={i} className="bg-white border border-slate-200 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-shadow group">
-                  <div className="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                    <domain.icon className="w-6 h-6" />
+                  <div className="mb-6 text-slate-900 group-hover:text-emerald-500 transition-colors duration-500">
+                    <domain.icon className="w-8 h-8" strokeWidth={2.5} />
                   </div>
                   <h4 className="font-bold text-slate-900 text-[15px] mb-1 leading-tight">{domain.title}</h4>
                   <p className="text-slate-500 text-[11px] font-normal leading-tight">{domain.subtitle}</p>
@@ -445,10 +593,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CAMPUS PLACEMENT DRIVES */}
-      <section id="campus-drives" className="py-24 bg-slate-900 text-white rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 my-12 relative overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.15)]">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        id="campus-drives" className="py-16 md:py-24 bg-slate-900 text-white rounded-[2rem] md:rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 my-6 md:my-12 relative overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.15)]">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2563eb]/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
         
@@ -456,46 +609,43 @@ export default function Home() {
           <span className="font-display text-xs font-bold tracking-[0.2em] text-[#2563eb] uppercase mb-6 block">
             CAMPUS PLACEMENT DRIVES
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-white leading-[1.1] max-w-3xl mx-auto">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 tracking-tight text-white leading-[1.1] max-w-3xl mx-auto">
             Your next 20 hires are already in a classroom. They just haven't been screened yet.
           </h2>
-          <div className="text-slate-300 max-w-3xl mx-auto mb-16 space-y-6 text-sm md:text-base leading-relaxed font-normal">
-            <p>
+          <div className="text-slate-300 max-w-3xl mx-auto mb-10 md:mb-16 space-y-4 md:space-y-6 text-sm md:text-base leading-relaxed font-normal text-left sm:text-center px-2">
+            <p className="hidden sm:block">
               Standard campus drives waste everyone's time. A company sends a team to a college. Two hundred students sit in a hall. The company interviews all day and makes fifteen offers. Ten join. Three are gone by Month 2.
             </p>
             <p>
-              Jovese runs it differently. Before your team visits a campus, we audio-screen every interested candidate using the same 45-second evaluation method we use for all placements. You only meet the candidates who have already cleared our communication threshold. Your team interviews thirty people. Makes twenty-two offers. Nineteen join and stay.
-            </p>
-            <p>
-              We handle college identification, logistics coordination, pre-screening, and post-joining follow-up. You show up and hire.
+              Jovese runs it differently. Before your team visits a campus, we video-screen every interested candidate using the same evaluation method we use for all placements. You only meet candidates who have already cleared our communication threshold. We handle college identification, logistics, pre-screening, and post-joining follow-up. You show up and hire.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12 text-left">
-            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
-              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
-                <Mic className="w-6 h-6" />
+          <div className="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 pb-2 md:pb-0 text-left" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
+              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
+                <Video className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
               </div>
-              <h4 className="font-bold text-white text-lg mb-3">Pre-Screened Candidates Only</h4>
-              <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                Every student is audio-screened before you arrive. No time wasted on candidates who cannot communicate for the role.
+              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Pre-Screened Candidates Only</h4>
+              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
+                Every student is video-screened before you arrive. No time wasted on candidates who cannot communicate for the role.
               </p>
             </div>
-            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
-              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
-                <Building className="w-6 h-6" />
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
+              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
+                <Building className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
               </div>
-              <h4 className="font-bold text-white text-lg mb-3">Tier 2 and Tier 3 Colleges</h4>
-              <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                We have working relationships with engineering and management colleges across Hyderabad and Gurugram with strong placement records.
+              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Tier 2 and Tier 3 Colleges</h4>
+              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
+                We have working relationships with engineering and management colleges across India, including Bangalore, Hyderabad, Pune, Mumbai, Delhi, and Noida with strong placement records.
               </p>
             </div>
-            <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem]">
-              <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-6">
-                <Clock className="w-6 h-6" />
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
+              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
+                <Clock className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
               </div>
-              <h4 className="font-bold text-white text-lg mb-3">Same Day 30 Fee Model</h4>
-              <p className="text-slate-400 text-sm font-normal leading-relaxed">
+              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Same Day 30 Fee Model</h4>
+              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
                 You pay a flat coordination fee per drive and a per-placement fee only when the candidate completes 30 days. No placement, no charge.
               </p>
             </div>
@@ -509,16 +659,21 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 3: THE FLEED (id="bleed") */}
-      <section id="bleed" className="py-24 bg-white text-slate-900 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 overflow-hidden relative border border-slate-100 shadow-[0_8px_40px_rgb(0,0,0,0.04)]">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        id="bleed" className="py-16 md:py-24 bg-white text-slate-900 rounded-[2rem] md:rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-6 md:mb-12 overflow-hidden relative border border-slate-100 shadow-[0_8px_40px_rgb(0,0,0,0.04)]">
         {/* Subtle background glow */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-black mb-6 tracking-tight text-slate-900 leading-[1.1]">
               Your empty seats are not a hiring problem.<br />They are a revenue leak.
             </h2>
@@ -536,19 +691,21 @@ export default function Home() {
             </div>
           </div>
 
+          <BleedClock />
+
           {/* THE BLEED CALCULATOR */}
-          <div className="bg-white border border-slate-200/80 rounded-[2.5rem] p-6 sm:p-12 max-w-4xl mx-auto mb-16 relative shadow-[0_20px_60px_rgb(0,0,0,0.06)] overflow-hidden">
+          <div className="bg-white border border-slate-200/80 rounded-[2.5rem] p-6 sm:p-12 max-w-4xl mx-auto mb-8 md:mb-16 relative shadow-[0_20px_60px_rgb(0,0,0,0.06)] overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] pointer-events-none" />
             
             <h3 className="font-display text-center font-bold text-sm tracking-widest text-slate-400 mb-8 uppercase relative z-10">
               Calculate Your Monthly Bleed
             </h3>
 
-            <form onSubmit={handleCalculate} className="grid md:grid-cols-3 gap-6 items-end relative z-10">
+            <form onSubmit={handleCalculate} className="grid md:grid-cols-3 gap-6 items-start relative z-10">
               
               {/* Field 1 */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500">Frontline roles you hire per quarter</label>
+              <div className="flex flex-col h-full">
+                <label className="text-xs font-bold text-slate-500 mb-2">Frontline roles you hire per quarter</label>
                 <input 
                   type="number"
                   inputMode="numeric"
@@ -561,11 +718,12 @@ export default function Home() {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-all font-semibold"
                   placeholder="e.g. 12"
                 />
+                <span className="text-[10px] text-transparent block mt-2 font-normal select-none" aria-hidden="true">Spacer</span>
               </div>
 
               {/* Field 2 */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500 block">
+              <div className="flex flex-col h-full">
+                <label className="text-xs font-bold text-slate-500 mb-2">
                   Average monthly CTC per role (₹)
                 </label>
                 <input 
@@ -580,37 +738,39 @@ export default function Home() {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-all font-semibold"
                   placeholder="e.g. 25000"
                 />
-                <span className="text-[10px] text-slate-400 block mt-1 font-normal">Salary only, not total package</span>
+                <span className="text-[10px] text-slate-400 block mt-2 font-normal">Salary only, not total package</span>
               </div>
 
               {/* Field 3 */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs font-bold text-slate-500">
+              <div className="flex flex-col h-full">
+                <div className="flex justify-between items-center mb-2 text-xs font-bold text-slate-500">
                   <span>30-day attrition rate (%)</span>
                   <span className="text-[#2563eb] text-sm">{attritionRate}%</span>
                 </div>
-                <input 
-                  type="range"
-                  min="0"
-                  max="80"
-                  value={attritionRate}
-                  onChange={(e) => {
-                    setAttritionRate(parseInt(e.target.value));
-                    setIsCalculated(false);
-                  }}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
-                />
-                <span className="text-[10px] text-slate-400 block text-right font-normal">Industry average: 30 to 45%</span>
+                <div className="px-1 py-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center">
+                  <input 
+                    type="range"
+                    min="0"
+                    max="80"
+                    value={attritionRate}
+                    onChange={(e) => {
+                      setAttritionRate(parseInt(e.target.value));
+                      setIsCalculated(false);
+                    }}
+                    className="w-[90%] h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
+                  />
+                </div>
+                <span className="text-[10px] text-slate-400 block mt-2 font-normal">Industry average: 30 to 45%</span>
               </div>
 
             </form>
 
-            <div className="mt-8 text-center relative z-10">
+            <div className="mt-8 text-center relative z-10 w-full flex justify-center">
               <button
                 type="button"
                 onClick={handleCalculate}
                 disabled={!quarterlyHires || !ctc}
-                className="w-full sm:w-auto relative overflow-hidden px-10 py-4 bg-slate-900 text-white font-bold rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-sm sm:text-base group"
+                className="w-full md:w-auto relative overflow-hidden px-12 py-4 bg-slate-900 text-white font-bold rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-sm group"
               >
                 <span className="relative z-10">Calculate My Bleed</span>
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
@@ -626,63 +786,66 @@ export default function Home() {
                   exit={{ opacity: 0, height: 0 }}
                   className="mt-12 pt-8 border-t border-slate-100 overflow-hidden relative z-10"
                 >
-                  <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                     
                     {/* Card 1 */}
-                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
-                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex flex-col justify-between group hover:shadow-sm transition-shadow">
+                      <div className="text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-4 leading-relaxed">
                         Monthly Revenue Loss From Empty Seats
                       </div>
-                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
+                      <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
                         {formatINRValue(calculatedOutputs.monthlyLoss)}
                       </div>
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
-                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
-                        Annual Training Spend Wasted on Early Exits
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex flex-col justify-between group hover:shadow-sm transition-shadow">
+                      <div className="text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-4 leading-relaxed">
+                        Annual Training Spend Wasted
                       </div>
-                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
+                      <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
                         {formatINRValue(calculatedOutputs.annualTrainingWasted)}
                       </div>
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-200/50 rounded-full blur-[40px] pointer-events-none group-hover:bg-[#2563eb]/10 transition-colors" />
-                      <div className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1 relative z-10">
-                        Agency Fees Paid for Hires Who Left
+                    <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex flex-col justify-between group hover:shadow-sm transition-shadow relative">
+                      <div className="text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-4 leading-relaxed">
+                        Agency Fees Paid For Early Exits
                       </div>
-                      <div className="text-2xl font-black text-slate-900 font-display relative z-10">
-                        {formatINRValue(calculatedOutputs.agencyFeesWasted)}
+                      <div>
+                        <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+                          {formatINRValue(calculatedOutputs.agencyFeesWasted)}
+                        </div>
+                        <div className="text-[10px] text-slate-400 mt-2 font-medium">Assumes 8.33% fee</div>
                       </div>
-                      <div className="text-[10px] text-slate-400 mt-1 font-normal relative z-10">Assumes standard 8.33% placement fee</div>
                     </div>
 
                     {/* Card 4 - highlighted savings */}
-                    <div className="bg-[#2563eb]/5 border border-[#2563eb]/20 p-6 rounded-2xl relative overflow-hidden group hover:shadow-md transition-shadow">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/5 to-transparent pointer-events-none" />
-                      <div className="text-xs text-[#2563eb] uppercase font-extrabold tracking-wide mb-1 relative z-10">
-                        Estimated Annual Saving with Jovese Model
+                    <div className="bg-gradient-to-br from-[#2563eb] to-indigo-600 border border-transparent p-6 rounded-2xl flex flex-col justify-between text-white shadow-xl group hover:shadow-2xl hover:-translate-y-0.5 transition-all">
+                      <div className="text-[11px] text-blue-200 uppercase font-bold tracking-wider mb-4 leading-relaxed">
+                        Est. Annual Saving With Jovese
                       </div>
-                      <div className="text-3xl font-black text-[#2563eb] font-display relative z-10">
-                        {formatINRValue(calculatedOutputs.annualSaving)}
+                      <div>
+                        <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight drop-shadow-md">
+                          {formatINRValue(calculatedOutputs.annualSaving)}
+                        </div>
+                        <div className="text-[10px] text-blue-200 mt-2 font-medium">Based on 30-day retention</div>
                       </div>
-                      <div className="text-[10px] text-slate-500 mt-1 font-normal relative z-10">Based on historical 30-day retention outcomes</div>
                     </div>
 
                   </div>
 
-                  <div className="mt-8 text-center text-xs text-slate-500">
-                    <p className="mb-4 font-normal">These are estimates based on industry averages. Your audit form gives us your actual numbers so we can give you a precise analysis.</p>
+                  <div className="mt-8 text-center bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
+                    <p className="text-sm font-medium text-slate-600 mb-4 max-w-2xl mx-auto">
+                      These are estimates based on industry averages. Your specific attrition and revenue metrics might be higher.
+                    </p>
                     <Link 
                       to="/clients"
-                      className="inline-flex items-center gap-2 text-indigo-500 hover:text-indigo-600 font-bold justify-center transition-colors"
+                      className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-900 hover:text-[#2563eb] hover:border-[#2563eb]/30 hover:shadow-md font-bold px-6 py-3 rounded-full transition-all text-sm group"
                     >
-                      Submit Your Audit for a Real Analysis <ArrowRight className="w-4 h-4" />
+                      Submit Your Audit for a Real Analysis 
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </motion.div>
@@ -747,13 +910,18 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
-      {/* SECTION 4: THE AUDIO ADVANTAGE */}
-      <section className="py-24 bg-white mt-8 rounded-[3rem]">
+      {/* SECTION 4: THE VIDEO ADVANTAGE */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-16 md:py-24 bg-white mt-4 md:mt-8 rounded-[2rem] md:rounded-[3rem]">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-8 md:mb-16">
             <div>
               <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
                 A resume tells you where they worked.<br />
@@ -769,17 +937,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Innovative Audio Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {/* Innovative Video Cards Grid */}
+          <div className="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12 pb-2 md:pb-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             
             {/* Card 1 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">TELECALLING CANDIDATE</span>
                   <p className="text-xs text-slate-500 font-semibold">Hyderabad | 1 year 2 months experience</p>
                 </div>
-                <button onClick={() => playAudio(1)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                <button onClick={() => playVideo(1)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 1 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
                 </button>
               </div>
@@ -802,13 +970,13 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">INSIDE SALES CANDIDATE</span>
                   <p className="text-xs text-slate-500 font-semibold">Gurgaon | 2 years experience</p>
                 </div>
-                <button onClick={() => playAudio(2)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                <button onClick={() => playVideo(2)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 2 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
                 </button>
               </div>
@@ -831,13 +999,13 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">FRONT OFFICE CANDIDATE</span>
                   <p className="text-xs text-slate-500 font-semibold">Hyderabad | Fresher</p>
                 </div>
-                <button onClick={() => playAudio(3)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                <button onClick={() => playVideo(3)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 3 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
                 </button>
               </div>
@@ -860,13 +1028,13 @@ export default function Home() {
             </div>
 
             {/* Card 4 */}
-            <div className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-50 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-between group hover:shadow-md hover:-translate-y-1 transition-all duration-300">
               <div className="mb-6 flex justify-between items-start">
                 <div>
                   <span className="inline-block px-2.5 py-1 bg-amber-50 text-amber-600 rounded-full font-bold text-[10px] uppercase tracking-wider mb-2">IT HELPDESK CANDIDATE</span>
                   <p className="text-xs text-slate-500 font-semibold">Hyderabad | Fresher, B.Tech CSE</p>
                 </div>
-                <button onClick={() => playAudio(4)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
+                <button onClick={() => playVideo(4)} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center flex-shrink-0 hover:scale-105 transition-transform shadow-md">
                   {playingId === 4 ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
                 </button>
               </div>
@@ -892,91 +1060,60 @@ export default function Home() {
 
           <p className="text-center text-slate-700 font-normal">Every candidate you receive is evaluated to the same standard. No exceptions.</p>
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 5: THE DEPLOYMENT PIPELINE (id="method") */}
-      <section id="method" className="py-24 bg-slate-50 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12 border border-slate-100/60 shadow-inner">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        id="method" className="py-16 md:py-24 bg-slate-50 rounded-[2rem] md:rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-6 md:mb-12 border border-slate-100/60 shadow-inner">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
               Vetted talent in 48 hours. Here is exactly how.
             </h2>
           </div>
 
-          {/* Classy Vertical Stacked List */}
-          <div className="max-w-4xl mx-auto space-y-4 relative mb-16">
+          {/* Concise 4-Column Grid */}
+          <div className="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 relative mb-8 md:mb-12 pb-2 md:pb-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             
             {/* Phase 1 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">01</span>
-              </div>
-              <div className="flex-1 pt-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">WhatsApp Ingestion</h3>
-                </div>
-                <p className="text-slate-800 font-semibold text-sm mb-3">
-                  Candidates bypass broken career pages entirely.
-                </p>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Our automated WhatsApp workflow collects role preference, availability, city, and a 45-second voice note. The intake takes under 4 minutes. We receive structured data from every applicant, not an unreadable PDF.
-                </p>
-              </div>
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+              <div className="font-display font-black text-slate-200 text-4xl mb-4 group-hover:text-[#2563eb] transition-colors">01</div>
+              <h3 className="font-bold text-slate-900 tracking-tight mb-2">WhatsApp Ingestion</h3>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">
+                Automated intake collects role preference and a voice note in under 4 minutes.
+              </p>
             </div>
 
             {/* Phase 2 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">02</span>
-              </div>
-              <div className="flex-1 pt-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">Tone and Logic Audit</h3>
-                </div>
-                <p className="text-slate-800 font-semibold text-sm mb-3">
-                  70 to 80% of applicants are filtered here before a human reviews anything.
-                </p>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Our screening workflow evaluates every voice note across four parameters: clarity, grammar, professional tone, and scenario handling. Applications that do not meet our threshold are discarded at this stage. We tell the candidate why and invite them to retry after 7 days.
-                </p>
-              </div>
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+              <div className="font-display font-black text-slate-200 text-4xl mb-4 group-hover:text-[#2563eb] transition-colors">02</div>
+              <h3 className="font-bold text-slate-900 tracking-tight mb-2">Tone & Logic Audit</h3>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">
+                Voice notes are evaluated. 70-80% of applicants are filtered before human review.
+              </p>
             </div>
 
             {/* Phase 3 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative z-10 group-hover:bg-[#2563eb]/5 group-hover:border-[#2563eb]/20 transition-colors">
-                <span className="font-display font-black text-slate-300 text-3xl group-hover:text-[#2563eb] transition-colors">03</span>
-              </div>
-              <div className="flex-1 pt-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-900 text-xl tracking-tight">The Match</h3>
-                </div>
-                <p className="text-slate-800 font-semibold text-sm mb-3">
-                  You receive curated profiles. Not a volume dump.
-                </p>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Our team matches cleared candidates against your active brief, availability window, and compensation range. You receive 3 to 8 profiles per role, each with the original voice note attached, a written assessment, and expected joining date.
-                </p>
-              </div>
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col group hover:-translate-y-1 transition-all duration-300">
+              <div className="font-display font-black text-slate-200 text-4xl mb-4 group-hover:text-[#2563eb] transition-colors">03</div>
+              <h3 className="font-bold text-slate-900 tracking-tight mb-2">The Match</h3>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">
+                You receive 3-8 curated profiles matched to your brief, with voice notes attached.
+              </p>
             </div>
 
             {/* Phase 4 */}
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative flex flex-col sm:flex-row gap-6 sm:gap-8 items-start group hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50/50 border border-emerald-100 rounded-2xl flex items-center justify-center relative z-10">
-                <span className="font-display font-black text-emerald-500 text-3xl">04</span>
-              </div>
-              <div className="flex-1 pt-1">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-slate-950 text-xl tracking-tight">Deployment</h3>
-                </div>
-                <p className="text-slate-800 font-semibold text-sm mb-3">
-                  The candidate joins. The 30-day clock starts. Nothing else happens until then.
-                </p>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Once the candidate confirms joining, you get a confirmation from us. That is Day 1. We follow up on Day 7, Day 14, and Day 28. If anything is wrong in that window, we fix it before Day 30 ever arrives.
-                </p>
-              </div>
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 rounded-[2rem] border border-emerald-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] bg-gradient-to-br from-emerald-50/50 to-white flex flex-col group hover:-translate-y-1 transition-all duration-300">
+              <div className="font-display font-black text-emerald-200 text-4xl mb-4 group-hover:text-emerald-500 transition-colors">04</div>
+              <h3 className="font-bold text-slate-900 tracking-tight mb-2">Deployment</h3>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">
+                Candidate joins, 30-day clock starts. We ensure success on Days 7, 14, and 28.
+              </p>
             </div>
 
           </div>
@@ -1002,13 +1139,18 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 6: THE 30-DAY GUARANTEE */}
-      <section className="py-24 bg-white">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-16 md:py-24 bg-white">
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
               You are not paying for introductions.<br />You are paying for outcomes.
             </h2>
@@ -1103,7 +1245,7 @@ export default function Home() {
           </div>
 
           {/* Guarantee box - highlighted */}
-          <div className="bg-[#2563eb]/5 border-2 border-[#2563eb]/30 p-8 sm:p-12 rounded-[2.5rem] mb-12 shadow-sm text-center max-w-4xl mx-auto">
+          <div className="bg-[#2563eb]/5 border-2 border-[#2563eb]/30 p-8 sm:p-12 rounded-[2.5rem] mb-8 md:mb-12 shadow-sm text-center max-w-4xl mx-auto">
             <h3 className="font-display font-black text-2xl md:text-3xl text-slate-950 mb-4 text-center">
               The Replacement Guarantee
             </h3>
@@ -1129,24 +1271,34 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 7: TESTIMONIALS */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100 rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-12">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-16 md:py-24 bg-slate-50 border-y border-slate-100 rounded-[2rem] md:rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 mb-6 md:mb-12">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl font-extrabold text-slate-900">
               What our partners say.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12 pb-2 md:pb-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <style>{`
+              .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
             
             {/* Testimonial 1 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
-                "We had been through three placement agencies in one year. The first shortlist from Jovese had better candidates than anything we had seen in 12 months of searching. The audio screening is not a gimmick. It actually works."
+                "We had been through three placement agencies in one year. The first shortlist from Jovese had better candidates than anything we had seen in 12 months of searching. The video screening is not a gimmick. It actually works."
               </p>
               <div>
                 <div className="h-px bg-slate-100 my-4" />
@@ -1160,7 +1312,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "Our 30-day attrition in the BPO team was running at 52%. Four months after moving our volume hiring to Jovese it is at 23%. The audit form process also forced us to examine what was broken on our own side."
               </p>
@@ -1176,7 +1328,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "I was skeptical of the Day 30 payment model. I thought there would be a catch. There was not. They replaced one candidate at no charge when she left in Week 2. The replacement has been with us for 7 months."
               </p>
@@ -1192,7 +1344,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 4 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between">
               <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed mb-6 italic">
                 "We needed twelve junior QA associates in under three weeks. Three agencies sent us the same recycled profiles. Jovese sent us eight pre-screened candidates with voice notes. We hired six. Five are still with us at Month 4."
               </p>
@@ -1214,10 +1366,15 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 8: FINAL CTA */}
-      <section className="py-12 mb-8">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-8 md:py-12 mb-4 md:mb-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between border border-slate-800">
             {/* Subtle glow */}
@@ -1244,11 +1401,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* SECTION 9: FAQ ACCORDION */}
-      <section className="py-24 bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-16 md:py-24 bg-white max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 md:mb-16">
           <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             We know what you're thinking.
           </h2>
@@ -1291,7 +1453,7 @@ export default function Home() {
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

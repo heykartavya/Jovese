@@ -26,7 +26,7 @@ export default function RecruiterPortal() {
       role: "BPO Voice Process",
       experience: "2.4 Yrs",
       status: "Awaiting Client Review",
-      audioReady: true,
+      videoReady: true,
       matchScore: 92
     },
     {
@@ -35,7 +35,7 @@ export default function RecruiterPortal() {
       role: "BPO Voice Process",
       experience: "1.2 Yrs",
       status: "Awaiting Client Review",
-      audioReady: true,
+      videoReady: true,
       matchScore: 88
     },
     {
@@ -44,7 +44,7 @@ export default function RecruiterPortal() {
       role: "Inside Sales Exec",
       experience: "3.0 Yrs",
       status: "Interview Scheduled",
-      audioReady: true,
+      videoReady: true,
       matchScore: 95
     }
   ];
@@ -200,7 +200,7 @@ export default function RecruiterPortal() {
                       <th className="px-6 py-4">Candidate</th>
                       <th className="px-6 py-4">Role</th>
                       <th className="px-6 py-4">Match Score</th>
-                      <th className="px-6 py-4">Audio Eval</th>
+                      <th className="px-6 py-4">Video Eval</th>
                       <th className="px-6 py-4 text-right">Actions</th>
                     </tr>
                   </thead>
@@ -225,7 +225,7 @@ export default function RecruiterPortal() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <button className="flex items-center gap-2 text-xs font-bold text-[#2563eb] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full transition-colors">
-                            <Play className="w-3 h-3 fill-current" /> Play Audio
+                            <Play className="w-3 h-3 fill-current" /> Play Video
                           </button>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right">

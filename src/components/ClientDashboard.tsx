@@ -15,7 +15,7 @@ export default function ClientDashboard() {
       status: "Active",
       pipeline: {
         sourced: 185,
-        audioScreened: 82,
+        videoScreened: 82,
         clientInterviews: 24,
         offers: 15
       },
@@ -33,7 +33,7 @@ export default function ClientDashboard() {
       status: "Active",
       pipeline: {
         sourced: 110,
-        audioScreened: 45,
+        videoScreened: 45,
         clientInterviews: 18,
         offers: 10
       },
@@ -143,8 +143,8 @@ export default function ClientDashboard() {
                     <div className="text-sm font-bold text-slate-900">{mandate.pipeline.sourced}</div>
                   </div>
                   <div className="bg-slate-50 rounded-xl p-3 text-center border-b-2 border-indigo-200">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 whitespace-nowrap overflow-hidden text-ellipsis">Audio Eval</div>
-                    <div className="text-sm font-bold text-slate-900">{mandate.pipeline.audioScreened}</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 whitespace-nowrap overflow-hidden text-ellipsis">Video Eval</div>
+                    <div className="text-sm font-bold text-slate-900">{mandate.pipeline.videoScreened}</div>
                   </div>
                   <div className="bg-slate-50 rounded-xl p-3 text-center border-b-2 border-orange-200">
                     <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Interviews</div>
@@ -184,7 +184,7 @@ export default function ClientDashboard() {
               <FileCheck className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-slate-900">12 Audio Assessments Ready for Review</div>
+              <div className="text-sm font-bold text-slate-900">12 Video Assessments Ready for Review</div>
               <div className="text-xs text-slate-500 font-medium">Insurance Inside Sales Executive • Review pending</div>
             </div>
             <div className="ml-auto text-[10px] font-bold text-slate-400 uppercase tracking-wider">5 hrs ago</div>

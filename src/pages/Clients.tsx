@@ -339,7 +339,7 @@ export default function Clients() {
         </div>
 
         <p className="text-xs text-center text-slate-400 font-normal mt-8">
-          Do not see your role above? Describe it in the audit form. If we can screen for it using our audio model, we will tell you.
+          Do not see your role above? Describe it in the audit form. If we can screen for it using our video model, we will tell you.
         </p>
       </section>
 

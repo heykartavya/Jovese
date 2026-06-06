@@ -16,7 +16,7 @@ import {
 export default function TalentPortal() {
   const navigate = useNavigate();
   const [resumeLink, setResumeLink] = useState('https://jovese.com/docs/resume_karan_s.pdf');
-  const [videoLink, setVideoLink] = useState('https://youtube.com/watch?v=unlisted_audio_xyz');
+  const [videoLink, setVideoLink] = useState('https://youtube.com/watch?v=unlisted_video_xyz');
   const [isEditingDocs, setIsEditingDocs] = useState(false);
 
   const interviews = [
@@ -177,7 +177,7 @@ export default function TalentPortal() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Audio/Video Pitch Link</label>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Video Pitch Link</label>
                     <input 
                       type="url" 
                       value={videoLink}
@@ -204,7 +204,7 @@ export default function TalentPortal() {
                   <div className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
                     <Video className="w-5 h-5 text-indigo-500 mt-0.5" />
                     <div className="overflow-hidden">
-                      <div className="text-xs font-bold text-slate-900 mb-0.5">Audio Pitch</div>
+                      <div className="text-xs font-bold text-slate-900 mb-0.5">Video Pitch</div>
                       <a href={videoLink} className="text-[10px] text-slate-500 hover:text-indigo-500 truncate block" target="_blank" referrerPolicy="no-referrer">
                         {videoLink}
                       </a>

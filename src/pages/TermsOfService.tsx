@@ -36,7 +36,7 @@ export default function TermsOfService() {
         <section>
           <h2 className="text-xl font-bold text-slate-900 mb-4">5. Intellectual Property</h2>
           <p>
-            All content on jovese.com including text, design, audio player UI, and the Revenue Leak Calculator is the intellectual property of Jovese. You may not reproduce, copy, or redistribute any part of this site without written permission.
+            All content on jovese.com including text, design, video player UI, and the Revenue Leak Calculator is the intellectual property of Jovese. You may not reproduce, copy, or redistribute any part of this site without written permission.
           </p>
         </section>
 

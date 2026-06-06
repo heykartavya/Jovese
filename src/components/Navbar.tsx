@@ -48,7 +48,16 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 flex items-center pl-3 md:pl-4 cursor-pointer group">
+          <Link 
+            to="/" 
+            onClick={(e) => {
+              if (location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="flex-shrink-0 flex items-center pl-3 md:pl-4 cursor-pointer group"
+          >
             <div className="font-display font-extrabold text-lg md:text-xl tracking-tighter text-slate-900 group-hover:opacity-80 transition-opacity whitespace-nowrap">
               Jovese
             </div>

@@ -5,7 +5,16 @@ export default function Footer() {
     <footer className="bg-slate-900 text-slate-400 py-16 border-t border-slate-800 mt-auto w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-12">
         <div className="col-span-1 md:col-span-2">
-          <Link to="/" className="text-3xl font-display font-extrabold tracking-tighter text-white mb-6 block">
+          <Link 
+            to="/" 
+            onClick={(e) => {
+              if (window.location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="text-3xl font-display font-extrabold tracking-tighter text-white mb-6 block"
+          >
             Jovese
           </Link>
           <p className="max-w-sm mb-8 text-slate-400 leading-relaxed font-semibold text-xs sm:text-sm">
