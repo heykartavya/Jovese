@@ -71,6 +71,73 @@ const BleedClock = () => {
   );
 };
 
+
+const LiveRejectionCounter = () => {
+  return (
+    <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="pt-10 md:pt-16 pb-0 px-4 sm:px-6 lg:px-8 bg-white"
+    >
+      <div 
+        className="rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-10 lg:p-12 max-w-5xl mx-auto border border-slate-100 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03)]"
+      >
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 w-full">
+          
+          <div className="flex-1 text-center lg:text-left w-full">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-8 leading-tight tracking-tight">
+              We reject 80% of applicants<br className="hidden xl:block"/> so you don't have to.
+            </h2>
+            
+            {/* The Ratio Bar */}
+            <div className="mb-8 w-full max-w-md mx-auto lg:mx-0">
+               <div className="flex justify-between items-end mb-2 px-1">
+                  <div className="text-left">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Rejected</div>
+                    <div className="text-3xl font-black text-slate-900 font-mono tabular-nums leading-none"><CountUp end={1033} formatIndian duration={1.5} /></div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] font-bold text-[#2563eb] uppercase tracking-[0.2em] mb-1">Cleared</div>
+                    <div className="text-2xl font-black text-[#2563eb] font-mono tabular-nums leading-none"><CountUp end={214} formatIndian duration={4} /></div>
+                  </div>
+               </div>
+               <div className="h-3 sm:h-4 w-full flex rounded-full overflow-hidden bg-slate-100">
+                  <motion.div initial={{ width: 0 }} whileInView={{ width: '83%' }} transition={{ duration: 1.5, ease: 'easeOut' }} className="bg-slate-800"></motion.div>
+                  <motion.div initial={{ width: 0 }} whileInView={{ width: '17%' }} transition={{ duration: 1.5, ease: 'easeOut', delay: 0.2 }} className="bg-[#2563eb]"></motion.div>
+               </div>
+            </div>
+
+            <p className="text-slate-500 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 font-normal">
+              Most sites show success metrics. We show our rejection volume. Getting a Jovese shortlist means your candidate safely survived our rigorous communication threshold.
+            </p>
+          </div>
+          
+          <div className="flex-1 w-full lg:max-w-md lg:ml-auto mt-10 lg:mt-0 p-6 sm:p-8 bg-slate-50 rounded-[1.5rem]">
+            <svg className="w-6 h-6 text-slate-300 mb-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+            <p className="text-[15px] text-slate-700 leading-relaxed mb-6 font-medium">
+              Every candidate Jovese sent us had already cleared the baseline and could actually communicate. This pre-filtering saved my engineering manager a minimum of 20 hours of completely useless interviews this quarter.
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full overflow-hidden bg-slate-200 shrink-0">
+                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=200&h=200" alt="Tech Founder" className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <div className="font-display font-bold text-slate-900 text-sm">Rahul K.</div>
+                <div className="text-slate-500 text-[10px] uppercase tracking-wider">Technical Founder</div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
 export default function Home() {
   // Bleed Calculator state
   const [quarterlyHires, setQuarterlyHires] = useState<string>('');
@@ -505,6 +572,9 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* LIVE REJECTION COUNTER */}
+      <LiveRejectionCounter />
 
       {/* SECTION 2: WAITLIST MECHANIC */}
       <motion.section
