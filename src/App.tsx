@@ -7,6 +7,8 @@ import Clients from './pages/Clients';
 import ClientsSubmitted from './pages/ClientsSubmitted';
 import Talent from './pages/Talent';
 import Manifesto from './pages/Manifesto';
+import CampusDrives from './pages/CampusDrives';
+import FAQ from './pages/FAQ';
 import Login from './pages/Login';
 import RecruiterPortal from './pages/RecruiterPortal';
 import TalentPortal from './pages/TalentPortal';
@@ -53,9 +55,11 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/clients/submitted" element={<ClientsSubmitted />} />
+          <Route path="/campus-drives" element={<CampusDrives />} />
           <Route path="/talent" element={<Talent />} />
           <Route path="/manifesto" element={<Manifesto />} />
           <Route path="/about" element={<Manifesto />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/login" element={<Login />} />
           <Route path="/recruiter/dashboard" element={<RecruiterPortal />} />
           <Route path="/talent/dashboard" element={<TalentPortal />} />

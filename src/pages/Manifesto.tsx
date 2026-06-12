@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { BookOpen, Sparkles, Building2, Quote, ArrowUpRight } from 'lucide-react';
+import { BookOpen, Sparkles, Building2, Quote, ArrowUpRight, Star, ExternalLink } from 'lucide-react';
 
 export default function Manifesto() {
   return (
@@ -127,6 +127,34 @@ export default function Manifesto() {
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
             Founded in Hyderabad, Jovese was built to solve the frontline attrition crisis in India's volume hiring sector. Our team combines experiences across scale operations, HR technology, and telecalling management. We believe that by screening candidates for actual, measurable job delivery parameters instead of obsolete academic qualifications or generic resumes, we create high-retention teams for our corporate partners while respecting the dignity and time of candidate voices.
           </p>
+        </div>
+      </section>
+
+      {/* SECTION 4: TRUSTPILOT REVIEWS */}
+      <section className="my-16 text-center max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mb-6">
+            <Star className="w-8 h-8 fill-current" />
+          </div>
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
+            Share your experience
+          </h2>
+          <p className="text-slate-500 text-sm md:text-base mb-8 max-w-md mx-auto leading-relaxed">
+            Your honest feedback helps us improve and helps others make informed decisions. It only takes a minute.
+          </p>
+          
+          <a 
+            href="https://www.trustpilot.com/review/jovese.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center justify-center px-8 py-4 bg-slate-900 text-white font-bold text-sm md:text-base rounded-full overflow-hidden transition-all hover:shadow-[0_8px_25px_rgb(15,23,42,0.25)] hover:-translate-y-0.5 w-full sm:w-auto"
+          >
+            <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+            <span className="relative z-10 flex items-center gap-2">
+              Write a Review on Trustpilot
+              <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+            </span>
+          </a>
         </div>
       </section>
 

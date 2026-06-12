@@ -14,7 +14,8 @@ import {
   CheckCircle2, 
   ChevronRight,
   TrendingDown,
-  Volume2
+  Volume2,
+  X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CountUp from '../components/CountUp';
@@ -41,30 +42,27 @@ const BleedClock = () => {
     style: 'currency',
     currency: 'INR',
     maximumFractionDigits: 0,
-  }).format(leakedAmount);
+  }).format(leakedAmount).replace(/\s/g, '').replace(/\u202F/g, '').replace(/\u00A0/g, '');
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-12 mb-6 max-w-4xl mx-auto relative shadow-2xl overflow-hidden text-center aspect-[4/3] sm:aspect-[2/1] flex flex-col justify-center items-center">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[150%] bg-red-500/10 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 blur-[80px] pointer-events-none rounded-full" />
-      
+    <div className="bg-slate-50 border border-slate-100 rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-12 mb-6 max-w-4xl mx-auto relative shadow-sm overflow-hidden text-center aspect-[4/3] sm:aspect-[2/1] flex flex-col justify-center items-center">
       <div className="relative z-10 flex flex-col items-center justify-center w-full">
-        <h3 className="font-display font-bold text-red-400/80 mb-3 sm:mb-6 text-[10px] sm:text-sm uppercase tracking-[0.2em] whitespace-nowrap">
+        <h3 className="font-display font-medium text-slate-400 mb-3 sm:mb-6 text-[10px] sm:text-sm uppercase tracking-[0.2em] whitespace-nowrap">
           Live Industry Attrition Bleed
         </h3>
         
-        <div className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black text-white font-mono tracking-tighter mb-4 sm:mb-6 tabular-nums drop-shadow-[0_0_20px_rgba(239,68,68,0.3)] whitespace-nowrap">
+        <div className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black text-slate-900 font-display tracking-tight mb-4 sm:mb-6 tabular-nums whitespace-nowrap">
           {formattedAmount}
         </div>
         
-        <p className="text-slate-400 font-medium text-[11px] sm:text-base max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
-          Right now, Indian BPO and sales companies are losing <span className="text-slate-200 font-bold whitespace-nowrap">₹2.3 crore per hour</span> from early attrition. The number above is the estimated industry revenue leaked today alone.
+        <p className="text-slate-500 font-medium text-[11px] sm:text-base max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
+          Right now, Indian BPO and sales companies are losing <span className="text-slate-900 font-bold whitespace-nowrap">₹2.3 crore per hour</span> from early attrition. The number above is the estimated industry revenue leaked today alone.
         </p>
         
-        <div className="mt-6 sm:mt-10 flex items-center justify-center gap-2 text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest animate-pulse">
-          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400" />
+        <div className="mt-6 sm:mt-10 flex items-center justify-center gap-2 text-slate-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest animate-pulse">
+          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-300" />
           <span className="whitespace-nowrap">Calculate Yours Below</span>
-          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400" />
+          <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-slate-300" />
         </div>
       </div>
     </div>
@@ -79,7 +77,7 @@ const LiveRejectionCounter = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="pt-10 md:pt-16 pb-0 px-4 sm:px-6 lg:px-8 bg-white"
+        className="pt-4 md:pt-6 pb-0 px-4 sm:px-6 lg:px-8 bg-white"
     >
       <div 
         className="rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-10 lg:p-12 max-w-5xl mx-auto border border-slate-100 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03)]"
@@ -332,13 +330,14 @@ export default function Home() {
 
   // Helper for Indian formatting
   const formatINRValue = (val: number) => {
+    const removeSpaces = (numStr: string) => numStr.replace(/\s/g, '').replace(/\u202F/g, '').replace(/\u00A0/g, '');
     if (val >= 10000000) {
-      return '₹' + (val / 10000000).toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Crores';
+      return '₹' + removeSpaces((val / 10000000).toLocaleString('en-IN', { maximumFractionDigits: 2 })) + ' Crores';
     }
     if (val >= 100000) {
-      return '₹' + (val / 100000).toLocaleString('en-IN', { maximumFractionDigits: 2 }) + ' Lakhs';
+      return '₹' + removeSpaces((val / 100000).toLocaleString('en-IN', { maximumFractionDigits: 2 })) + ' Lakhs';
     }
-    return '₹' + Math.round(val).toLocaleString('en-IN');
+    return '₹' + removeSpaces(Math.round(val).toLocaleString('en-IN'));
   };
 
   const formatTime = (seconds: number) => {
@@ -408,7 +407,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden pt-8 pb-16 md:pt-12 md:pb-32 bg-gradient-to-b from-slate-50/50 to-white">
+        className="relative overflow-hidden pt-8 pb-6 md:pt-12 md:pb-10 bg-gradient-to-b from-slate-50/50 to-white">
         {/* Subtle decorative gloss */}
         <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-indigo-50/40 to-transparent pointer-events-none" />
         <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-emerald-50/40 blur-[120px] rounded-full pointer-events-none" />
@@ -576,34 +575,6 @@ export default function Home() {
       {/* LIVE REJECTION COUNTER */}
       <LiveRejectionCounter />
 
-      {/* SECTION 2: WAITLIST MECHANIC */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="py-12 md:py-20 bg-white">
-        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
-            Partnership spots are deliberately limited.
-          </h2>
-          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-normal mb-8 max-w-2xl mx-auto">
-            We cap active client partnerships to maintain strict candidate quality. Onboarding too many clients at once means diluted screening and broken promises. We do not do that.
-          </p>
-          <div className="bg-slate-50 text-slate-700 text-sm font-semibold py-3 px-6 rounded-xl border border-slate-200 inline-block mb-8">
-            Applications are reviewed every Monday. New spots open when existing partner capacity stabilises.
-          </div>
-          <div>
-            <Link 
-              to="/clients" 
-              className="inline-flex items-center gap-2 font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors text-lg"
-            >
-              Submit your audit to get in the queue <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </motion.section>
-
       {/* DOMAINS WE DOMINATE */}
       <motion.section
         initial={{ opacity: 0, y: 40 }}
@@ -614,7 +585,7 @@ export default function Home() {
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
-              Domains We Dominate
+              Domains We Cover
             </h2>
           </div>
 
@@ -666,71 +637,6 @@ export default function Home() {
       </motion.section>
 
       {/* CAMPUS PLACEMENT DRIVES */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        id="campus-drives" className="py-16 md:py-24 bg-slate-900 text-white rounded-[2rem] md:rounded-[3rem] mx-4 sm:mx-6 lg:mx-8 my-6 md:my-12 relative overflow-hidden shadow-[0_8px_40px_rgb(0,0,0,0.15)]">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2563eb]/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
-        
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="font-display text-xs font-bold tracking-[0.2em] text-[#2563eb] uppercase mb-6 block">
-            CAMPUS PLACEMENT DRIVES
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 tracking-tight text-white leading-[1.1] max-w-3xl mx-auto">
-            Your next 20 hires are already in a classroom. They just haven't been screened yet.
-          </h2>
-          <div className="text-slate-300 max-w-3xl mx-auto mb-10 md:mb-16 space-y-4 md:space-y-6 text-sm md:text-base leading-relaxed font-normal text-left sm:text-center px-2">
-            <p className="hidden sm:block">
-              Standard campus drives waste everyone's time. A company sends a team to a college. Two hundred students sit in a hall. The company interviews all day and makes fifteen offers. Ten join. Three are gone by Month 2.
-            </p>
-            <p>
-              Jovese runs it differently. Before your team visits a campus, we video-screen every interested candidate using the same evaluation method we use for all placements. You only meet candidates who have already cleared our communication threshold. We handle college identification, logistics, pre-screening, and post-joining follow-up. You show up and hire.
-            </p>
-          </div>
-
-          <div className="hide-scrollbar flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 pb-2 md:pb-0 text-left" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
-              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
-                <Video className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
-              </div>
-              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Pre-Screened Candidates Only</h4>
-              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
-                Every student is video-screened before you arrive. No time wasted on candidates who cannot communicate for the role.
-              </p>
-            </div>
-            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
-              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
-                <Building className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
-              </div>
-              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Tier 2 and Tier 3 Colleges</h4>
-              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
-                We have working relationships with engineering and management colleges across India, including Bangalore, Hyderabad, Pune, Mumbai, Delhi, and Noida with strong placement records.
-              </p>
-            </div>
-            <div className="flex-none w-[85%] sm:w-[60%] md:w-auto snap-center bg-slate-800/50 border border-slate-700 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] group hover:bg-slate-800 transition-colors">
-              <div className="mb-4 md:mb-6 text-slate-400 group-hover:text-white transition-colors duration-500">
-                <Clock className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
-              </div>
-              <h4 className="font-bold text-white text-base md:text-lg mb-2 md:mb-3">Same Day 30 Fee Model</h4>
-              <p className="text-slate-400 text-xs md:text-sm font-normal leading-relaxed">
-                You pay a flat coordination fee per drive and a per-placement fee only when the candidate completes 30 days. No placement, no charge.
-              </p>
-            </div>
-          </div>
-
-          <Link
-            to="/clients"
-            className="inline-block relative overflow-hidden px-8 py-4 rounded-full bg-[#2563eb] text-white font-semibold text-center transition-all shadow-[0_8px_30px_rgb(37,99,235,0.2)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.4)] hover:-translate-y-0.5 group text-sm md:text-base border border-blue-500"
-          >
-            <span className="relative z-10">Plan a Campus Drive</span>
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-          </Link>
-        </div>
-      </motion.section>
-
       {/* SECTION 3: THE FLEED (id="bleed") */}
       <motion.section
         initial={{ opacity: 0, y: 40 }}
@@ -863,7 +769,7 @@ export default function Home() {
                       <div className="text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-4 leading-relaxed">
                         Monthly Revenue Loss From Empty Seats
                       </div>
-                      <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+                      <div className="text-3xl font-black text-slate-900 font-display tracking-tight">
                         {formatINRValue(calculatedOutputs.monthlyLoss)}
                       </div>
                     </div>
@@ -873,7 +779,7 @@ export default function Home() {
                       <div className="text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-4 leading-relaxed">
                         Annual Training Spend Wasted
                       </div>
-                      <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+                      <div className="text-3xl font-black text-slate-900 font-display tracking-tight">
                         {formatINRValue(calculatedOutputs.annualTrainingWasted)}
                       </div>
                     </div>
@@ -884,7 +790,7 @@ export default function Home() {
                         Agency Fees Paid For Early Exits
                       </div>
                       <div>
-                        <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+                        <div className="text-3xl font-black text-slate-900 font-display tracking-tight">
                           {formatINRValue(calculatedOutputs.agencyFeesWasted)}
                         </div>
                         <div className="text-[10px] text-slate-400 mt-2 font-medium">Assumes 8.33% fee</div>
@@ -892,15 +798,15 @@ export default function Home() {
                     </div>
 
                     {/* Card 4 - highlighted savings */}
-                    <div className="bg-gradient-to-br from-[#2563eb] to-indigo-600 border border-transparent p-6 rounded-2xl flex flex-col justify-between text-white shadow-xl group hover:shadow-2xl hover:-translate-y-0.5 transition-all">
-                      <div className="text-[11px] text-blue-200 uppercase font-bold tracking-wider mb-4 leading-relaxed">
+                    <div className="bg-slate-900 border border-slate-800 p-6 rounded-[1.25rem] flex flex-col justify-between text-white">
+                      <div className="text-[11px] text-slate-400 uppercase font-bold tracking-wider mb-4 leading-relaxed">
                         Est. Annual Saving With Jovese
                       </div>
                       <div>
-                        <div className="text-3xl lg:text-4xl font-black text-white font-mono tracking-tight drop-shadow-md">
+                        <div className="text-3xl lg:text-4xl font-black text-white font-display tracking-tight">
                           {formatINRValue(calculatedOutputs.annualSaving)}
                         </div>
-                        <div className="text-[10px] text-blue-200 mt-2 font-medium">Based on 30-day retention</div>
+                        <div className="text-[10px] text-slate-400 mt-2 font-medium">Based on 30-day retention</div>
                       </div>
                     </div>
 
@@ -924,55 +830,56 @@ export default function Home() {
           </div>
 
           {/* Three-column comparison below the calculator */}
-          <div className="grid md:grid-cols-11 gap-4 items-stretch max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-11 gap-6 md:gap-4 items-center max-w-5xl mx-auto">
             
             {/* Trad model */}
-            <div className="md:col-span-5 bg-slate-50 border border-slate-100 p-8 rounded-[2rem] shadow-sm">
-              <h4 className="text-lg font-bold text-slate-900 font-display mb-6">Traditional Agency Model</h4>
-              <ul className="space-y-4 text-sm text-slate-600 font-normal">
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
+            <div className="md:col-span-5 bg-white sm:bg-slate-50/30 border border-slate-100 p-8 sm:p-10 rounded-[2.5rem] shadow-sm">
+              <h4 className="text-[13px] font-bold tracking-[0.15em] text-slate-400 uppercase font-sans mb-8">Traditional Agency</h4>
+              <ul className="space-y-5">
+                <li className="flex items-center gap-4 text-slate-500 font-medium text-[15px]">
+                  <X className="w-4 h-4 text-slate-400 shrink-0 stroke-[3]" />
                   <span>Invoiced on joining day</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
+                <li className="flex items-center gap-4 text-slate-500 font-medium text-[15px]">
+                  <X className="w-4 h-4 text-slate-400 shrink-0 stroke-[3]" />
                   <span>No accountability after Day 1</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
+                <li className="flex items-center gap-4 text-slate-500 font-medium text-[15px]">
+                  <X className="w-4 h-4 text-slate-400 shrink-0 stroke-[3]" />
                   <span>Same candidate sent to 10 clients</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 text-lg leading-none select-none mt-0.5">•</span>
+                <li className="flex items-center gap-4 text-slate-500 font-medium text-[15px]">
+                  <X className="w-4 h-4 text-slate-400 shrink-0 stroke-[3]" />
                   <span>Profit increases when you keep rehiring</span>
                 </li>
               </ul>
             </div>
 
             {/* VS divider */}
-            <div className="md:col-span-1 flex items-center justify-center font-display font-black text-2xl text-slate-300 py-4 md:py-0 select-none">
+            <div className="md:col-span-1 flex items-center justify-center font-display font-black text-3xl text-slate-200 py-2 md:py-0 select-none">
               VS
             </div>
 
             {/* Jovese model */}
-            <div className="md:col-span-5 bg-indigo-50/50 border border-indigo-100 p-8 rounded-[2rem] shadow-sm">
-              <h4 className="text-lg font-bold text-indigo-600 font-display mb-6">Jovese Model</h4>
-              <ul className="space-y-4 text-sm text-slate-700 font-normal">
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
+            <div className="md:col-span-5 bg-white border-2 border-[#00b67a] p-8 sm:p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgba(0,182,122,0.12)] relative overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#00b67a] opacity-5 blur-[50px] pointer-events-none rounded-full" />
+              <h4 className="text-2xl sm:text-[22px] font-bold text-slate-900 mb-8 font-sans">Jovese Model</h4>
+              <ul className="space-y-5">
+                <li className="flex items-center gap-4 text-slate-700 font-medium text-[15px]">
+                  <CheckCircle2 className="w-[20px] h-[20px] text-[#00b67a] shrink-0 stroke-2" />
                   <span>Invoiced on Day 30 only</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
+                <li className="flex items-center gap-4 text-slate-700 font-medium text-[15px]">
+                  <CheckCircle2 className="w-[20px] h-[20px] text-[#00b67a] shrink-0 stroke-2" />
                   <span>Free replacement if hire exits before Day 30</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
+                <li className="flex items-center gap-4 text-slate-700 font-medium text-[15px]">
+                  <CheckCircle2 className="w-[20px] h-[20px] text-[#00b67a] shrink-0 stroke-2" />
                   <span>Profiles curated per your specific brief</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-indigo-500 text-lg leading-none select-none mt-0.5">•</span>
-                  <span className="font-bold text-slate-900">We profit only when attrition stops</span>
+                <li className="flex items-center gap-4 text-slate-900 font-bold text-[15px]">
+                  <CheckCircle2 className="w-[20px] h-[20px] text-[#00b67a] shrink-0 stroke-[2.5]" />
+                  <span>We profit only when attrition stops</span>
                 </li>
               </ul>
             </div>
@@ -1202,7 +1109,7 @@ export default function Home() {
             </div>
 
             <div>
-              <div className="text-4xl font-black text-[#2563eb] font-display">Zero</div>
+              <div className="text-4xl font-black text-[#2563eb] font-display">₹0</div>
               <div className="text-sm font-semibold text-slate-500 mt-1">Upfront cost to start</div>
             </div>
 
@@ -1300,13 +1207,13 @@ export default function Home() {
                 </div>
 
                 {/* Node 6 */}
-                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500 text-white font-bold text-sm sm:text-base rounded-full flex items-center justify-center sm:mb-2.5 shadow-md shadow-emerald-500/20 z-10 transition-transform group-hover/node:scale-110">
+                <div className="flex sm:flex-col items-center sm:text-center gap-4 sm:gap-0 group/node relative">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 -ml-[8px] sm:ml-0 sm:-mt-[18px] bg-emerald-500 text-white font-extrabold text-xl sm:text-2xl rounded-full flex shrink-0 items-center justify-center sm:mb-2 z-10 transition-transform group-hover/node:scale-110 shadow-[0_8px_30px_rgba(16,185,129,0.3)]">
                     D30
                   </div>
                   <div className="flex-1 sm:flex-none">
-                    <h4 className="font-bold text-emerald-600 text-sm sm:text-xs mb-0.5">Invoicing</h4>
-                    <p className="text-xs sm:text-[10px] text-emerald-600/80 leading-tight font-semibold">We finally invoice</p>
+                    <h4 className="font-bold text-emerald-700 text-sm sm:text-base mb-0.5">Invoicing</h4>
+                    <p className="text-xs sm:text-xs text-emerald-700/80 leading-tight font-semibold">We finally invoice</p>
                   </div>
                 </div>
 
@@ -1438,37 +1345,30 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* SECTION 8: FINAL CTA */}
+      {/* SECTION 2: WAITLIST MECHANIC */}
       <motion.section
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="py-8 md:py-12 mb-4 md:mb-8">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between border border-slate-800">
-            {/* Subtle glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563eb]/10 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
-            
-            <div className="relative z-10 text-center md:text-left mb-8 md:mb-0">
-              <h2 className="font-display text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
-                Ready to partner?
-              </h2>
-              <p className="text-slate-400 font-normal text-sm sm:text-base">
-                Zero upfront cost. One clear invoice on Day 30.
-              </p>
-            </div>
-            
-            <div className="relative z-10 w-full md:w-auto flex-shrink-0">
-              <Link
-                to="/clients"
-                className="relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-slate-900 font-bold transition-all shadow-[0_8px_30px_rgb(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgb(255,255,255,0.2)] hover:-translate-y-0.5 group text-sm"
-              >
-                <span className="relative z-10">Apply for Partnership</span>
-                <div className="absolute inset-0 bg-slate-50 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-              </Link>
-            </div>
+        className="py-12 md:py-20 bg-white">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+            Partnership spots are deliberately limited.
+          </h2>
+          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-normal mb-8 max-w-2xl mx-auto">
+            We cap active client partnerships to maintain strict candidate quality. Onboarding too many clients at once means diluted screening and broken promises. We do not do that.
+          </p>
+          <div className="bg-slate-50 text-slate-700 text-sm font-semibold py-3 px-6 rounded-xl border border-slate-200 inline-block mb-8">
+            Applications are reviewed every Monday. New spots open when existing partner capacity stabilises.
+          </div>
+          <div>
+            <Link 
+              to="/clients" 
+              className="inline-flex items-center gap-2 font-bold text-[#2563eb] hover:text-[#1d4ed8] transition-colors text-lg"
+            >
+              Submit your audit to get in the queue <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </motion.section>
@@ -1487,7 +1387,7 @@ export default function Home() {
         </div>
 
         <div className="space-y-4">
-          {faqData.map((faq, idx) => {
+          {faqData.slice(0, 3).map((faq, idx) => {
             const index = idx + 1;
             const isOpen = openFaq === index;
             return (
@@ -1522,6 +1422,50 @@ export default function Home() {
               </div>
             );
           })}
+        </div>
+        
+        <div className="mt-8 text-center">
+          <Link
+            to="/faq"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-slate-200 text-slate-600 font-bold text-sm tracking-wide hover:border-[#2563eb] hover:text-[#2563eb] transition-colors"
+          >
+            View all FAQs
+          </Link>
+        </div>
+      </motion.section>
+
+      {/* SECTION 8: FINAL CTA */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-8 md:py-12 mb-4 md:mb-8 mt-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between border border-slate-800">
+            {/* Subtle glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563eb]/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
+            
+            <div className="relative z-10 text-center md:text-left mb-8 md:mb-0">
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
+                Ready to partner?
+              </h2>
+              <p className="text-slate-400 font-normal text-sm sm:text-base">
+                Zero upfront cost. One clear invoice on Day 30.
+              </p>
+            </div>
+            
+            <div className="relative z-10 w-full md:w-auto flex-shrink-0">
+              <Link
+                to="/clients"
+                className="relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-slate-900 font-bold transition-all shadow-[0_8px_30px_rgb(255,255,255,0.15)] hover:shadow-[0_8px_40px_rgb(255,255,255,0.2)] hover:-translate-y-0.5 group text-sm"
+              >
+                <span className="relative z-10">Apply for Partnership</span>
+                <div className="absolute inset-0 bg-slate-50 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              </Link>
+            </div>
+          </div>
         </div>
       </motion.section>
 
